@@ -31,8 +31,10 @@ dependencies:
   flutter:
     sdk: flutter
 
+  # Request
+  dio: ^5.5.0+1
 
-    # Extensions
+  # Extensions
   dart_vader: ^0.0.8
 
   # Route
