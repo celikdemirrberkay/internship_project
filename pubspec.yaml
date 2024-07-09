@@ -32,10 +32,14 @@ dependencies:
     sdk: flutter
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> ccd2c88 (Home screen created with lottie animation (%70))
   # Core
   dio: ^5.5.0+1
   intl: ^0.19.0
   stacked: ^3.4.3
+<<<<<<< HEAD
 =======
   # Request
   dio: ^5.5.0+1
@@ -44,6 +48,8 @@ dependencies:
 =======
   intl: ^0.19.0
 >>>>>>> 324fc6f (Backend successfully integrated and dependency injection container created.)
+=======
+>>>>>>> ccd2c88 (Home screen created with lottie animation (%70))
 
   # Extensions
   dart_vader: ^0.0.8
@@ -61,8 +67,11 @@ dependencies:
   cupertino_icons: ^1.0.6
   google_fonts: ^6.2.1
   lottie: ^3.1.2
+<<<<<<< HEAD
   flutter_svg: ^2.0.10+1
   one_clock: ^2.0.1
+=======
+>>>>>>> ccd2c88 (Home screen created with lottie animation (%70))
 
 dev_dependencies:
   flutter_test:

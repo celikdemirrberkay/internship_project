@@ -32,6 +32,7 @@ class PrayerTimesService extends IPrayerTimesService {
   /// Fetching data from api.
   /// Returns either error message or response data.
   /// Did the null check here to avoid null safety issues.
+<<<<<<< HEAD
   @override
   Future<Either<String, ApiData>> getPrayerTimes(
     String city,
@@ -74,8 +75,10 @@ class PrayerTimesService extends IPrayerTimesService {
 >>>>>>> 9e48148 (God names services added.)
   /// Fetching data from api.
   /// Returns either error message or response data.
+=======
+>>>>>>> ccd2c88 (Home screen created with lottie animation (%70))
   @override
-  Future<Either<String, Timings?>> getPrayerTimes(
+  Future<Either<String, ApiData>> getPrayerTimes(
     String city,
     String country,
   ) async {
@@ -93,7 +96,7 @@ class PrayerTimesService extends IPrayerTimesService {
       if (response.data != null) {
         /// Converting response to ApiResponse object
         final responseAsApiResponse = ApiResponse.fromJson(response.data!);
-        return Right(responseAsApiResponse.data?.timings);
+        return Right(responseAsApiResponse.data!);
       } else {
         return Left(ExceptionMessage.noData.message);
       }

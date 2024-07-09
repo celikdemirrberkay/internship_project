@@ -497,6 +497,7 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
+<<<<<<< HEAD
   one_clock:
     dependency: "direct main"
     description:
@@ -505,6 +506,8 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.1"
+=======
+>>>>>>> ccd2c88 (Home screen created with lottie animation (%70))
   package_config:
     dependency: transitive
     description:
@@ -766,6 +769,7 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.2"
+<<<<<<< HEAD
   vector_graphics:
     dependency: transitive
     description:
@@ -790,6 +794,8 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.11+1"
+=======
+>>>>>>> ccd2c88 (Home screen created with lottie animation (%70))
   vector_math:
     dependency: transitive
     description:
