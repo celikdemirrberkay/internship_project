@@ -33,6 +33,7 @@ dependencies:
 
   # Request
   dio: ^5.5.0+1
+  intl: ^0.19.0
 
   # Extensions
   dart_vader: ^0.0.8
@@ -42,6 +43,9 @@ dependencies:
 
   # Dependency Injection
   get_it: ^7.7.0
+
+  # Error Handling
+  either_dart: ^1.0.0
 
   # UI Components
   cupertino_icons: ^1.0.6
@@ -74,7 +78,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/env/
+    - assets/env/.dev.env
     - assets/lottie/
 
 
