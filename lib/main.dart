@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:internship_project/core/init/app_initializer.dart';
-import 'package:internship_project/repositories/god_names/god_names_service.dart';
-import 'package:internship_project/repositories/model/god_names.dart';
+import 'package:internship_project/core/router/app_router.dart';
+import 'package:internship_project/core/theme/app_colors.dart';
+import 'package:internship_project/feature/prayer_times/view/prayer_times_view.dart';
 
 Future<void> main() async {
   ///
@@ -12,30 +13,21 @@ Future<void> main() async {
 }
 
 /// Root of our application
-class PrayerTime extends StatefulWidget {
+class PrayerTime extends StatelessWidget {
   ///
   const PrayerTime({super.key});
-
-  @override
-  State<PrayerTime> createState() => _PrayerTimeState();
-}
-
-class _PrayerTimeState extends State<PrayerTime> {
-  @override
-  void initState() {
-    super.initState();
-  }
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: AppRouter.router,
+      debugShowCheckedModeBanner: false,
       title: 'Internship Project',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: AppColors.colorScheme,
         useMaterial3: true,
       ),
-      home: Scaffold(),
     );
   }
 }
