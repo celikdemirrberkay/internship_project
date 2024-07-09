@@ -209,6 +209,7 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.1"
+<<<<<<< HEAD
   either_dart:
     dependency: "direct main"
     description:
@@ -217,6 +218,8 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
+=======
+>>>>>>> 22a82f5 (Models were created based on response)
   envied:
     dependency: transitive
     description:

@@ -1,6 +1,10 @@
 import 'package:dio/dio.dart';
+<<<<<<< HEAD
 import 'package:either_dart/either.dart';
 import 'package:internship_project/repositories/model/times_response.dart';
+=======
+import 'package:internship_project/repositories/model/response.dart';
+>>>>>>> 22a82f5 (Models were created based on response)
 
 /// Prayer times service interface.
 /// Abstraction of the service is done here.
@@ -12,8 +16,12 @@ abstract class IPrayerTimesService {
   final Dio dio;
 
   /// Get prayer times from the api.
+<<<<<<< HEAD
   Future<Either<String?, ApiData?>> getPrayerTimes(
     String city,
     String country,
   );
+=======
+  Future<ApiResponse?> getPrayerTimes();
+>>>>>>> 22a82f5 (Models were created based on response)
 }
