@@ -39,7 +39,11 @@ dependencies:
 =======
   # Request
   dio: ^5.5.0+1
+<<<<<<< HEAD
 >>>>>>> 22a82f5 (Models were created based on response)
+=======
+  intl: ^0.19.0
+>>>>>>> 324fc6f (Backend successfully integrated and dependency injection container created.)
 
   # Extensions
   dart_vader: ^0.0.8

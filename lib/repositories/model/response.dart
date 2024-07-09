@@ -11,6 +11,14 @@ class ApiResponse {
 
   /// Including times data
   Data? data;
+
+  /// Convert json to factory ApiResponse object
+  factory ApiResponse.fromJson(Map<String, dynamic> json) {
+    return ApiResponse(
+      code: json['code'] as int?,
+      data: Data.fromJson(json['data'] as Map<String, dynamic>),
+    );
+  }
 }
 
 /// Data returned from api
@@ -27,6 +35,14 @@ class Data {
 
   /// Date of specific pray times
   Date? date;
+
+  /// Convert json to factory Data object
+  factory Data.fromJson(Map<String, dynamic> json) {
+    return Data(
+      timings: Timings.fromJson(json['timings'] as Map<String, dynamic>),
+      date: Date.fromJson(json['date'] as Map<String, dynamic>),
+    );
+  }
 }
 
 ///
@@ -42,6 +58,14 @@ class Date {
 
   /// Date in timestamp format
   String? timestamp;
+
+  /// Convert json to factory Date object
+  factory Date.fromJson(Map<String, dynamic> json) {
+    return Date(
+      readable: json['readable'] as String?,
+      timestamp: json['timestamp'] as String?,
+    );
+  }
 }
 
 /// Times for prayers data class

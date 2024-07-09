@@ -42,6 +42,10 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
+<<<<<<< HEAD
 **assets/env/
 
 **Todos
+=======
+**assets/env/.env.dev
+>>>>>>> 324fc6f (Backend successfully integrated and dependency injection container created.)
