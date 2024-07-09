@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:internship_project/core/init/app_initializer.dart';
+<<<<<<< HEAD
 import 'package:internship_project/core/router/app_router.dart';
 import 'package:internship_project/core/theme/app_colors.dart';
+=======
+>>>>>>> 324fc6f (Backend successfully integrated and dependency injection container created.)
 
 Future<void> main() async {
   ///

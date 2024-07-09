@@ -1,8 +1,12 @@
 import 'package:dio/dio.dart';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import 'package:either_dart/either.dart';
 import 'package:internship_project/repositories/model/times_response.dart';
 =======
+=======
+import 'package:either_dart/either.dart';
+>>>>>>> 324fc6f (Backend successfully integrated and dependency injection container created.)
 import 'package:internship_project/repositories/model/response.dart';
 >>>>>>> 22a82f5 (Models were created based on response)
 
@@ -17,6 +21,7 @@ abstract class IPrayerTimesService {
 
   /// Get prayer times from the api.
 <<<<<<< HEAD
+<<<<<<< HEAD
   Future<Either<String?, ApiData?>> getPrayerTimes(
     String city,
     String country,
@@ -24,4 +29,10 @@ abstract class IPrayerTimesService {
 =======
   Future<ApiResponse?> getPrayerTimes();
 >>>>>>> 22a82f5 (Models were created based on response)
+=======
+  Future<Either<String?, Timings?>> getPrayerTimes(
+    String city,
+    String country,
+  );
+>>>>>>> 324fc6f (Backend successfully integrated and dependency injection container created.)
 }
