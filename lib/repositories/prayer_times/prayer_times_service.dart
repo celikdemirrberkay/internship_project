@@ -11,6 +11,7 @@ class PrayerTimesService extends IPrayerTimesService {
   ///
   PrayerTimesService(super.dio);
 
+  /// --------------------------------------------------------------------------
   /// Fetching data from api.
   /// Returns either error message or response data.
   @override

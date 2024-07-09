@@ -80,6 +80,8 @@ flutter:
   assets:
     - assets/env/.dev.env
     - assets/lottie/
+    - assets/static/
+
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
