@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import 'dart:math';
 import 'package:either_dart/either.dart';
 import 'package:flutter/material.dart';
@@ -5,12 +6,18 @@ import 'package:internship_project/core/exception/exception_message.dart';
 import 'package:internship_project/repositories/god_names/god_names_service.dart';
 import 'package:internship_project/repositories/model/god_names.dart';
 import 'package:internship_project/repositories/model/times_response.dart';
+=======
+import 'package:either_dart/either.dart';
+import 'package:internship_project/core/exception/exception_message.dart';
+import 'package:internship_project/repositories/model/response.dart';
+>>>>>>> ccd2c88 (Home screen created with lottie animation (%70))
 import 'package:internship_project/repositories/prayer_times/prayer_times_service.dart';
 import 'package:stacked/stacked.dart';
 
 ///
 class PrayerTimesViewmodel extends BaseViewModel {
   ///
+<<<<<<< HEAD
   PrayerTimesViewmodel(
     this._prayerTimesService,
     this._godNamesService,
@@ -18,11 +25,16 @@ class PrayerTimesViewmodel extends BaseViewModel {
   ) {
     getPrayerTimes('Istanbul', 'Turkey');
     randomGodNameAndMeaning(_context);
+=======
+  PrayerTimesViewmodel(this._prayerTimesService) {
+    getPrayerTimes('Istanbul', 'Turkey');
+>>>>>>> ccd2c88 (Home screen created with lottie animation (%70))
   }
 
   /// The service where we fetch prayer times
   final PrayerTimesService _prayerTimesService;
 
+<<<<<<< HEAD
   /// The service where we fetch god names
   final GodNamesService _godNamesService;
 
@@ -44,11 +56,20 @@ class PrayerTimesViewmodel extends BaseViewModel {
   bool isGodNameLoaded = false;
   bool isPrayerTimesLoaded = false;
 
+=======
+  /// Prayer times
+  Either<String, ApiData> _datas = Left(ExceptionMessage.errorOccured.message);
+
+  /// Times getter
+  Either<String, ApiData> get datas => _datas;
+
+>>>>>>> ccd2c88 (Home screen created with lottie animation (%70))
   /// Get prayer times
   Future<void> getPrayerTimes(
     String city,
     String country,
   ) async {
+<<<<<<< HEAD
     /// Fetch data from the api
     isPrayerTimesLoaded = true;
     rebuildUi();
@@ -70,5 +91,16 @@ class PrayerTimesViewmodel extends BaseViewModel {
 
     isGodNameLoaded = false;
     rebuildUi();
+=======
+    /// Set busy state to true
+    setBusy(true);
+
+    /// Fetch data from the api
+    final response = await _prayerTimesService.getPrayerTimes(city, country);
+    _datas = response;
+
+    /// Set busy state to false
+    setBusy(false);
+>>>>>>> ccd2c88 (Home screen created with lottie animation (%70))
   }
 }

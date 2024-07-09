@@ -14,8 +14,11 @@ import 'package:internship_project/repositories/model/god_names.dart';
 =======
 import 'package:internship_project/core/router/app_router.dart';
 import 'package:internship_project/core/theme/app_colors.dart';
+<<<<<<< HEAD
 import 'package:internship_project/feature/prayer_times/view/prayer_times_view.dart';
 >>>>>>> ccab5c1 (Navigation logic integrated and Navbar created)
+=======
+>>>>>>> ccd2c88 (Home screen created with lottie animation (%70))
 
 Future<void> main() async {
   ///

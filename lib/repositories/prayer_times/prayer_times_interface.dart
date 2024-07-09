@@ -22,6 +22,7 @@ abstract class IPrayerTimesService {
   /// Get prayer times from the api.
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   Future<Either<String?, ApiData?>> getPrayerTimes(
     String city,
     String country,
@@ -31,6 +32,9 @@ abstract class IPrayerTimesService {
 >>>>>>> 22a82f5 (Models were created based on response)
 =======
   Future<Either<String?, Timings?>> getPrayerTimes(
+=======
+  Future<Either<String?, ApiData?>> getPrayerTimes(
+>>>>>>> ccd2c88 (Home screen created with lottie animation (%70))
     String city,
     String country,
   );
