@@ -1,0 +1,398 @@
+[
+    {
+        "name": "Ar-Rahman",
+        "meaning": "Rahmân (Esirgeyen)"
+    },
+    {
+        "name": "Ar-Rahim",
+        "meaning": "Rahîm (Bağışlayan)"
+    },
+    {
+        "name": "Al-Malik",
+        "meaning": "Mâlik (Hükümdar)"
+    },
+    {
+        "name": "Al-Quddus",
+        "meaning": "Kuddûs (Mukaddes)"
+    },
+    {
+        "name": "As-Salam",
+        "meaning": "Selâm (Barış ve esenlik veren)"
+    },
+    {
+        "name": "Al-Mu'min",
+        "meaning": "Mu'min (Güven veren)"
+    },
+    {
+        "name": "Al-Muhaymin",
+        "meaning": "Muhaymin (Gözeten, koruyan)"
+    },
+    {
+        "name": "Al-Aziz",
+        "meaning": "Azîz (İzzet sahibi)"
+    },
+    {
+        "name": "Al-Jabbar",
+        "meaning": "Cebbâr (Kahreden, zorla yaptıran)"
+    },
+    {
+        "name": "Al-Mutakabbir",
+        "meaning": "Mütekebbir (Büyüklükte eşi olmayan)"
+    },
+    {
+        "name": "Al-Khaliq",
+        "meaning": "Hâlık (Yaratan)"
+    },
+    {
+        "name": "Al-Bari'",
+        "meaning": "Bâri' (Var eden, kusursuz yaratan)"
+    },
+    {
+        "name": "Al-Musawwir",
+        "meaning": "Musavvir (Şekil veren)"
+    },
+    {
+        "name": "Al-Ghaffar",
+        "meaning": "Gaffâr (Affeden)"
+    },
+    {
+        "name": "Al-Qahhar",
+        "meaning": "Kahhâr (Kahreden)"
+    },
+    {
+        "name": "Al-Wahhab",
+        "meaning": "Vehhâb (Karşılıksız veren)"
+    },
+    {
+        "name": "Ar-Razzaq",
+        "meaning": "Rezzâk (Rızık veren)"
+    },
+    {
+        "name": "Al-Fattah",
+        "meaning": "Fettâh (Her türlü zorlukları açan)"
+    },
+    {
+        "name": "Al-Alim",
+        "meaning": "Alîm (Her şeyi bilen)"
+    },
+    {
+        "name": "Al-Qabid",
+        "meaning": "Kâbız (Sıkıntı veren)"
+    },
+    {
+        "name": "Al-Basit",
+        "meaning": "Bâsıt (Genişleten, bolluk veren)"
+    },
+    {
+        "name": "Al-Khafid",
+        "meaning": "Hâfıd (Alçaltan)"
+    },
+    {
+        "name": "Ar-Rafi'",
+        "meaning": "Râfi' (Yücelten)"
+    },
+    {
+        "name": "Al-Mu'izz",
+        "meaning": "Mu'izz (İzzet veren)"
+    },
+    {
+        "name": "Al-Mudhill",
+        "meaning": "Müzill (Zelil kılan)"
+    },
+    {
+        "name": "As-Sami'",
+        "meaning": "Semî' (İşiten)"
+    },
+    {
+        "name": "Al-Basir",
+        "meaning": "Basîr (Gören)"
+    },
+    {
+        "name": "Al-Hakam",
+        "meaning": "Hakem (Hüküm veren)"
+    },
+    {
+        "name": "Al-Adl",
+        "meaning": "Adl (Adil)"
+    },
+    {
+        "name": "Al-Latif",
+        "meaning": "Latîf (Lütufkâr)"
+    },
+    {
+        "name": "Al-Khabir",
+        "meaning": "Habîr (Her şeyden haberdar)"
+    },
+    {
+        "name": "Al-Halim",
+        "meaning": "Halîm (Yumuşak huylu)"
+    },
+    {
+        "name": "Al-Azim",
+        "meaning": "Azîm (Azamet sahibi)"
+    },
+    {
+        "name": "Al-Ghafur",
+        "meaning": "Gafûr (Affedici)"
+    },
+    {
+        "name": "Ash-Shakur",
+        "meaning": "Şekûr (Şükür kabul eden)"
+    },
+    {
+        "name": "Al-Aliyy",
+        "meaning": "Aliyy (Yüce)"
+    },
+    {
+        "name": "Al-Kabir",
+        "meaning": "Kebîr (Büyük)"
+    },
+    {
+        "name": "Al-Hafiz",
+        "meaning": "Hafîz (Koruyan)"
+    },
+    {
+        "name": "Al-Muqit",
+        "meaning": "Mukît (Rızık veren)"
+    },
+    {
+        "name": "Al-Hasib",
+        "meaning": "Hasîb (Hesap gören)"
+    },
+    {
+        "name": "Al-Jalil",
+        "meaning": "Celîl (Celal sahibi)"
+    },
+    {
+        "name": "Al-Karim",
+        "meaning": "Kerîm (Cömert)"
+    },
+    {
+        "name": "Ar-Raqib",
+        "meaning": "Rakîb (Gözeten)"
+    },
+    {
+        "name": "Al-Mujib",
+        "meaning": "Mucîb (Duaları kabul eden)"
+    },
+    {
+        "name": "Al-Wasi'",
+        "meaning": "Vâsi' (Her şeye yeten)"
+    },
+    {
+        "name": "Al-Hakim",
+        "meaning": "Hakîm (Hikmet sahibi)"
+    },
+    {
+        "name": "Al-Wadud",
+        "meaning": "Vedûd (Sevgili)"
+    },
+    {
+        "name": "Al-Majid",
+        "meaning": "Mecîd (Şanlı, şerefli)"
+    },
+    {
+        "name": "Al-Ba'ith",
+        "meaning": "Bâis (Dirilten)"
+    },
+    {
+        "name": "Ash-Shahid",
+        "meaning": "Şehîd (Şahit)"
+    },
+    {
+        "name": "Al-Haqq",
+        "meaning": "Hakk (Gerçek)"
+    },
+    {
+        "name": "Al-Wakil",
+        "meaning": "Vekîl (Güvenilen, işleri yoluna koyan)"
+    },
+    {
+        "name": "Al-Qawiyy",
+        "meaning": "Kaviyy (Kuvvetli)"
+    },
+    {
+        "name": "Al-Matin",
+        "meaning": "Metîn (Sağlam)"
+    },
+    {
+        "name": "Al-Waliyy",
+        "meaning": "Velî (Dost, sahip)"
+    },
+    {
+        "name": "Al-Hamid",
+        "meaning": "Hamîd (Övgüye layık)"
+    },
+    {
+        "name": "Al-Muhsi",
+        "meaning": "Muhsî (Her şeyi sayan, bilen)"
+    },
+    {
+        "name": "Al-Mubdi'",
+        "meaning": "Mübdi' (Yaratan, başlatan)"
+    },
+    {
+        "name": "Al-Mu'id",
+        "meaning": "Muîd (İade eden, tekrar yaratan)"
+    },
+    {
+        "name": "Al-Muhyi",
+        "meaning": "Muhyî (Hayat veren)"
+    },
+    {
+        "name": "Al-Mumit",
+        "meaning": "Mümît (Öldüren)"
+    },
+    {
+        "name": "Al-Hayy",
+        "meaning": "Hayy (Diri)"
+    },
+    {
+        "name": "Al-Qayyum",
+        "meaning": "Kayyûm (Kendi kendine yeterli, her şeyi var eden)"
+    },
+    {
+        "name": "Al-Wajid",
+        "meaning": "Vâcid (Her şeyi bulan)"
+    },
+    {
+        "name": "Al-Majid",
+        "meaning": "Mâcid (Şerefli)"
+    },
+    {
+        "name": "Al-Wahid",
+        "meaning": "Vâhid (Tek)"
+    },
+    {
+        "name": "Al-Ahad",
+        "meaning": "Ehad (Eşi benzeri olmayan)"
+    },
+    {
+        "name": "As-Samad",
+        "meaning": "Samed (Hiçbir şeye muhtaç olmayan)"
+    },
+    {
+        "name": "Al-Qadir",
+        "meaning": "Kâdir (Her şeye gücü yeten)"
+    },
+    {
+        "name": "Al-Muqtadir",
+        "meaning": "Muktadir (Güç ve kuvvet sahibi)"
+    },
+    {
+        "name": "Al-Muqaddim",
+        "meaning": "Mukaddim (Öne alan)"
+    },
+    {
+        "name": "Al-Mu'akhkhir",
+        "meaning": "Muahhir (Geriye bırakan)"
+    },
+    {
+        "name": "Al-Awwal",
+        "meaning": "Evvel (İlk)"
+    },
+    {
+        "name": "Al-Akhir",
+        "meaning": "Âhir (Son)"
+    },
+    {
+        "name": "Az-Zahir",
+        "meaning": "Zâhir (Açık, görünen)"
+    },
+    {
+        "name": "Al-Batin",
+        "meaning": "Bâtın (Gizli, saklı)"
+    },
+    {
+        "name": "Al-Wali",
+        "meaning": "Velî (Dost, sahip)"
+    },
+    {
+        "name": "Al-Muta'ali",
+        "meaning": "Müteâlî (Yüceler yücesi)"
+    },
+    {
+        "name": "Al-Barr",
+        "meaning": "Berr (İyilik sahibi)"
+    },
+    {
+        "name": "At-Tawwab",
+        "meaning": "Tevvâb (Tevbeleri kabul eden)"
+    },
+    {
+        "name": "Al-Muntaqim",
+        "meaning": "Müntekim (İntikam alan)"
+    },
+    {
+        "name": "Al-Afuww",
+        "meaning": "Afuvv (Affeden)"
+    },
+    {
+        "name": "Ar-Ra'uf",
+        "meaning": "Raûf (Çok merhametli)"
+    },
+    {
+        "name": "Malik-ul-Mulk",
+        "meaning": "Mülk’ün sahibi (Her şeyin sahibi)"
+    },
+    {
+        "name": "Dhul-Jalali wal-Ikram",
+        "meaning": "Celal ve ikram sahibi"
+    },
+    {
+        "name": "Al-Muqsit",
+        "meaning": "Muksit (Adaletle hükmeden)"
+    },
+    {
+        "name": "Al-Jami'",
+        "meaning": "Câmi' (Toplayan)"
+    },
+    {
+        "name": "Al-Ghaniyy",
+        "meaning": "Ganî (Zengin)"
+    },
+    {
+        "name": "Al-Mughni",
+        "meaning": "Muğnî (Zengin eden)"
+    },
+    {
+        "name": "Al-Mani'",
+        "meaning": "Mâni' (Engelleyen)"
+    },
+    {
+        "name": "Ad-Darr",
+        "meaning": "Dârr (Zarar veren)"
+    },
+    {
+        "name": "An-Nafi'",
+        "meaning": "Nâfi' (Yarar veren)"
+    },
+    {
+        "name": "An-Nur",
+        "meaning": "Nûr (Nur, ışık)"
+    },
+    {
+        "name": "Al-Hadi",
+        "meaning": "Hâdî (Yol gösteren)"
+    },
+    {
+        "name": "Al-Badi'",
+        "meaning": "Bedî' (Eşsiz, benzersiz)"
+    },
+    {
+        "name": "Al-Baqi",
+        "meaning": "Bâkî (Sonsuz, ölümsüz)"
+    },
+    {
+        "name": "Al-Warith",
+        "meaning": "Vâris (Mirasçı)"
+    },
+    {
+        "name": "Ar-Rashid",
+        "meaning": "Reşîd (Doğru yolu gösteren)"
+    },
+    {
+        "name": "As-Sabur",
+        "meaning": "Sabûr (Çok sabırlı)"
+    }
+]
