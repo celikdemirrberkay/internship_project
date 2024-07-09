@@ -1,11 +1,11 @@
-import 'package:dart_vader/dart_vader.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:internship_project/core/common/app_appbar.dart';
 import 'package:internship_project/core/common/app_navbar.dart';
 import 'package:internship_project/core/router/app_router.dart';
 
-///
+/// A top view to manage our routes
 class MainView extends StatefulWidget {
+  ///
   const MainView({super.key});
 
   @override
@@ -16,23 +16,20 @@ class _MainViewState extends State<MainView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: AppNavbar(),
-      appBar: AppBar(
-        centerTitle: false,
-        title: FittedBox(
-          child: Text(
-            'Prayer Times',
-            style: GoogleFonts.cookie(
-              textStyle: context.appTextTheme.displayMedium,
-              color: context.themeData.colorScheme.primary,
-            ),
-          ),
-        ),
-      ),
+      /// BottomNavigationBar and Appbar
+      bottomNavigationBar: const AppNavbar(),
+      appBar: const Appbarforapp(),
+
+      /// ValueListenableBuilder is used to listen to changes in the initialIndex value
+      /// and rebuild the widget tree when the value changes.
       body: ValueListenableBuilder(
         valueListenable: AppRouter.initialIndex,
         builder: (context, value, child) => SafeArea(
-          child: AppRouter.allViewsForBottomNavBar[value],
+          /// IndexedStack is used to show only one child at a time
+          child: IndexedStack(
+            index: AppRouter.initialIndex.value,
+            children: AppRouter.allViewsForBottomNavBar,
+          ),
         ),
       ),
     );

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:internship_project/core/init/app_initializer.dart';
 import 'package:internship_project/core/router/app_router.dart';
 import 'package:internship_project/core/theme/app_colors.dart';
-import 'package:internship_project/feature/prayer_times/view/prayer_times_view.dart';
 
 Future<void> main() async {
   ///

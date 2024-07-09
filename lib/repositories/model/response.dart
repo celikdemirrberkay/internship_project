@@ -10,22 +10,22 @@ class ApiResponse {
   int? code;
 
   /// Including times data
-  Data? data;
+  ApiData? data;
 
   /// Convert json to factory ApiResponse object
   factory ApiResponse.fromJson(Map<String, dynamic> json) {
     return ApiResponse(
       code: json['code'] as int?,
-      data: Data.fromJson(json['data'] as Map<String, dynamic>),
+      data: ApiData.fromJson(json['data'] as Map<String, dynamic>),
     );
   }
 }
 
 /// Data returned from api
 /// Including timings and date
-class Data {
+class ApiData {
   ///
-  Data({
+  ApiData({
     this.timings,
     this.date,
   });
@@ -37,8 +37,8 @@ class Data {
   Date? date;
 
   /// Convert json to factory Data object
-  factory Data.fromJson(Map<String, dynamic> json) {
-    return Data(
+  factory ApiData.fromJson(Map<String, dynamic> json) {
+    return ApiData(
       timings: Timings.fromJson(json['timings'] as Map<String, dynamic>),
       date: Date.fromJson(json['date'] as Map<String, dynamic>),
     );

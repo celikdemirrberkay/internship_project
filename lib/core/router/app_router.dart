@@ -19,7 +19,7 @@ class AppRouter {
   );
 
   /// All views
-  static const allViewsForBottomNavBar = [
+  static List<Widget> allViewsForBottomNavBar = [
     PrayerTimesView(),
     RosaryView(),
     SettingsView(),

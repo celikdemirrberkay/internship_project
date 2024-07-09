@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:internship_project/core/router/app_router.dart';
 
 /// App Navbar
+@immutable
 final class AppNavbar extends StatefulWidget {
   ///
-  AppNavbar({
-    super.key,
-  });
+  const AppNavbar({super.key});
 
   @override
   State<AppNavbar> createState() => _AppNavbarState();
