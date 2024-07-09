@@ -27,6 +27,7 @@ class PrayerTimesService extends IPrayerTimesService {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   /// --------------------------------------------------------------------------
   /// Fetching data from api.
   /// Returns either error message or response data.
@@ -68,6 +69,9 @@ class PrayerTimesService extends IPrayerTimesService {
     throw UnimplementedError();
 >>>>>>> 22a82f5 (Models were created based on response)
 =======
+=======
+  /// --------------------------------------------------------------------------
+>>>>>>> 9e48148 (God names services added.)
   /// Fetching data from api.
   /// Returns either error message or response data.
   @override
