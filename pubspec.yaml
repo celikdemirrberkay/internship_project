@@ -94,7 +94,10 @@ flutter:
     - assets/env/.dev.env
     - assets/lottie/
     - assets/static/
+<<<<<<< HEAD
     - assets/svg/
+=======
+>>>>>>> 9e48148 (God names services added.)
 
 
 
