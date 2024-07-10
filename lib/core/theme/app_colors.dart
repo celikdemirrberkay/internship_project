@@ -7,7 +7,7 @@ class AppColors {
         primary: Color.fromARGB(255, 41, 135, 44),
         secondary: Color.fromARGB(255, 19, 46, 20),
         surface: Colors.white,
-        error: Color.fromARGB(255, 151, 28, 19),
+        error: Colors.red,
         onPrimary: Colors.white,
         onSecondary: Colors.black,
         onSurface: Colors.white,

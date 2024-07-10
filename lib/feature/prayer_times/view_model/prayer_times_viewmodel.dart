@@ -62,7 +62,13 @@ class PrayerTimesViewmodel extends BaseViewModel {
 
   /// Fetching data from json file and returning a list of GodNames
   Future<void> randomGodNameAndMeaning(BuildContext context) async {
+    isGodNameLoaded = true;
+    rebuildUi();
+
     final response = await _godNamesService.randomGodNameAndMeaning(context);
     _godNames = response;
+
+    isGodNameLoaded = false;
+    rebuildUi();
   }
 }

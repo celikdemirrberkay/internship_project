@@ -1,6 +1,7 @@
 import 'package:dart_vader/dart_vader.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:one_clock/one_clock.dart';
 
 /// Appbar for the main view
 class Appbarforapp extends StatefulWidget implements PreferredSizeWidget {
@@ -30,13 +31,11 @@ class _AppbarforappState extends State<Appbarforapp> {
         ),
       ),
       actions: [
-        IconButton(
-          onPressed: () {},
-          icon: Icon(
-            Icons.location_pin,
-            color: context.themeData.colorScheme.secondary,
-          ),
+        DigitalClock(
+          isLive: true,
+          digitalClockTextColor: context.themeData.colorScheme.primary,
         ),
+        const SizedBox(width: 10)
       ],
     );
   }

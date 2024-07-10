@@ -1,11 +1,15 @@
 import 'package:dart_vader/dart_vader.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:internship_project/core/common/app_divider.dart';
+import 'package:internship_project/core/common/exception_widget.dart';
+import 'package:internship_project/core/common/loading_widget.dart';
 import 'package:internship_project/core/config/dependency_injection/dependency_container.dart';
 import 'package:internship_project/core/exception/exception_message.dart';
 import 'package:internship_project/feature/prayer_times/view_model/prayer_times_viewmodel.dart';
 import 'package:internship_project/repositories/model/times_response.dart';
 import 'package:lottie/lottie.dart';
+import 'package:one_clock/one_clock.dart';
 import 'package:stacked/stacked.dart';
 
 /// Prayer Times View
@@ -25,28 +29,11 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder.reactive(
-      viewModelBuilder: () => PrayerTimesViewmodel(
-        locator(),
-        locator(),
-        context,
-      ),
-      builder: (context, viewModel, child) => Scaffold(
-        body: SafeArea(
-          child: SizedBox.expand(
-            child: _column(),
-          ),
+    return Scaffold(
+      body: SafeArea(
+        child: SizedBox.expand(
+          child: _column(),
         ),
-      ),
-    );
-  }
-
-  /// Error widget
-  Widget _errorWidget(String error) {
-    return Center(
-      child: Text(
-        error,
-        style: TextStyle(color: context.themeData.colorScheme.error),
       ),
     );
   }
@@ -57,9 +44,9 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
       children: [
         context.spacerWithFlex(flex: 3),
         Expanded(flex: 10, child: _lottie()),
-        Expanded(flex: 45, child: _prayerTimesContainer()),
+        Expanded(flex: 45, child: _prayerTimesContainerBuilder()),
         context.spacerWithFlex(flex: 3),
-        Expanded(flex: 35, child: _godNamesContainer()),
+        Expanded(flex: 35, child: _godNamesContainerBuilder()),
         context.spacerWithFlex(flex: 4),
       ],
     );
@@ -69,37 +56,43 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
   LottieBuilder _lottie() => LottieBuilder.asset('assets/lottie/prayer.json');
 
   /// God names container
-  Widget _godNamesContainer() => ViewModelBuilder.reactive(
+  Widget _godNamesContainerBuilder() => ViewModelBuilder.reactive(
         viewModelBuilder: () => PrayerTimesViewmodel(locator(), locator(), context),
-        builder: (context, viewModel, child) => viewModel.isBusy
-            ? _loadingWidget()
+        builder: (context, viewModel, child) => viewModel.isGodNameLoaded == true
+            ? const LoadingWidget()
             : viewModel.godNames.isRight
-                ? Row(
-                    children: [
-                      context.spacerWithFlex(flex: 5),
-                      Expanded(
-                        flex: 90,
-                        child: Container(
-                          decoration: _boxDecorationForGodNamesContainer(),
-                          child: SizedBox.expand(
-                            child: Column(
-                              children: [
-                                context.spacerWithFlex(flex: 10),
-                                Expanded(flex: 20, child: _godNameTextWidget(viewModel, context)),
-                                Expanded(flex: 10, child: _godNameMeaningTextWidget(viewModel, context)),
-                                context.spacerWithFlex(flex: 10),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      context.spacerWithFlex(flex: 5),
-                    ],
-                  )
-                : _errorWidget(ExceptionMessage.errorOccured.message),
+                ? _godNamesAndMeaningContainer(context, viewModel)
+                : ExceptionWidget(message: ExceptionMessage.errorOccured.message),
       );
 
-  FittedBox _godNameMeaningTextWidget(PrayerTimesViewmodel viewModel, BuildContext context) {
+  /// God name and meaning container (with box decoration etc..)
+  Widget _godNamesAndMeaningContainer(BuildContext context, PrayerTimesViewmodel viewModel) {
+    return Row(
+      children: [
+        context.spacerWithFlex(flex: 5),
+        Expanded(
+          flex: 90,
+          child: Container(
+            decoration: _boxDecorationForGodNamesContainer(),
+            child: SizedBox.expand(
+              child: Column(
+                children: [
+                  context.spacerWithFlex(flex: 10),
+                  Expanded(flex: 20, child: _godNameTextWidget(viewModel, context)),
+                  Expanded(flex: 10, child: _godNameMeaningTextWidget(viewModel, context)),
+                  context.spacerWithFlex(flex: 10),
+                ],
+              ),
+            ),
+          ),
+        ),
+        context.spacerWithFlex(flex: 5),
+      ],
+    );
+  }
+
+  /// God name meaning text widget
+  Widget _godNameMeaningTextWidget(PrayerTimesViewmodel viewModel, BuildContext context) {
     return FittedBox(
       child: Text(
         '"${viewModel.godNames.right[viewModel.randomInt].meaning}"',
@@ -113,7 +106,8 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
     );
   }
 
-  FittedBox _godNameTextWidget(PrayerTimesViewmodel viewModel, BuildContext context) {
+  /// God name text widget
+  Widget _godNameTextWidget(PrayerTimesViewmodel viewModel, BuildContext context) {
     return FittedBox(
       child: Text(
         viewModel.godNames.right[viewModel.randomInt].name,
@@ -127,6 +121,7 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
     );
   }
 
+  /// Box decoration for god names container
   BoxDecoration _boxDecorationForGodNamesContainer() {
     return BoxDecoration(
       color: context.themeData.colorScheme.onPrimary,
@@ -142,40 +137,42 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
     );
   }
 
-  /// Prayer times container
-  Widget _prayerTimesContainer() {
+  /// Prayer times container builder
+  Widget _prayerTimesContainerBuilder() {
     return ViewModelBuilder.reactive(
       viewModelBuilder: () => PrayerTimesViewmodel(locator(), locator(), context),
       builder: (context, viewModel, child) => viewModel.isPrayerTimesLoaded
-          ? _loadingWidget()
+          ? const LoadingWidget()
           : viewModel.datas.isRight
-              ? Row(
-                  children: [
-                    context.spacerWithFlex(flex: 1),
-                    Expanded(
-                      flex: 30,
-                      child: Container(
-                        decoration: _boxDecoration(),
-                        child: Column(
-                          children: [
-                            context.spacerWithFlex(flex: 2),
-                            Expanded(flex: 15, child: _dateTextOnCard(viewModel.datas.right)),
-                            Expanded(flex: 3, child: _divider()),
-                            Expanded(flex: 60, child: _allTimesListTilesOnCard(viewModel.datas.right)),
-                            context.spacerWithFlex(flex: 5),
-                          ],
-                        ),
-                      ),
-                    ),
-                    context.spacerWithFlex(flex: 1),
-                  ],
-                )
-              : _errorWidget(ExceptionMessage.errorOccured.message),
+              ? _prayerTimesContainer(context, viewModel)
+              : ExceptionWidget(message: ExceptionMessage.errorOccured.message),
     );
   }
 
-  /// Divider widget
-  Widget _divider() => const Divider();
+  /// God name container
+  Widget _prayerTimesContainer(BuildContext context, PrayerTimesViewmodel viewModel) {
+    return Row(
+      children: [
+        context.spacerWithFlex(flex: 1),
+        Expanded(
+          flex: 30,
+          child: Container(
+            decoration: _godNameContainerBoxDecoration(),
+            child: Column(
+              children: [
+                context.spacerWithFlex(flex: 2),
+                Expanded(flex: 14, child: _dateTextOnCard(viewModel.datas.right)),
+                const Expanded(flex: 4, child: AppDivider()),
+                Expanded(flex: 60, child: _allTimesListTilesOnCard(viewModel.datas.right)),
+                context.spacerWithFlex(flex: 4),
+              ],
+            ),
+          ),
+        ),
+        context.spacerWithFlex(flex: 1),
+      ],
+    );
+  }
 
   /// Date text on card
   Widget _dateTextOnCard(ApiData data) {
@@ -200,6 +197,7 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
     );
   }
 
+  /// All times list tiles on Times card
   Widget _allTimesListTilesOnCard(ApiData data) => Row(
         children: [
           context.spacerWithFlex(flex: 2),
@@ -271,17 +269,6 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
     );
   }
 
-  /// Loading widget
-  Widget _loadingWidget() => const Center(child: CircularProgressIndicator());
-
-  /// Box decoration
-  BoxDecoration _boxDecoration() => BoxDecoration(
-        color: context.themeData.primaryColor,
-        borderRadius: context.circularBorderRadius(
-          radius: 12,
-        ),
-      );
-
   /// All times time column like (Imsak, Sabah, Ogle, Ikindi, Aksam, Yatsi)
   Widget _allTimesTimeColumn(ApiData data) => Column(
         children: [
@@ -328,6 +315,14 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
             ),
           ),
         ],
+      );
+
+  /// Box decoration
+  BoxDecoration _godNameContainerBoxDecoration() => BoxDecoration(
+        color: context.themeData.primaryColor,
+        borderRadius: context.circularBorderRadius(
+          radius: 12,
+        ),
       );
 }
 
