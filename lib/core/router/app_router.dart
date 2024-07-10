@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:internship_project/feature/compass/view/compass_view.dart';
 import 'package:internship_project/feature/main_view.dart';
 import 'package:internship_project/feature/prayer_times/view/prayer_times_view.dart';
 import 'package:internship_project/feature/rosary/view/rosary_view.dart';
@@ -20,9 +21,10 @@ class AppRouter {
 
   /// All views
   static List<Widget> allViewsForBottomNavBar = [
-    PrayerTimesView(),
-    RosaryView(),
-    SettingsView(),
+    const PrayerTimesView(),
+    const RosaryView(),
+    const CompassView(),
+    const SettingsView(),
   ];
 
   /// Initial index for the bottom navigation bar

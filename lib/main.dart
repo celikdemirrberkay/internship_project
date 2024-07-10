@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:internship_project/core/init/app_initializer.dart';
 import 'package:internship_project/core/router/app_router.dart';
-import 'package:internship_project/core/theme/app_colors.dart';
+import 'package:internship_project/core/theme/app_theme.dart';
 
 Future<void> main() async {
   ///
@@ -24,8 +24,9 @@ class PrayerTime extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Internship Project',
       theme: ThemeData(
-        colorScheme: AppColors.colorScheme,
+        colorScheme: AppTheme.colorScheme,
         useMaterial3: true,
+        bottomNavigationBarTheme: AppTheme.bottomNavBarThemeData(),
       ),
     );
   }

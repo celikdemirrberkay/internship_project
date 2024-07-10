@@ -2,10 +2,10 @@ import 'dart:math';
 import 'package:either_dart/either.dart';
 import 'package:flutter/material.dart';
 import 'package:internship_project/core/exception/exception_message.dart';
-import 'package:internship_project/repositories/god_names/god_names_service.dart';
+import 'package:internship_project/repositories/local/god_names/god_names_service.dart';
 import 'package:internship_project/repositories/model/god_names.dart';
 import 'package:internship_project/repositories/model/times_response.dart';
-import 'package:internship_project/repositories/prayer_times/prayer_times_service.dart';
+import 'package:internship_project/repositories/remote/prayer_times/prayer_times_service.dart';
 import 'package:stacked/stacked.dart';
 
 ///
@@ -16,7 +16,7 @@ class PrayerTimesViewmodel extends BaseViewModel {
     this._godNamesService,
     this._context,
   ) {
-    getPrayerTimes('Istanbul', 'Turkey');
+    getPrayerTimes('istanbul', 'Turkey');
     randomGodNameAndMeaning(_context);
   }
 
