@@ -4,6 +4,7 @@ import 'package:internship_project/core/init/app_initializer.dart';
 <<<<<<< HEAD
 <<<<<<< HEAD
 import 'package:internship_project/core/router/app_router.dart';
+<<<<<<< HEAD
 import 'package:internship_project/core/theme/app_colors.dart';
 =======
 >>>>>>> 324fc6f (Backend successfully integrated and dependency injection container created.)
@@ -19,6 +20,9 @@ import 'package:internship_project/feature/prayer_times/view/prayer_times_view.d
 >>>>>>> ccab5c1 (Navigation logic integrated and Navbar created)
 =======
 >>>>>>> ccd2c88 (Home screen created with lottie animation (%70))
+=======
+import 'package:internship_project/core/theme/app_theme.dart';
+>>>>>>> 8196ae1 (Bottom navbar refactoring)
 
 Future<void> main() async {
   ///
@@ -41,8 +45,9 @@ class PrayerTime extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Internship Project',
       theme: ThemeData(
-        colorScheme: AppColors.colorScheme,
+        colorScheme: AppTheme.colorScheme,
         useMaterial3: true,
+        bottomNavigationBarTheme: AppTheme.bottomNavBarThemeData(),
       ),
 <<<<<<< HEAD
 <<<<<<< HEAD

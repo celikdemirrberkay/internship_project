@@ -1,7 +1,8 @@
+import 'package:dart_vader/dart_vader.dart';
 import 'package:flutter/material.dart';
 
 /// App Colors
-class AppColors {
+class AppTheme {
   /// App color schema
   static ColorScheme get colorScheme => const ColorScheme(
         primary: Color.fromARGB(255, 41, 135, 44),
@@ -13,5 +14,11 @@ class AppColors {
         onSurface: Colors.white,
         onError: Colors.white,
         brightness: Brightness.light,
+      );
+
+  /// App bottom navigation bar theme data
+  static BottomNavigationBarThemeData bottomNavBarThemeData() => const BottomNavigationBarThemeData(
+        selectedItemColor: Color.fromARGB(255, 41, 135, 44),
+        type: BottomNavigationBarType.shifting,
       );
 }

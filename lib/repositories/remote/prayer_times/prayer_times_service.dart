@@ -9,7 +9,7 @@ import 'package:internship_project/core/exception/exception_message.dart';
 <<<<<<< HEAD
 <<<<<<< HEAD
 import 'package:internship_project/repositories/model/times_response.dart';
-import 'package:internship_project/repositories/prayer_times/prayer_times_interface.dart';
+import 'package:internship_project/repositories/remote/prayer_times/prayer_times_interface.dart';
 import 'package:intl/intl.dart';
 =======
 import 'package:internship_project/repositories/model/response.dart';

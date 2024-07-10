@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 47ff30c (View and view model structure change a bit)
 import 'package:internship_project/repositories/god_names/god_names_service.dart';
@@ -12,6 +13,10 @@ import 'package:internship_project/repositories/prayer_times/prayer_times_servic
 =======
 import 'package:internship_project/repositories/prayer_times/prayer_times_service.dart';
 >>>>>>> ccd2c88 (Home screen created with lottie animation (%70))
+=======
+import 'package:internship_project/repositories/local/god_names/god_names_service.dart';
+import 'package:internship_project/repositories/remote/prayer_times/prayer_times_service.dart';
+>>>>>>> 8196ae1 (Bottom navbar refactoring)
 
 /// The locator class where we register our dependencies
 final locator = GetIt.instance;

@@ -18,17 +18,38 @@ class _AppNavbarState extends State<AppNavbar> {
     return BottomNavigationBar(
       currentIndex: AppRouter.initialIndex.value,
       onTap: (value) => setState(() => AppRouter.initialIndex.value = value),
-      items: const [
+      showUnselectedLabels: false,
+      items: [
         BottomNavigationBarItem(
-          icon: Icon(Icons.timelapse_outlined),
+          icon: SvgPicture.asset(
+            'assets/svg/namaz.svg',
+            width: 30,
+            height: 30,
+          ),
           label: 'Namaz Vakitleri',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.add_outlined),
+          icon: SvgPicture.asset(
+            'assets/svg/rosary.svg',
+            width: 30,
+            height: 30,
+          ),
           label: 'Tespih',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.settings_outlined),
+          icon: SvgPicture.asset(
+            'assets/svg/compass.svg',
+            width: 30,
+            height: 30,
+          ),
+          label: 'Kabe Yönü',
+        ),
+        BottomNavigationBarItem(
+          icon: SvgPicture.asset(
+            'assets/svg/settings.svg',
+            width: 30,
+            height: 30,
+          ),
           label: 'Ayarlar',
         ),
       ],
