@@ -3,12 +3,15 @@ import 'package:dio/dio.dart';
 <<<<<<< HEAD
 import 'package:either_dart/either.dart';
 import 'package:internship_project/repositories/model/times_response.dart';
+<<<<<<< HEAD
 =======
 =======
 import 'package:either_dart/either.dart';
 >>>>>>> 324fc6f (Backend successfully integrated and dependency injection container created.)
 import 'package:internship_project/repositories/model/response.dart';
 >>>>>>> 22a82f5 (Models were created based on response)
+=======
+>>>>>>> 47ff30c (View and view model structure change a bit)
 
 /// Prayer times service interface.
 /// Abstraction of the service is done here.

@@ -2,6 +2,9 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 47ff30c (View and view model structure change a bit)
 import 'package:internship_project/repositories/god_names/god_names_service.dart';
 import 'package:internship_project/repositories/prayer_times/prayer_times_service.dart';
 =======
@@ -33,7 +36,10 @@ Future<void> setupDependencies() async {
   locator
     ..registerSingleton<Dio>(Dio())
 
-    /// Registering PrayerTimesService
+    /// Registering GodNamesService as Singleton
+    ..registerSingleton<GodNamesService>(GodNamesService())
+
+    /// Registering PrayerTimesService as Singleton
     ..registerSingleton<PrayerTimesService>(PrayerTimesService(locator()));
 >>>>>>> ccd2c88 (Home screen created with lottie animation (%70))
 }
