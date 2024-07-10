@@ -32,6 +32,7 @@ class _AppbarforappState extends State<Appbarforapp> {
       ),
       actions: [
 <<<<<<< HEAD
+<<<<<<< HEAD
         DigitalClock(
           isLive: true,
           digitalClockTextColor: context.themeData.colorScheme.primary,
@@ -46,6 +47,13 @@ class _AppbarforappState extends State<Appbarforapp> {
           ),
         ),
 >>>>>>> 47ff30c (View and view model structure change a bit)
+=======
+        DigitalClock(
+          isLive: true,
+          digitalClockTextColor: context.themeData.colorScheme.primary,
+        ),
+        const SizedBox(width: 10)
+>>>>>>> 0a4e4a0 (Realtime clock added.)
       ],
     );
   }

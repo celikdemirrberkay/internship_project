@@ -498,6 +498,9 @@ packages:
     source: hosted
     version: "1.0.0"
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 0a4e4a0 (Realtime clock added.)
   one_clock:
     dependency: "direct main"
     description:
@@ -506,8 +509,11 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.1"
+<<<<<<< HEAD
 =======
 >>>>>>> ccd2c88 (Home screen created with lottie animation (%70))
+=======
+>>>>>>> 0a4e4a0 (Realtime clock added.)
   package_config:
     dependency: transitive
     description:
