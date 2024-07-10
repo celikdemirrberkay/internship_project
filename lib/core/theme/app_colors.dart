@@ -9,7 +9,7 @@ class AppColors {
         surface: Colors.white,
         error: Color.fromARGB(255, 151, 28, 19),
         onPrimary: Colors.white,
-        onSecondary: Colors.white,
+        onSecondary: Colors.black,
         onSurface: Colors.white,
         onError: Colors.white,
         brightness: Brightness.light,

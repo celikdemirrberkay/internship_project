@@ -10,6 +10,7 @@ class Appbarforapp extends StatefulWidget implements PreferredSizeWidget {
   @override
   State<Appbarforapp> createState() => _AppbarforappState();
 
+  /// Needed for the appbar
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
@@ -28,6 +29,15 @@ class _AppbarforappState extends State<Appbarforapp> {
           ),
         ),
       ),
+      actions: [
+        IconButton(
+          onPressed: () {},
+          icon: Icon(
+            Icons.location_pin,
+            color: context.themeData.colorScheme.secondary,
+          ),
+        ),
+      ],
     );
   }
 }

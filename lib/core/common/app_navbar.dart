@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:internship_project/core/router/app_router.dart';
 
 /// App Navbar
@@ -19,16 +20,16 @@ class _AppNavbarState extends State<AppNavbar> {
       onTap: (value) => setState(() => AppRouter.initialIndex.value = value),
       items: const [
         BottomNavigationBarItem(
-          icon: Icon(Icons.timelapse_sharp),
-          label: 'Home',
+          icon: Icon(Icons.timelapse_outlined),
+          label: 'Namaz Vakitleri',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: 'Hello',
+          icon: Icon(Icons.add_outlined),
+          label: 'Tespih',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.settings),
-          label: 'Settings',
+          icon: Icon(Icons.settings_outlined),
+          label: 'Ayarlar',
         ),
       ],
     );

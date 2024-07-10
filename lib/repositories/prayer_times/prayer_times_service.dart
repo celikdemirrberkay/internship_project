@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:either_dart/either.dart';
 import 'package:internship_project/core/config/env_variables/development_env.dart';
 import 'package:internship_project/core/exception/exception_message.dart';
-import 'package:internship_project/repositories/model/response.dart';
+import 'package:internship_project/repositories/model/times_response.dart';
 import 'package:internship_project/repositories/prayer_times/prayer_times_interface.dart';
 import 'package:intl/intl.dart';
 
@@ -28,7 +28,7 @@ class PrayerTimesService extends IPrayerTimesService {
     try {
       /// Fetching data from the api
       final response = await dio.get<Map<String, dynamic>>(
-        '${DevEnv.baseURL}/timingsByCity/$formattedDate?city=$city&country=$country&method=8',
+        '${DevEnv.baseURL}/timingsByCity/$formattedDate?city=$city&country=$country&method=3',
       );
 
       if (response.data != null) {
