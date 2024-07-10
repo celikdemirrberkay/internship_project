@@ -9,7 +9,6 @@ import 'package:internship_project/core/exception/exception_message.dart';
 import 'package:internship_project/feature/prayer_times/view_model/prayer_times_viewmodel.dart';
 import 'package:internship_project/repositories/model/times_response.dart';
 import 'package:lottie/lottie.dart';
-import 'package:one_clock/one_clock.dart';
 import 'package:stacked/stacked.dart';
 
 /// Prayer Times View

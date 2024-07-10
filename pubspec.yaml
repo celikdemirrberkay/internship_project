@@ -37,6 +37,7 @@ dependencies:
 >>>>>>> ccd2c88 (Home screen created with lottie animation (%70))
   # Core
   dio: ^5.5.0+1
+  shared_preferences: ^2.2.3
   intl: ^0.19.0
   stacked: ^3.4.3
 <<<<<<< HEAD

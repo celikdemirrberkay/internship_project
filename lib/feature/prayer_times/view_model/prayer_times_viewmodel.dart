@@ -4,9 +4,10 @@ import 'dart:math';
 import 'package:either_dart/either.dart';
 import 'package:flutter/material.dart';
 import 'package:internship_project/core/exception/exception_message.dart';
-import 'package:internship_project/repositories/god_names/god_names_service.dart';
+import 'package:internship_project/repositories/local/god_names/god_names_service.dart';
 import 'package:internship_project/repositories/model/god_names.dart';
 import 'package:internship_project/repositories/model/times_response.dart';
+<<<<<<< HEAD
 =======
 =======
 import 'dart:math';
@@ -23,6 +24,9 @@ import 'package:internship_project/repositories/model/god_names.dart';
 import 'package:internship_project/repositories/model/times_response.dart';
 >>>>>>> 47ff30c (View and view model structure change a bit)
 import 'package:internship_project/repositories/prayer_times/prayer_times_service.dart';
+=======
+import 'package:internship_project/repositories/remote/prayer_times/prayer_times_service.dart';
+>>>>>>> 8196ae1 (Bottom navbar refactoring)
 import 'package:stacked/stacked.dart';
 
 ///
@@ -38,7 +42,11 @@ class PrayerTimesViewmodel extends BaseViewModel {
     this._context,
   ) {
 <<<<<<< HEAD
+<<<<<<< HEAD
     getPrayerTimes('Istanbul', 'Turkey');
+=======
+    getPrayerTimes('istanbul', 'Turkey');
+>>>>>>> 8196ae1 (Bottom navbar refactoring)
     randomGodNameAndMeaning(_context);
 =======
   PrayerTimesViewmodel(this._prayerTimesService) {
