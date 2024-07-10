@@ -31,11 +31,21 @@ class _AppbarforappState extends State<Appbarforapp> {
         ),
       ),
       actions: [
+<<<<<<< HEAD
         DigitalClock(
           isLive: true,
           digitalClockTextColor: context.themeData.colorScheme.primary,
         ),
         const SizedBox(width: 10)
+=======
+        IconButton(
+          onPressed: () {},
+          icon: Icon(
+            Icons.location_pin,
+            color: context.themeData.colorScheme.secondary,
+          ),
+        ),
+>>>>>>> 47ff30c (View and view model structure change a bit)
       ],
     );
   }

@@ -44,6 +44,7 @@ app.*.map.json
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 **assets/env/
 
 **Todos
@@ -53,3 +54,8 @@ app.*.map.json
 =======
 **assets/env/
 >>>>>>> ccab5c1 (Navigation logic integrated and Navbar created)
+=======
+**assets/env/
+
+**Todos
+>>>>>>> 47ff30c (View and view model structure change a bit)
