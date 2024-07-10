@@ -118,24 +118,25 @@ class PrayerTimesViewmodel extends BaseViewModel {
 <<<<<<< HEAD
     /// Fetch data from the api
     isPrayerTimesLoaded = true;
-    rebuildUi();
+    notifyListeners();
 
     final response = await _prayerTimesService.getPrayerTimes(city, country);
     _datas = response;
 
     isPrayerTimesLoaded = false;
-    rebuildUi();
+    notifyListeners();
   }
 
   /// Fetching data from json file and returning a list of GodNames
   Future<void> randomGodNameAndMeaning(BuildContext context) async {
     isGodNameLoaded = true;
-    rebuildUi();
+    notifyListeners();
 
     final response = await _godNamesService.randomGodNameAndMeaning(context);
     _godNames = response;
 
     isGodNameLoaded = false;
+<<<<<<< HEAD
     rebuildUi();
 <<<<<<< HEAD
 =======
@@ -167,5 +168,8 @@ class PrayerTimesViewmodel extends BaseViewModel {
 >>>>>>> 47ff30c (View and view model structure change a bit)
 =======
 >>>>>>> 0a4e4a0 (Realtime clock added.)
+=======
+    notifyListeners();
+>>>>>>> 580ddc9 (Rosary development continued)
   }
 }

@@ -22,7 +22,7 @@ class AppRouter {
   /// All views
   static List<Widget> allViewsForBottomNavBar = [
     const PrayerTimesView(),
-    const RosaryView(),
+    RosaryView(),
     const CompassView(),
     const SettingsView(),
   ];

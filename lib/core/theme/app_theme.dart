@@ -1,4 +1,3 @@
-import 'package:dart_vader/dart_vader.dart';
 import 'package:flutter/material.dart';
 
 /// App Colors
