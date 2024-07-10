@@ -34,6 +34,7 @@ class _AppbarforappState extends State<Appbarforapp> {
         DigitalClock(
           isLive: true,
           digitalClockTextColor: context.themeData.colorScheme.primary,
+          format: 'HH:mm:ss',
         ),
         const SizedBox(width: 10)
       ],
