@@ -31,9 +31,10 @@ dependencies:
   flutter:
     sdk: flutter
 
-  # Request
+  # Core
   dio: ^5.5.0+1
   intl: ^0.19.0
+  stacked: ^3.4.3
 
   # Extensions
   dart_vader: ^0.0.8
@@ -50,6 +51,9 @@ dependencies:
   # UI Components
   cupertino_icons: ^1.0.6
   google_fonts: ^6.2.1
+  lottie: ^3.1.2
+  flutter_svg: ^2.0.10+1
+  one_clock: ^2.0.1
 
 dev_dependencies:
   flutter_test:
@@ -81,6 +85,7 @@ flutter:
     - assets/env/.dev.env
     - assets/lottie/
     - assets/static/
+    - assets/svg/
 
 
 
