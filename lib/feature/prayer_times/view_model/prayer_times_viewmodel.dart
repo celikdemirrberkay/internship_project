@@ -129,6 +129,7 @@ class PrayerTimesViewmodel extends BaseViewModel {
 
     isGodNameLoaded = false;
     rebuildUi();
+<<<<<<< HEAD
 =======
     /// Set busy state to true
     setBusy(true);
@@ -156,5 +157,7 @@ class PrayerTimesViewmodel extends BaseViewModel {
     final response = await _godNamesService.randomGodNameAndMeaning(context);
     _godNames = response;
 >>>>>>> 47ff30c (View and view model structure change a bit)
+=======
+>>>>>>> 0a4e4a0 (Realtime clock added.)
   }
 }

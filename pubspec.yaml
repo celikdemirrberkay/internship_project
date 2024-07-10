@@ -71,11 +71,14 @@ dependencies:
 <<<<<<< HEAD
   flutter_svg: ^2.0.10+1
   one_clock: ^2.0.1
+<<<<<<< HEAD
 =======
 >>>>>>> ccd2c88 (Home screen created with lottie animation (%70))
 =======
   flutter_svg: ^2.0.10+1
 >>>>>>> 47ff30c (View and view model structure change a bit)
+=======
+>>>>>>> 0a4e4a0 (Realtime clock added.)
 
 dev_dependencies:
   flutter_test:
