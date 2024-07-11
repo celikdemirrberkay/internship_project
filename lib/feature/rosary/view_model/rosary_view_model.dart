@@ -1,20 +1,28 @@
+import 'package:either_dart/either.dart';
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 /// Rosary page ViewModel
 class RosaryViewModel extends BaseViewModel {
   /// Rosary count
-  int _rosaryCount = 0;
-  int get rosaryCount => _rosaryCount;
+  ValueNotifier<int> _rosaryCount = ValueNotifier(0);
+  ValueNotifier<int> get rosaryCount => _rosaryCount;
+
+  /// Dhikr list
+  ValueNotifier<List<String>> dhikrStringList = ValueNotifier([
+    'Subhanallah',
+    'Elhamdulillah',
+    'Allahu ekber',
+    'La ilahe illallah',
+  ]);
 
   /// Increase rosary count
   void increaseRosaryCount() {
-    _rosaryCount++;
-    notifyListeners();
+    _rosaryCount.value++;
   }
 
   /// Reset rosary count
   void resetRosaryCount() {
-    _rosaryCount = 0;
-    notifyListeners();
+    _rosaryCount.value = 0;
   }
 }
