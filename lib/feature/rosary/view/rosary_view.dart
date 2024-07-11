@@ -1,14 +1,14 @@
 import 'package:dart_vader/dart_vader.dart';
-import 'package:either_dart/either.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hive/hive.dart';
 import 'package:internship_project/core/common/app_elevated_button.dart';
+import 'package:internship_project/core/common/app_textfield.dart';
+import 'package:internship_project/core/config/dependency_injection/dependency_container.dart';
 import 'package:internship_project/feature/rosary/view_model/rosary_view_model.dart';
-import 'package:internship_project/repositories/local/shared_pref/db_service.dart';
 import 'package:stacked/stacked.dart';
 
 part '../widgets/chips.dart';
+part '../widgets/custom_alert.dart';
 
 /// Rosary page
 class RosaryView extends StatefulWidget {
@@ -23,7 +23,7 @@ class _RosaryViewState extends State<RosaryView> {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder.nonReactive(
-      viewModelBuilder: RosaryViewModel.new,
+      viewModelBuilder: () => RosaryViewModel(locator()),
       builder: (context, viewModel, child) => Scaffold(
         body: SafeArea(
           child: SizedBox.expand(
@@ -88,7 +88,10 @@ class _RosaryViewState extends State<RosaryView> {
           Icons.add_outlined,
           color: Colors.black.withOpacity(0.7),
         ),
-        onTap: () async {},
+        onTap: () async => showDialog(
+          context: context,
+          builder: (context) => const CustomAlertDialog(),
+        ),
       ),
     );
   }

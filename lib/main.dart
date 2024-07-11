@@ -26,6 +26,11 @@ class PrayerTime extends StatelessWidget {
       theme: ThemeData(
         colorScheme: AppTheme.colorScheme,
         useMaterial3: true,
+        inputDecorationTheme: const InputDecorationTheme(
+          counterStyle: TextStyle(
+            color: Colors.black, // maxLength göstergesinin rengi burada ayarlanır
+          ),
+        ),
       ),
     );
   }
