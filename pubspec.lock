@@ -209,10 +209,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.1"
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 324fc6f (Backend successfully integrated and dependency injection container created.)
   either_dart:
     dependency: "direct main"
     description:
@@ -221,11 +217,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
-<<<<<<< HEAD
-=======
->>>>>>> 22a82f5 (Models were created based on response)
-=======
->>>>>>> 324fc6f (Backend successfully integrated and dependency injection container created.)
   envied:
     dependency: transitive
     description:
@@ -497,10 +488,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 0a4e4a0 (Realtime clock added.)
   one_clock:
     dependency: "direct main"
     description:
@@ -509,11 +496,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.1"
-<<<<<<< HEAD
-=======
->>>>>>> ccd2c88 (Home screen created with lottie animation (%70))
-=======
->>>>>>> 0a4e4a0 (Realtime clock added.)
   package_config:
     dependency: transitive
     description:
@@ -831,10 +813,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.2"
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 47ff30c (View and view model structure change a bit)
   vector_graphics:
     dependency: transitive
     description:
@@ -859,11 +837,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.11+1"
-<<<<<<< HEAD
-=======
->>>>>>> ccd2c88 (Home screen created with lottie animation (%70))
-=======
->>>>>>> 47ff30c (View and view model structure change a bit)
   vector_math:
     dependency: transitive
     description:
