@@ -48,6 +48,7 @@ class PrayerTime extends StatelessWidget {
         colorScheme: AppTheme.colorScheme,
         useMaterial3: true,
         bottomNavigationBarTheme: AppTheme.bottomNavBarThemeData(),
+        scaffoldBackgroundColor: Color.fromARGB(255, 245, 245, 245),
       ),
 <<<<<<< HEAD
 <<<<<<< HEAD
