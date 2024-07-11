@@ -1,6 +1,5 @@
 import 'package:dart_vader/dart_vader.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:internship_project/core/common/app_elevated_button.dart';
 import 'package:internship_project/feature/rosary/view_model/rosary_view_model.dart';
