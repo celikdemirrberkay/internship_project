@@ -1,7 +1,6 @@
 part of '../view/rosary_view.dart';
 
 /// Chip widget for rosary view
-@immutable
 final class AppChips extends StatefulWidget {
   ///
   AppChips({
