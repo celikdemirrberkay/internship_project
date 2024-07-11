@@ -1,7 +1,7 @@
 import 'package:dart_vader/dart_vader.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:internship_project/core/common/app_divider.dart';
+import 'package:internship_project/core/common/app_horizontal_divider.dart';
 import 'package:internship_project/core/common/exception_widget.dart';
 import 'package:internship_project/core/common/loading_widget.dart';
 import 'package:internship_project/core/config/dependency_injection/dependency_container.dart';
@@ -161,7 +161,7 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
               children: [
                 context.spacerWithFlex(flex: 2),
                 Expanded(flex: 14, child: _dateTextOnCard(viewModel.datas.right)),
-                const Expanded(flex: 4, child: AppDivider()),
+                const Expanded(flex: 4, child: HorizontalAppDivider()),
                 Expanded(flex: 60, child: _allTimesListTilesOnCard(viewModel.datas.right)),
                 context.spacerWithFlex(flex: 4),
               ],

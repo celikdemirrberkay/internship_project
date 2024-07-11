@@ -35,8 +35,9 @@ class _AppElevatedButtonState extends State<AppElevatedButton> {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ButtonStyle(
-        elevation: const WidgetStatePropertyAll(3),
+        elevation: const WidgetStatePropertyAll(2),
         backgroundColor: WidgetStatePropertyAll(widget.color),
+        side: WidgetStatePropertyAll(BorderSide(color: context.themeData.colorScheme.onSecondary)),
       ),
       onPressed: widget.onPressed,
       child: Text(

@@ -1,5 +1,7 @@
+import 'package:dart_vader/dart_vader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:internship_project/core/router/app_router.dart';
 
 /// App Navbar
@@ -15,44 +17,49 @@ final class AppNavbar extends StatefulWidget {
 class _AppNavbarState extends State<AppNavbar> {
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      currentIndex: AppRouter.initialIndex.value,
-      onTap: (value) => setState(() => AppRouter.initialIndex.value = value),
-      showUnselectedLabels: false,
-      items: [
-        BottomNavigationBarItem(
-          icon: SvgPicture.asset(
-            'assets/svg/namaz.svg',
-            width: 30,
-            height: 30,
+    return Theme(
+      data: context.themeData.copyWith(),
+      child: BottomNavigationBar(
+        type: BottomNavigationBarType.shifting,
+        elevation: 100,
+        currentIndex: AppRouter.initialIndex.value,
+        onTap: (value) => setState(() => AppRouter.initialIndex.value = value),
+        showUnselectedLabels: false,
+        items: [
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset(
+              'assets/svg/namaz.svg',
+              width: 30,
+              height: 30,
+            ),
+            label: 'Namaz Vakitleri',
           ),
-          label: 'Namaz Vakitleri',
-        ),
-        BottomNavigationBarItem(
-          icon: SvgPicture.asset(
-            'assets/svg/rosary.svg',
-            width: 30,
-            height: 30,
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset(
+              'assets/svg/rosary.svg',
+              width: 30,
+              height: 30,
+            ),
+            label: 'Tespih',
           ),
-          label: 'Tespih',
-        ),
-        BottomNavigationBarItem(
-          icon: SvgPicture.asset(
-            'assets/svg/compass.svg',
-            width: 30,
-            height: 30,
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset(
+              'assets/svg/compass.svg',
+              width: 30,
+              height: 30,
+            ),
+            label: 'Kabe Yönü',
           ),
-          label: 'Kabe Yönü',
-        ),
-        BottomNavigationBarItem(
-          icon: SvgPicture.asset(
-            'assets/svg/settings.svg',
-            width: 30,
-            height: 30,
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset(
+              'assets/svg/settings.svg',
+              width: 30,
+              height: 30,
+            ),
+            label: 'Ayarlar',
           ),
-          label: 'Ayarlar',
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
