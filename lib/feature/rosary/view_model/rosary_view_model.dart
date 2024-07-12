@@ -8,7 +8,7 @@ class RosaryViewModel extends BaseViewModel {
   RosaryViewModel(this.db);
 
   /// Database service instance
-  final DatabaseService db;
+  final LocalDatabaseService db;
 
   /// Text controller for dhikr input
   final TextEditingController dhikrInputController = TextEditingController();
@@ -37,6 +37,8 @@ class RosaryViewModel extends BaseViewModel {
 
   /// Add dhikr to list
   Future<void> addDhikrToList(String value) async {
+    await db.set(value, value);
+
     dhikrStringList.value.add(value);
     notifyListeners();
   }

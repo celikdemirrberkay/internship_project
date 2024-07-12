@@ -17,7 +17,7 @@ Future<void> setupDependencies() async {
     ..registerSingleton<GodNamesService>(GodNamesService())
 
     /// Registering DatabaseService as Singleton
-    ..registerSingleton<DatabaseService>(DatabaseService())
+    ..registerSingleton<LocalDatabaseService>(LocalDatabaseService())
 
     /// Registering PrayerTimesService as Singleton
     ..registerSingleton<PrayerTimesService>(PrayerTimesService(locator()));
