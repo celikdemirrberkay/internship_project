@@ -10,8 +10,11 @@ class RosaryViewModel extends BaseViewModel {
   /// Database service instance
   final DatabaseService db;
 
+  /// Text controller for dhikr input
+  final TextEditingController dhikrInputController = TextEditingController();
+
   /// Rosary count
-  ValueNotifier<int> _rosaryCount = ValueNotifier(0);
+  final ValueNotifier<int> _rosaryCount = ValueNotifier(0);
   ValueNotifier<int> get rosaryCount => _rosaryCount;
 
   /// Dhikr list
@@ -30,5 +33,11 @@ class RosaryViewModel extends BaseViewModel {
   /// Reset rosary count
   void resetRosaryCount() {
     _rosaryCount.value = 0;
+  }
+
+  /// Add dhikr to list
+  Future<void> addDhikrToList(String value) async {
+    dhikrStringList.value.add(value);
+    notifyListeners();
   }
 }

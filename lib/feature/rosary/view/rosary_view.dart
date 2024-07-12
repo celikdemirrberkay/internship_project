@@ -1,5 +1,6 @@
 import 'package:dart_vader/dart_vader.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:internship_project/core/common/app_elevated_button.dart';
 import 'package:internship_project/core/common/app_textfield.dart';
@@ -8,7 +9,7 @@ import 'package:internship_project/feature/rosary/view_model/rosary_view_model.d
 import 'package:stacked/stacked.dart';
 
 part '../widgets/chips.dart';
-part '../widgets/custom_alert.dart';
+part '../widgets/custom_bottom_sheet.dart';
 
 /// Rosary page
 class RosaryView extends StatefulWidget {
@@ -22,14 +23,15 @@ class RosaryView extends StatefulWidget {
 class _RosaryViewState extends State<RosaryView> {
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder.nonReactive(
+    return ViewModelBuilder.reactive(
       viewModelBuilder: () => RosaryViewModel(locator()),
       builder: (context, viewModel, child) => Scaffold(
+        resizeToAvoidBottomInset: false,
         body: SafeArea(
-          child: SizedBox.expand(
-            child: Column(
-              children: _columnChildren(viewModel),
-            ),
+          child: SizedBox(
+            height: context.screenSizes.height,
+            width: context.screenSizes.width,
+            child: Column(children: _columnChildren(viewModel)),
           ),
         ),
       ),
@@ -71,9 +73,7 @@ class _RosaryViewState extends State<RosaryView> {
         scrollDirection: Axis.horizontal,
         itemCount: viewModel.dhikrStringList.value.length,
         itemBuilder: (context, index) => FittedBox(
-          child: AppChips(
-            text: viewModel.dhikrStringList.value[index],
-          ),
+          child: AppChips(text: viewModel.dhikrStringList.value[index]),
         ),
       ),
     );
@@ -84,17 +84,34 @@ class _RosaryViewState extends State<RosaryView> {
     return FittedBox(
       child: InkWell(
         borderRadius: context.circularBorderRadius(radius: 100),
-        child: Icon(
-          Icons.add_outlined,
-          color: Colors.black.withOpacity(0.7),
-        ),
-        onTap: () async => showDialog(
-          context: context,
-          builder: (context) => const CustomAlertDialog(),
-        ),
+        child: _addDhikrIcon(),
+        onTap: () async => _buildModalBottomSheet(viewModel),
       ),
     );
   }
+
+  /// Build modal bottom sheet
+  Future<void> _buildModalBottomSheet(RosaryViewModel viewModel) async {
+    return showModalBottomSheet(
+      useSafeArea: true,
+      isScrollControlled: true,
+      context: context,
+      builder: (context) => CustomBottomSheet(
+        dhikrInputController: viewModel.dhikrInputController,
+        onAddPressed: () {
+          viewModel.addDhikrToList(viewModel.dhikrInputController.text);
+          viewModel.dhikrInputController.clear();
+          context.pop();
+        },
+      ),
+    );
+  }
+
+  /// Add dhikr icon widget
+  Widget _addDhikrIcon() => Icon(
+        Icons.add_outlined,
+        color: Colors.black.withOpacity(0.7),
+      );
 
   /// Reset rosary button widget
   Widget _resetRosaryButton(RosaryViewModel viewModel) {
@@ -167,7 +184,7 @@ class _RosaryViewState extends State<RosaryView> {
             child: Text(
               'Çekilen Tespih Sayısı ',
               style: GoogleFonts.roboto(
-                fontWeight: context.fontWeights.fw500,
+                fontWeight: context.fontWeights.fw300,
                 color: Colors.black,
               ),
             ),
