@@ -66,6 +66,7 @@ class _RosaryViewState extends State<RosaryView> {
   }
 
   /// Dhikr list view
+  /// It listens dhikrStringList value and rebuilds the list view on change
   Widget _dhikrListView(RosaryViewModel viewModel) {
     return ValueListenableBuilder(
       valueListenable: viewModel.dhikrStringList,
@@ -103,13 +104,16 @@ class _RosaryViewState extends State<RosaryView> {
       context: context,
       builder: (context) => CustomBottomSheet(
         dhikrInputController: viewModel.dhikrInputController,
-        onAddPressed: () async {
-          await viewModel.addDhikrToList(viewModel.dhikrInputController.text);
-          viewModel.dhikrInputController.clear();
-          context.pop();
-        },
+        onAddPressed: () async => _onAddPressedMethod(viewModel),
       ),
     );
+  }
+
+  /// On add pressed method for bottom sheet
+  Future<void> _onAddPressedMethod(RosaryViewModel viewModel) async {
+    await viewModel.addDhikrToList(viewModel.dhikrInputController.text);
+    viewModel.dhikrInputController.clear();
+    context.pop();
   }
 
   /// Add dhikr icon widget
@@ -137,21 +141,8 @@ class _RosaryViewState extends State<RosaryView> {
             decoration: BoxDecoration(
               color: context.themeData.primaryColor,
               shape: BoxShape.circle,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.3),
-                  blurRadius: 10,
-                  offset: const Offset(0, 5),
-                ),
-              ],
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  context.themeData.primaryColor,
-                  context.themeData.primaryColor.withOpacity(0.7),
-                ],
-              ),
+              gradient: _rosaryCountUpButtonGradient(),
+              boxShadow: _boxShadow(),
             ),
             child: InkWell(
               borderRadius: context.circularBorderRadius(radius: 100),
@@ -160,6 +151,29 @@ class _RosaryViewState extends State<RosaryView> {
           ),
         ),
         context.spacerWithFlex(flex: 1),
+      ],
+    );
+  }
+
+  /// Rosary count up button box shadow
+  List<BoxShadow> _boxShadow() {
+    return [
+      BoxShadow(
+        color: Colors.black.withOpacity(0.3),
+        blurRadius: 10,
+        offset: const Offset(0, 5),
+      ),
+    ];
+  }
+
+  /// Rosary count up button gradient color
+  LinearGradient _rosaryCountUpButtonGradient() {
+    return LinearGradient(
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+      colors: [
+        context.themeData.primaryColor,
+        context.themeData.primaryColor.withOpacity(0.7),
       ],
     );
   }
