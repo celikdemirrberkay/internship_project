@@ -9,10 +9,13 @@ class LocalDatabaseService extends IDatabaseService {
   LocalDatabaseService();
 
   @override
-  Future<Either<String, T>> get<T>(String key) async {
+  Future<Either<String, T>> get<T>({
+    required String dbName,
+    required String key,
+  }) async {
     try {
       /// Hive box
-      final box = await Hive.openBox<T?>(_DbServiceEnum.databaseService.name);
+      final box = await Hive.openBox<T?>(dbName);
       final response = box.get(key);
 
       if (response != null) {
@@ -26,10 +29,13 @@ class LocalDatabaseService extends IDatabaseService {
   }
 
   @override
-  Future<Either<String, String>> remove<T>(String key) async {
+  Future<Either<String, String>> remove<T>({
+    required String dbName,
+    required String key,
+  }) async {
     try {
       /// Hive box
-      final box = await Hive.openBox<T?>(_DbServiceEnum.databaseService.name);
+      final box = await Hive.openBox<T?>(dbName);
       await box.delete(key);
 
       return const Right('Başarıyla silindi.');
@@ -39,10 +45,14 @@ class LocalDatabaseService extends IDatabaseService {
   }
 
   @override
-  Future<Either<String, String>> set<T>(String key, T value) async {
+  Future<Either<String, String>> set<T>({
+    required String dbName,
+    required String key,
+    required T value,
+  }) async {
     try {
       /// Hive box
-      final box = await Hive.openBox<T?>(_DbServiceEnum.databaseService.name);
+      final box = await Hive.openBox<T?>(dbName);
       await box.put(key, value);
 
       return const Right('Başarıyla kaydedildi');
@@ -50,10 +60,4 @@ class LocalDatabaseService extends IDatabaseService {
       return Left(e.toString());
     }
   }
-}
-
-/// Database service enum
-enum _DbServiceEnum {
-  /// Database service
-  databaseService,
 }

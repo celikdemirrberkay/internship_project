@@ -5,7 +5,13 @@ import 'package:stacked/stacked.dart';
 /// Rosary page ViewModel
 class RosaryViewModel extends BaseViewModel {
   ///
-  RosaryViewModel(this.db);
+  RosaryViewModel(this.db) {
+    getDhikrList().then(
+      (value) {
+        dhikrStringList.value.addAll(value);
+      },
+    );
+  }
 
   /// Database service instance
   final LocalDatabaseService db;
@@ -37,9 +43,47 @@ class RosaryViewModel extends BaseViewModel {
 
   /// Add dhikr to list
   Future<void> addDhikrToList(String value) async {
-    await db.set(value, value);
+    final dbList = await db.get<List<String>>(
+      dbName: _DbServiceEnum.databaseService.name,
+      key: _DbServiceEnum.dhikrList.name,
+    );
 
-    dhikrStringList.value.add(value);
+    if (dbList.isRight) {
+      dbList.right.add(value);
+      await db.set(
+        dbName: _DbServiceEnum.databaseService.name,
+        key: _DbServiceEnum.dhikrList.name,
+        value: dbList.right,
+      );
+    } else {
+      print(dbList.left);
+    }
+
     notifyListeners();
   }
+
+  /// Get dhikr list
+  Future<List<String>> getDhikrList() async {
+    /// Get dhikr list from local database
+    final dbList = await db.get<List<String>>(
+      dbName: _DbServiceEnum.databaseService.name,
+      key: _DbServiceEnum.dhikrList.name,
+    );
+
+    /// Return dhikr list
+    if (dbList.isRight) {
+      return dbList.right;
+    } else {
+      return [];
+    }
+  }
+}
+
+/// Database service enum
+enum _DbServiceEnum {
+  /// Database service
+  databaseService,
+
+  /// Dhikr
+  dhikrList,
 }

@@ -98,8 +98,8 @@ class _RosaryViewState extends State<RosaryView> {
       context: context,
       builder: (context) => CustomBottomSheet(
         dhikrInputController: viewModel.dhikrInputController,
-        onAddPressed: () {
-          viewModel.addDhikrToList(viewModel.dhikrInputController.text);
+        onAddPressed: () async {
+          await viewModel.addDhikrToList(viewModel.dhikrInputController.text);
           viewModel.dhikrInputController.clear();
           context.pop();
         },
