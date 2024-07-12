@@ -73,7 +73,12 @@ class _RosaryViewState extends State<RosaryView> {
         scrollDirection: Axis.horizontal,
         itemCount: viewModel.dhikrStringList.value.length,
         itemBuilder: (context, index) => FittedBox(
-          child: AppChips(text: viewModel.dhikrStringList.value[index]),
+          child: AppChips(
+            text: viewModel.dhikrStringList.value[index],
+            onLongPress: () => viewModel.removeDhikrFromList(
+              viewModel.dhikrStringList.value[index],
+            ),
+          ),
         ),
       ),
     );
