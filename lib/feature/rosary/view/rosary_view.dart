@@ -1,14 +1,15 @@
 import 'package:dart_vader/dart_vader.dart';
-import 'package:either_dart/either.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hive/hive.dart';
 import 'package:internship_project/core/common/app_elevated_button.dart';
+import 'package:internship_project/core/common/app_textfield.dart';
+import 'package:internship_project/core/config/dependency_injection/dependency_container.dart';
 import 'package:internship_project/feature/rosary/view_model/rosary_view_model.dart';
-import 'package:internship_project/repositories/local/shared_pref/db_service.dart';
 import 'package:stacked/stacked.dart';
 
 part '../widgets/chips.dart';
+part '../widgets/custom_bottom_sheet.dart';
 
 /// Rosary page
 class RosaryView extends StatefulWidget {
@@ -22,14 +23,15 @@ class RosaryView extends StatefulWidget {
 class _RosaryViewState extends State<RosaryView> {
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder.nonReactive(
-      viewModelBuilder: RosaryViewModel.new,
+    return ViewModelBuilder.reactive(
+      viewModelBuilder: () => RosaryViewModel(locator()),
       builder: (context, viewModel, child) => Scaffold(
+        resizeToAvoidBottomInset: false,
         body: SafeArea(
-          child: SizedBox.expand(
-            child: Column(
-              children: _columnChildren(viewModel),
-            ),
+          child: SizedBox(
+            height: context.screenSizes.height,
+            width: context.screenSizes.width,
+            child: Column(children: _columnChildren(viewModel)),
           ),
         ),
       ),
@@ -64,6 +66,7 @@ class _RosaryViewState extends State<RosaryView> {
   }
 
   /// Dhikr list view
+  /// It listens dhikrStringList value and rebuilds the list view on change
   Widget _dhikrListView(RosaryViewModel viewModel) {
     return ValueListenableBuilder(
       valueListenable: viewModel.dhikrStringList,
@@ -73,6 +76,9 @@ class _RosaryViewState extends State<RosaryView> {
         itemBuilder: (context, index) => FittedBox(
           child: AppChips(
             text: viewModel.dhikrStringList.value[index],
+            onLongPress: () => viewModel.removeDhikrFromList(
+              viewModel.dhikrStringList.value[index],
+            ),
           ),
         ),
       ),
@@ -84,14 +90,37 @@ class _RosaryViewState extends State<RosaryView> {
     return FittedBox(
       child: InkWell(
         borderRadius: context.circularBorderRadius(radius: 100),
-        child: Icon(
-          Icons.add_outlined,
-          color: Colors.black.withOpacity(0.7),
-        ),
-        onTap: () async {},
+        child: _addDhikrIcon(),
+        onTap: () async => _buildModalBottomSheet(viewModel),
       ),
     );
   }
+
+  /// Build modal bottom sheet
+  Future<void> _buildModalBottomSheet(RosaryViewModel viewModel) async {
+    return showModalBottomSheet(
+      useSafeArea: true,
+      isScrollControlled: true,
+      context: context,
+      builder: (context) => CustomBottomSheet(
+        dhikrInputController: viewModel.dhikrInputController,
+        onAddPressed: () async => _onAddPressedMethod(viewModel),
+      ),
+    );
+  }
+
+  /// On add pressed method for bottom sheet
+  Future<void> _onAddPressedMethod(RosaryViewModel viewModel) async {
+    await viewModel.addDhikrToList(viewModel.dhikrInputController.text);
+    viewModel.dhikrInputController.clear();
+    context.pop();
+  }
+
+  /// Add dhikr icon widget
+  Widget _addDhikrIcon() => Icon(
+        Icons.add_outlined,
+        color: Colors.black.withOpacity(0.7),
+      );
 
   /// Reset rosary button widget
   Widget _resetRosaryButton(RosaryViewModel viewModel) {
@@ -112,21 +141,8 @@ class _RosaryViewState extends State<RosaryView> {
             decoration: BoxDecoration(
               color: context.themeData.primaryColor,
               shape: BoxShape.circle,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.3),
-                  blurRadius: 10,
-                  offset: const Offset(0, 5),
-                ),
-              ],
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  context.themeData.primaryColor,
-                  context.themeData.primaryColor.withOpacity(0.7),
-                ],
-              ),
+              gradient: _rosaryCountUpButtonGradient(),
+              boxShadow: _boxShadow(),
             ),
             child: InkWell(
               borderRadius: context.circularBorderRadius(radius: 100),
@@ -135,6 +151,29 @@ class _RosaryViewState extends State<RosaryView> {
           ),
         ),
         context.spacerWithFlex(flex: 1),
+      ],
+    );
+  }
+
+  /// Rosary count up button box shadow
+  List<BoxShadow> _boxShadow() {
+    return [
+      BoxShadow(
+        color: Colors.black.withOpacity(0.3),
+        blurRadius: 10,
+        offset: const Offset(0, 5),
+      ),
+    ];
+  }
+
+  /// Rosary count up button gradient color
+  LinearGradient _rosaryCountUpButtonGradient() {
+    return LinearGradient(
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+      colors: [
+        context.themeData.primaryColor,
+        context.themeData.primaryColor.withOpacity(0.7),
       ],
     );
   }
@@ -164,7 +203,7 @@ class _RosaryViewState extends State<RosaryView> {
             child: Text(
               'Çekilen Tespih Sayısı ',
               style: GoogleFonts.roboto(
-                fontWeight: context.fontWeights.fw500,
+                fontWeight: context.fontWeights.fw300,
                 color: Colors.black,
               ),
             ),
