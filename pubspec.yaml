@@ -60,6 +60,7 @@ dependencies:
   lottie: ^3.1.2
   flutter_svg: ^2.0.10+1
   one_clock: ^2.0.1
+  fluttertoast: ^8.2.6
 
 
 dev_dependencies:

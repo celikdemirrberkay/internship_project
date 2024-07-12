@@ -16,8 +16,6 @@ class _MainViewState extends State<MainView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBody: true,
-
       /// BottomNavigationBar and Appbar
       bottomNavigationBar: const AppNavbar(),
       appBar: const Appbarforapp(),

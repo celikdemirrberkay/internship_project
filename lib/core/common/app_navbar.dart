@@ -17,7 +17,11 @@ class _AppNavbarState extends State<AppNavbar> {
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: context.themeData.copyWith(),
+      data: context.themeData.copyWith(
+        bottomNavigationBarTheme: context.themeData.bottomNavigationBarTheme.copyWith(
+          selectedItemColor: context.themeData.colorScheme.secondary,
+        ),
+      ),
       child: BottomNavigationBar(
         type: BottomNavigationBarType.shifting,
         elevation: 100,

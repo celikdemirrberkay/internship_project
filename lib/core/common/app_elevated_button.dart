@@ -37,14 +37,18 @@ class _AppElevatedButtonState extends State<AppElevatedButton> {
       style: ButtonStyle(
         elevation: const WidgetStatePropertyAll(2),
         backgroundColor: WidgetStatePropertyAll(widget.color),
-        side: WidgetStatePropertyAll(BorderSide(color: context.themeData.colorScheme.onSecondary)),
+        side: WidgetStatePropertyAll(
+          BorderSide(color: context.themeData.colorScheme.onSecondary),
+        ),
       ),
       onPressed: widget.onPressed,
-      child: Text(
-        widget.text,
-        style: GoogleFonts.poppins(
-          textStyle: context.textStyles.bodyLarge?.copyWith(
-            color: widget.textColor,
+      child: FittedBox(
+        child: Text(
+          widget.text,
+          style: GoogleFonts.poppins(
+            textStyle: context.textStyles.bodyLarge?.copyWith(
+              color: widget.textColor,
+            ),
           ),
         ),
       ),
