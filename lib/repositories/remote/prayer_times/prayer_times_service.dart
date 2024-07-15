@@ -16,7 +16,7 @@ class PrayerTimesService extends IPrayerTimesService {
   /// Returns either error message or response data.
   /// Did the null check here to avoid null safety issues.
   @override
-  Future<Either<String, ApiData>> getPrayerTimes(
+  Future<Either<String, PrayerApiData>> getPrayerTimes(
     String city,
     String country,
   ) async {

@@ -6,8 +6,10 @@ import 'package:internship_project/core/common/exception_widget.dart';
 import 'package:internship_project/core/common/loading_widget.dart';
 import 'package:internship_project/core/config/dependency_injection/dependency_container.dart';
 import 'package:internship_project/core/exception/exception_message.dart';
+import 'package:internship_project/core/theme/app_theme.dart';
 import 'package:internship_project/feature/prayer_times/view_model/prayer_times_viewmodel.dart';
 import 'package:internship_project/repositories/model/times_response.dart';
+import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:stacked/stacked.dart';
 
@@ -174,7 +176,7 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
   }
 
   /// Date text on card
-  Widget _dateTextOnCard(ApiData data) {
+  Widget _dateTextOnCard(PrayerApiData data) {
     return Row(
       children: [
         context.spacerWithFlex(flex: 5),
@@ -182,11 +184,19 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
           flex: 45,
           child: FittedBox(
             child: Text(
-              data.date?.readable ?? '',
-              style: GoogleFonts.cookie(
+              DateFormat('dd.MM.yyyy').format(context.times.currentTime),
+              style: GoogleFonts.pacifico(
                 textStyle: context.textStyles.bodyLarge?.copyWith(
                   color: context.themeData.colorScheme.onPrimary,
+                  fontWeight: context.fontWeights.fwBold,
                 ),
+                shadows: [
+                  Shadow(
+                    offset: const Offset(2, 2),
+                    blurRadius: 3, // gölgenin yayılma derecesi
+                    color: context.themeData.colorScheme.onSecondary.withOpacity(0.5),
+                  ),
+                ],
               ),
             ),
           ),
@@ -197,7 +207,7 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
   }
 
   /// All times list tiles on Times card
-  Widget _allTimesListTilesOnCard(ApiData data) => Row(
+  Widget _allTimesListTilesOnCard(PrayerApiData data) => Row(
         children: [
           context.spacerWithFlex(flex: 2),
           Expanded(flex: 5, child: _allTimesTextColumn()),
@@ -208,12 +218,15 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
       );
 
   /// All times text column special text
-  Widget _specialTextForAllTimesTextColumn(String text) => Text(
-        text,
-        style: GoogleFonts.dancingScript(
-          textStyle: context.appTextTheme.displayLarge?.copyWith(
-            color: context.themeData.colorScheme.onPrimary,
-            fontWeight: context.fontWeights.fwBold,
+  Widget _specialTextForAllTimesTextColumn(String text) => FittedBox(
+        alignment: Alignment.centerLeft,
+        child: Text(
+          text,
+          style: GoogleFonts.roboto(
+            textStyle: context.appTextTheme.bodyLarge?.copyWith(
+              color: context.themeData.colorScheme.onPrimary,
+              fontWeight: context.fontWeights.fw300,
+            ),
           ),
         ),
       );
@@ -223,45 +236,33 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
     return Column(
       children: [
         Expanded(
-          child: FittedBox(
-            child: _specialTextForAllTimesTextColumn(
-              _PrayTimesEnum.Imsak.name,
-            ),
+          child: _specialTextForAllTimesTextColumn(
+            _PrayTimesEnum.Imsak.name,
           ),
         ),
         Expanded(
-          child: FittedBox(
-            child: _specialTextForAllTimesTextColumn(
-              _PrayTimesEnum.Sabah.name,
-            ),
+          child: _specialTextForAllTimesTextColumn(
+            _PrayTimesEnum.Sabah.name,
           ),
         ),
         Expanded(
-          child: FittedBox(
-            child: _specialTextForAllTimesTextColumn(
-              _PrayTimesEnum.Ogle.name,
-            ),
+          child: _specialTextForAllTimesTextColumn(
+            _PrayTimesEnum.Ogle.name,
           ),
         ),
         Expanded(
-          child: FittedBox(
-            child: _specialTextForAllTimesTextColumn(
-              _PrayTimesEnum.Ikindi.name,
-            ),
+          child: _specialTextForAllTimesTextColumn(
+            _PrayTimesEnum.Ikindi.name,
           ),
         ),
         Expanded(
-          child: FittedBox(
-            child: _specialTextForAllTimesTextColumn(
-              _PrayTimesEnum.Aksam.name,
-            ),
+          child: _specialTextForAllTimesTextColumn(
+            _PrayTimesEnum.Aksam.name,
           ),
         ),
         Expanded(
-          child: FittedBox(
-            child: _specialTextForAllTimesTextColumn(
-              _PrayTimesEnum.Yatsi.name,
-            ),
+          child: _specialTextForAllTimesTextColumn(
+            _PrayTimesEnum.Yatsi.name,
           ),
         ),
       ],
@@ -269,46 +270,46 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
   }
 
   /// All times time column like (Imsak, Sabah, Ogle, Ikindi, Aksam, Yatsi)
-  Widget _allTimesTimeColumn(ApiData data) => Column(
+  Widget _allTimesTimeColumn(PrayerApiData data) => Column(
         children: [
           Expanded(
             child: FittedBox(
-              child: Text(
+              child: _specialTextForAllTimesTextColumn(
                 data.timings?.fajr ?? '',
               ),
             ),
           ),
           Expanded(
             child: FittedBox(
-              child: Text(
+              child: _specialTextForAllTimesTextColumn(
                 data.timings?.sunrise ?? '',
               ),
             ),
           ),
           Expanded(
             child: FittedBox(
-              child: Text(
+              child: _specialTextForAllTimesTextColumn(
                 data.timings?.dhuhr ?? '',
               ),
             ),
           ),
           Expanded(
             child: FittedBox(
-              child: Text(
+              child: _specialTextForAllTimesTextColumn(
                 data.timings?.asr ?? '',
               ),
             ),
           ),
           Expanded(
             child: FittedBox(
-              child: Text(
+              child: _specialTextForAllTimesTextColumn(
                 data.timings?.maghrib ?? '',
               ),
             ),
           ),
           Expanded(
             child: FittedBox(
-              child: Text(
+              child: _specialTextForAllTimesTextColumn(
                 data.timings?.isha ?? '',
               ),
             ),
@@ -318,10 +319,8 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
 
   /// Box decoration
   BoxDecoration _godNameContainerBoxDecoration() => BoxDecoration(
-        color: context.themeData.primaryColor,
-        borderRadius: context.circularBorderRadius(
-          radius: 12,
-        ),
+        color: AppTheme.prayerContainerColor,
+        borderRadius: context.circularBorderRadius(radius: 12),
       );
 }
 

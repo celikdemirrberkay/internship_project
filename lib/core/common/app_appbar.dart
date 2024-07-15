@@ -35,7 +35,7 @@ class _AppbarforappState extends State<Appbarforapp> {
           isLive: true,
           format: 'HH:mm:ss',
         ),
-        SizedBox(width: 10)
+        SizedBox(width: 10),
       ],
     );
   }

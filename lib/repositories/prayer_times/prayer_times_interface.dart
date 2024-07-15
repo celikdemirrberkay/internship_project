@@ -12,7 +12,7 @@ abstract class IPrayerTimesService {
   final Dio dio;
 
   /// Get prayer times from the api.
-  Future<Either<String?, ApiData?>> getPrayerTimes(
+  Future<Either<String?, PrayerApiData?>> getPrayerTimes(
     String city,
     String country,
   );

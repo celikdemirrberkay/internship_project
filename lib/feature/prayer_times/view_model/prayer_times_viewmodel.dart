@@ -30,8 +30,8 @@ class PrayerTimesViewmodel extends BaseViewModel {
   final BuildContext _context;
 
   /// Prayer times
-  Either<String, ApiData> _datas = Left(ExceptionMessage.errorOccured.message);
-  Either<String, ApiData> get datas => _datas;
+  Either<String, PrayerApiData> _datas = Left(ExceptionMessage.errorOccured.message);
+  Either<String, PrayerApiData> get datas => _datas;
 
   /// God names
   Either<String, List<GodNames>> _godNames = Left(ExceptionMessage.errorOccured.message);
