@@ -1,3 +1,4 @@
+import 'package:dart_vader/dart_vader.dart';
 import 'package:flutter/material.dart';
 
 /// A divider widget
@@ -13,6 +14,8 @@ final class HorizontalAppDivider extends StatefulWidget {
 class _HorizontalAppDividerState extends State<HorizontalAppDivider> {
   @override
   Widget build(BuildContext context) {
-    return const Divider();
+    return Divider(
+      color: context.themeData.colorScheme.onPrimary,
+    );
   }
 }
