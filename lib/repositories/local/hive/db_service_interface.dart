@@ -1,7 +1,7 @@
 import 'package:either_dart/either.dart';
 
 /// Abstraction of local database service
-abstract class IDatabaseService {
+abstract class ILocalDatabaseService {
   /// Get the value of the key from the shared preferences.
   Future<Either<String, dynamic>> get<T>({
     required String dbName,
