@@ -33,7 +33,7 @@ class PrayerTimesService extends IPrayerTimesService {
 
       if (response.data != null) {
         /// Converting response to ApiResponse object
-        final responseAsApiResponse = ApiResponse.fromJson(response.data!);
+        final responseAsApiResponse = PrayerApiResponse.fromJson(response.data!);
         return Right(responseAsApiResponse.data!);
       } else {
         return Left(ExceptionMessage.noData.message);

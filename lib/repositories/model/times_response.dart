@@ -1,7 +1,7 @@
 /// Response returned from api
-class ApiResponse {
+class PrayerApiResponse {
   ///
-  ApiResponse({
+  PrayerApiResponse({
     this.code,
     this.data,
   });
@@ -13,8 +13,8 @@ class ApiResponse {
   PrayerApiData? data;
 
   /// Convert json to factory ApiResponse object
-  factory ApiResponse.fromJson(Map<String, dynamic> json) {
-    return ApiResponse(
+  factory PrayerApiResponse.fromJson(Map<String, dynamic> json) {
+    return PrayerApiResponse(
       code: json['code'] as int?,
       data: PrayerApiData.fromJson(json['data'] as Map<String, dynamic>),
     );

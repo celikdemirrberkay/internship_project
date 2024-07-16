@@ -6,7 +6,7 @@ class AppTheme {
   static ThemeData lightTheme = ThemeData(
     colorScheme: colorScheme,
     useMaterial3: true,
-    scaffoldBackgroundColor: const Color.fromARGB(255, 239, 239, 239),
+    scaffoldBackgroundColor: const Color(0xfff3f3f5),
     inputDecorationTheme: const InputDecorationTheme(
       counterStyle: TextStyle(color: Colors.black),
     ),
@@ -14,17 +14,17 @@ class AppTheme {
 
   /// App color schema
   static ColorScheme get colorScheme => const ColorScheme(
-        primary: Color.fromARGB(255, 41, 135, 44),
+        primary: Color(0XFF26c687),
         secondary: Color.fromARGB(255, 19, 46, 20),
         surface: Color.fromARGB(255, 246, 246, 246),
         error: Colors.red,
         onPrimary: Colors.white,
         onSecondary: Colors.black,
-        onSurface: Colors.white,
+        onSurface: Colors.grey,
         onError: Colors.red,
         brightness: Brightness.light,
       );
 
   /// Other static colors
-  static const Color prayerContainerColor = Color(0xFF3d6838);
+  static const Color prayerContainerColor = Color(0XFF26c687);
 }

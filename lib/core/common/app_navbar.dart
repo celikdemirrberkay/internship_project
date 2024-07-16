@@ -53,14 +53,6 @@ class _AppNavbarState extends State<AppNavbar> {
             ),
             label: 'Kabe Yönü',
           ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              'assets/svg/settings.svg',
-              width: 30,
-              height: 30,
-            ),
-            label: 'Ayarlar',
-          ),
         ],
       ),
     );
