@@ -1,6 +1,7 @@
 import 'package:dart_vader/dart_vader.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:internship_project/core/theme/app_theme.dart';
 import 'package:intl/intl.dart';
 
 /// Appbar for the main view
@@ -22,21 +23,17 @@ class _AppbarforappState extends State<Appbarforapp> {
     return AppBar(
       centerTitle: false,
       title: _appBarTitle(context),
-      actions: [
-        SizedBox(
-          height: 40,
-          width: 100,
-          child: Text(
-            DateFormat('dd.MM.yyyy').format(context.times.currentTime),
-            style: GoogleFonts.roboto(
-              textStyle: context.textStyles.bodyLarge?.copyWith(
-                color: context.themeData.colorScheme.primary,
-                fontWeight: context.fontWeights.fwBold,
-              ),
-            ),
-          ),
-        ),
-      ],
+      actions: [_settingsIconButton()],
+    );
+  }
+
+  Widget _settingsIconButton() {
+    return IconButton(
+      icon: const Icon(
+        Icons.settings_outlined,
+        color: AppTheme.settingsButtonColor,
+      ),
+      onPressed: () {},
     );
   }
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:internship_project/core/exception/exception_message.dart';
-import 'package:internship_project/repositories/local/shared_pref/db_service.dart';
+import 'package:internship_project/repositories/local/hive/db_service.dart';
 import 'package:stacked/stacked.dart';
 
 /// Rosary page ViewModel

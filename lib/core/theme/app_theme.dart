@@ -22,9 +22,11 @@ class AppTheme {
         onSecondary: Colors.black,
         onSurface: Colors.grey,
         onError: Colors.red,
+        primaryContainer: Color(0xFFf17501),
         brightness: Brightness.light,
       );
 
   /// Other static colors
-  static const Color prayerContainerColor = Color(0XFF26c687);
+  static const Color settingsButtonColor = Colors.green;
+  static const Color bottomNavbarTextColor = Color.fromARGB(255, 44, 132, 46);
 }

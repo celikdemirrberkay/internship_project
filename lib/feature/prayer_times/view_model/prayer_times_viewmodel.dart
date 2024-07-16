@@ -3,8 +3,10 @@ import 'package:either_dart/either.dart';
 import 'package:flutter/material.dart';
 import 'package:internship_project/core/exception/exception_message.dart';
 import 'package:internship_project/repositories/local/god_names/god_names_service.dart';
+import 'package:internship_project/repositories/model/ayah.dart';
 import 'package:internship_project/repositories/model/god_names.dart';
 import 'package:internship_project/repositories/model/times_response.dart';
+import 'package:internship_project/repositories/remote/ayah/ayah_service.dart';
 import 'package:internship_project/repositories/remote/prayer_times/prayer_times_service.dart';
 import 'package:stacked/stacked.dart';
 
@@ -14,9 +16,12 @@ class PrayerTimesViewmodel extends BaseViewModel {
   PrayerTimesViewmodel(
     this._prayerTimesService,
     this._godNamesService,
+    this._ayahService,
     this._context,
   ) {
+    /// Fetching data from the API's beginning
     getPrayerTimes('istanbul', 'Turkey');
+    getSpecificAyah();
     randomGodNameAndMeaning(_context);
   }
 
@@ -25,6 +30,9 @@ class PrayerTimesViewmodel extends BaseViewModel {
 
   /// The service where we fetch god names
   final GodNamesService _godNamesService;
+
+  /// The service where we fetch specific Ayah
+  final AyahService _ayahService;
 
   /// BuildContext
   final BuildContext _context;
@@ -37,13 +45,19 @@ class PrayerTimesViewmodel extends BaseViewModel {
   Either<String, List<GodNames>> _godNames = Left(ExceptionMessage.errorOccured.message);
   Either<String, List<GodNames>> get godNames => _godNames;
 
+  /// Ayah
+  Either<String, Ayah> _ayah = Left(ExceptionMessage.errorOccured.message);
+  Either<String, Ayah> get ayah => _ayah;
+
   /// Random integer for random god name
   int randomInt = Random().nextInt(99);
 
   /// Booleans for loading states
   bool isGodNameLoading = false;
   bool isPrayerTimesLoading = false;
+  bool isRandomAyahLoading = false;
 
+  /// --------------------------------------------------------------------------
   /// Get prayer times
   Future<void> getPrayerTimes(
     String city,
@@ -61,6 +75,7 @@ class PrayerTimesViewmodel extends BaseViewModel {
     notifyListeners();
   }
 
+  /// --------------------------------------------------------------------------
   /// Fetching data from json file and returning a list of GodNames
   Future<void> randomGodNameAndMeaning(BuildContext context) async {
     /// Set isGodNameLoaded state as true
@@ -72,6 +87,21 @@ class PrayerTimesViewmodel extends BaseViewModel {
 
     /// Set isGodNameLoaded state as false
     isGodNameLoading = false;
+    notifyListeners();
+  }
+
+  /// --------------------------------------------------------------------------
+  /// Get specific Ayah
+  Future<void> getSpecificAyah() async {
+    /// Set isRandomAyahLoaded state as true
+    isRandomAyahLoading = true;
+    notifyListeners();
+
+    final response = await _ayahService.getSpecificAyah();
+    _ayah = response;
+
+    /// Set isRandomAyahLoaded state as false
+    isRandomAyahLoading = false;
     notifyListeners();
   }
 }
