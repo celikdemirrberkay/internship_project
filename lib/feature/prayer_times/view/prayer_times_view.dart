@@ -425,7 +425,7 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
 
   /// Box decoration
   BoxDecoration _prayerTimesContainerDecoration() => BoxDecoration(
-        color: AppTheme.prayerContainerColor,
+        color: context.themeData.colorScheme.primary,
         borderRadius: context.circularBorderRadius(radius: 24),
         boxShadow: [
           BoxShadow(

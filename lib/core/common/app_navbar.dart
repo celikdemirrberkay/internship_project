@@ -2,6 +2,7 @@ import 'package:dart_vader/dart_vader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:internship_project/core/router/app_router.dart';
+import 'package:internship_project/core/theme/app_theme.dart';
 
 /// App Navbar
 @immutable
@@ -19,7 +20,7 @@ class _AppNavbarState extends State<AppNavbar> {
     return Theme(
       data: context.themeData.copyWith(
         bottomNavigationBarTheme: context.themeData.bottomNavigationBarTheme.copyWith(
-          selectedItemColor: context.themeData.colorScheme.primary,
+          selectedItemColor: Color.fromARGB(255, 44, 132, 46),
         ),
       ),
       child: BottomNavigationBar(

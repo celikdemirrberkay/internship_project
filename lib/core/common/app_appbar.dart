@@ -1,6 +1,7 @@
 import 'package:dart_vader/dart_vader.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:internship_project/core/theme/app_theme.dart';
 import 'package:intl/intl.dart';
 
 /// Appbar for the main view
@@ -28,9 +29,9 @@ class _AppbarforappState extends State<Appbarforapp> {
 
   Widget _settingsIconButton() {
     return IconButton(
-      icon: Icon(
+      icon: const Icon(
         Icons.settings_outlined,
-        color: context.themeData.colorScheme.primary,
+        color: AppTheme.settingsButtonColor,
       ),
       onPressed: () {},
     );

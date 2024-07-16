@@ -27,5 +27,6 @@ class AppTheme {
       );
 
   /// Other static colors
-  static const Color prayerContainerColor = Color(0XFF26c687);
+  static const Color settingsButtonColor = Colors.green;
+  static const Color bottomNavbarTextColor = Color.fromARGB(255, 44, 132, 46);
 }
