@@ -1,5 +1,6 @@
 import 'package:dart_vader/dart_vader.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:internship_project/core/common/app_horizontal_divider.dart';
 import 'package:internship_project/core/common/exception_widget.dart';
@@ -198,7 +199,8 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
               ),
             ),
           ),
-          context.spacerWithFlex(flex: 65),
+          context.spacerWithFlex(flex: 40),
+          Expanded(flex: 20, child: SvgPicture.asset('assets/svg/mosque.svg')),
         ],
       );
 
@@ -252,7 +254,7 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
         Expanded(
           flex: 30,
           child: FittedBox(
-            child: _specialTextForAllTimesTextColumn(
+            child: _specialTextForAllTimesTexts(
               'İmsak\n${data.timings?.fajr}',
             ),
           ),
@@ -261,7 +263,7 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
         Expanded(
           flex: 30,
           child: FittedBox(
-            child: _specialTextForAllTimesTextColumn(
+            child: _specialTextForAllTimesTexts(
               'Sabah\n${data.timings?.sunrise}',
             ),
           ),
@@ -270,7 +272,7 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
         Expanded(
           flex: 30,
           child: FittedBox(
-            child: _specialTextForAllTimesTextColumn(
+            child: _specialTextForAllTimesTexts(
               'Öğle\n${data.timings?.dhuhr}',
             ),
           ),
@@ -288,7 +290,7 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
         Expanded(
           flex: 30,
           child: FittedBox(
-            child: _specialTextForAllTimesTextColumn(
+            child: _specialTextForAllTimesTexts(
               'İkindi\n${data.timings?.asr}',
             ),
           ),
@@ -297,7 +299,7 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
         Expanded(
           flex: 30,
           child: FittedBox(
-            child: _specialTextForAllTimesTextColumn(
+            child: _specialTextForAllTimesTexts(
               'Akşam\n${data.timings?.maghrib}',
             ),
           ),
@@ -306,8 +308,8 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
         Expanded(
           flex: 30,
           child: FittedBox(
-            child: _specialTextForAllTimesTextColumn(
-              'Yatsi\n${data.timings?.isha}',
+            child: _specialTextForAllTimesTexts(
+              'Yatsı\n${data.timings?.isha}',
             ),
           ),
         ),
@@ -317,13 +319,19 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
   }
 
   /// All times text column special text
-  Widget _specialTextForAllTimesTextColumn(String text) => Text(
+  Widget _specialTextForAllTimesTexts(String text) => Text(
         text,
         textAlign: context.textAlignCenter,
         style: GoogleFonts.roboto(
           textStyle: context.appTextTheme.bodyLarge?.copyWith(
             color: context.themeData.colorScheme.onPrimary,
-            fontWeight: context.fontWeights.fw500,
+            fontWeight: context.fontWeights.fwBold,
+            shadows: [
+              Shadow(
+                color: context.themeData.colorScheme.onSecondary,
+                blurRadius: 1,
+              ),
+            ],
           ),
         ),
       );
