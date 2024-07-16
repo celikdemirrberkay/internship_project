@@ -30,8 +30,8 @@ class PrayerTimesViewmodel extends BaseViewModel {
   final BuildContext _context;
 
   /// Prayer times
-  Either<String, ApiData> _datas = Left(ExceptionMessage.errorOccured.message);
-  Either<String, ApiData> get datas => _datas;
+  Either<String, PrayerApiData> _datas = Left(ExceptionMessage.errorOccured.message);
+  Either<String, PrayerApiData> get datas => _datas;
 
   /// God names
   Either<String, List<GodNames>> _godNames = Left(ExceptionMessage.errorOccured.message);
@@ -41,34 +41,37 @@ class PrayerTimesViewmodel extends BaseViewModel {
   int randomInt = Random().nextInt(99);
 
   /// Booleans for loading states
-  bool isGodNameLoaded = false;
-  bool isPrayerTimesLoaded = false;
+  bool isGodNameLoading = false;
+  bool isPrayerTimesLoading = false;
 
   /// Get prayer times
   Future<void> getPrayerTimes(
     String city,
     String country,
   ) async {
-    /// Fetch data from the api
-    isPrayerTimesLoaded = true;
+    /// Set isPrayerTimesLoaded state as true
+    isPrayerTimesLoading = true;
     notifyListeners();
 
     final response = await _prayerTimesService.getPrayerTimes(city, country);
     _datas = response;
 
-    isPrayerTimesLoaded = false;
+    /// Set isPrayerTimesLoaded state as false
+    isPrayerTimesLoading = false;
     notifyListeners();
   }
 
   /// Fetching data from json file and returning a list of GodNames
   Future<void> randomGodNameAndMeaning(BuildContext context) async {
-    isGodNameLoaded = true;
+    /// Set isGodNameLoaded state as true
+    isGodNameLoading = true;
     notifyListeners();
 
     final response = await _godNamesService.randomGodNameAndMeaning(context);
     _godNames = response;
 
-    isGodNameLoaded = false;
+    /// Set isGodNameLoaded state as false
+    isGodNameLoading = false;
     notifyListeners();
   }
 }

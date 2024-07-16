@@ -19,20 +19,12 @@ class PrayerTime extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    /// MaterialApp
     return MaterialApp.router(
       routerConfig: AppRouter.router,
       debugShowCheckedModeBanner: false,
       title: 'Internship Project',
-      theme: ThemeData(
-        colorScheme: AppTheme.colorScheme,
-        useMaterial3: true,
-        scaffoldBackgroundColor: const Color.fromARGB(255, 246, 246, 246),
-        inputDecorationTheme: const InputDecorationTheme(
-          counterStyle: TextStyle(
-            color: Colors.black, // maxLength göstergesinin rengi burada ayarlanır
-          ),
-        ),
-      ),
+      theme: AppTheme.lightTheme,
     );
   }
 }

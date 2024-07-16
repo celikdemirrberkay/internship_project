@@ -19,7 +19,7 @@ class _AppNavbarState extends State<AppNavbar> {
     return Theme(
       data: context.themeData.copyWith(
         bottomNavigationBarTheme: context.themeData.bottomNavigationBarTheme.copyWith(
-          selectedItemColor: context.themeData.colorScheme.secondary,
+          selectedItemColor: context.themeData.colorScheme.primary,
         ),
       ),
       child: BottomNavigationBar(
@@ -52,14 +52,6 @@ class _AppNavbarState extends State<AppNavbar> {
               height: 30,
             ),
             label: 'Kabe Yönü',
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              'assets/svg/settings.svg',
-              width: 30,
-              height: 30,
-            ),
-            label: 'Ayarlar',
           ),
         ],
       ),
