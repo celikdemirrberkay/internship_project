@@ -75,6 +75,7 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
               text: 'Ekle',
               color: context.themeData.colorScheme.primary,
               onPressed: widget.onAddPressed,
+              textColor: context.themeData.colorScheme.onSecondary,
             ),
           ),
         ),
