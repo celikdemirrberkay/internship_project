@@ -1,10 +1,10 @@
 import 'package:either_dart/src/either.dart';
 import 'package:hive/hive.dart';
 import 'package:internship_project/core/exception/exception_message.dart';
-import 'package:internship_project/repositories/local/shared_pref/db_service_interface.dart';
+import 'package:internship_project/repositories/local/hive/db_service_interface.dart';
 
 /// Abstraction of local database service
-class LocalDatabaseService extends IDatabaseService {
+class LocalDatabaseService extends ILocalDatabaseService {
   /// Constructor
   LocalDatabaseService();
 

@@ -22,6 +22,7 @@ class AppTheme {
         onSecondary: Colors.black,
         onSurface: Colors.grey,
         onError: Colors.red,
+        primaryContainer: Color(0xFFf17501),
         brightness: Brightness.light,
       );
 
