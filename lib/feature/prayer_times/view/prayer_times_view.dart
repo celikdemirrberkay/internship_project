@@ -44,12 +44,14 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
   Widget _column() {
     return Column(
       children: [
-        context.spacerWithFlex(flex: 3),
+        context.spacerWithFlex(flex: 2),
         Expanded(flex: 10, child: _lottie()),
-        Expanded(flex: 45, child: _prayerTimesContainerBuilder()),
-        context.spacerWithFlex(flex: 4),
+        Expanded(flex: 40, child: _prayerTimesContainerBuilder()),
+        context.spacerWithFlex(flex: 2),
+        Expanded(flex: 40, child: _prayerTimesContainerBuilder()),
+        context.spacerWithFlex(flex: 2),
         Expanded(flex: 25, child: _godNamesContainerBuilder()),
-        context.spacerWithFlex(flex: 10),
+        context.spacerWithFlex(flex: 4),
       ],
     );
   }
@@ -71,9 +73,9 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
   Widget _godNamesAndMeaningContainer(BuildContext context, PrayerTimesViewmodel viewModel) {
     return Row(
       children: [
-        context.spacerWithFlex(flex: 5),
+        context.spacerWithFlex(flex: 3),
         Expanded(
-          flex: 90,
+          flex: 94,
           child: Container(
             decoration: _boxDecorationForGodNamesContainer(),
             child: SizedBox.expand(
@@ -88,7 +90,7 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
             ),
           ),
         ),
-        context.spacerWithFlex(flex: 5),
+        context.spacerWithFlex(flex: 3),
       ],
     );
   }
@@ -152,9 +154,9 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
   Widget _prayerTimesContainer(BuildContext context, PrayerTimesViewmodel viewModel) {
     return Row(
       children: [
-        context.spacerWithFlex(flex: 1),
+        context.spacerWithFlex(flex: 3),
         Expanded(
-          flex: 30,
+          flex: 94,
           child: Container(
             decoration: _prayerTimesContainerDecoration(),
             child: Column(
@@ -170,7 +172,7 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
             ),
           ),
         ),
-        context.spacerWithFlex(flex: 1),
+        context.spacerWithFlex(flex: 3),
       ],
     );
   }
