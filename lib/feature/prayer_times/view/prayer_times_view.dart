@@ -201,9 +201,10 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
             decoration: _ayahContainerDecoration(),
             child: Column(
               children: [
-                Expanded(flex: 25, child: _oneAyahText(context)),
-                Expanded(flex: 70, child: _ayahText(data)),
-                context.spacerWithFlex(flex: 5),
+                Expanded(flex: 20, child: _oneAyahText()),
+                const HorizontalAppDivider(),
+                Expanded(flex: 78, child: _ayahText(data)),
+                context.spacerWithFlex(flex: 2),
               ],
             ),
           ),
@@ -217,35 +218,35 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
   Widget _ayahText(Ayah data) {
     return Row(
       children: [
-        context.spacerWithFlex(flex: 5),
+        context.spacerWithFlex(flex: 2),
         Expanded(
-          flex: 90,
+          flex: 96,
           child: Text(
-            '" ${data.text} "',
+            data.text,
             style: GoogleFonts.roboto(
               textStyle: context.appTextTheme.headlineSmall?.copyWith(
                 color: context.themeData.colorScheme.onPrimary,
-                fontWeight: context.fontWeights.fwBold,
+                fontWeight: context.fontWeights.fw300,
                 overflow: TextOverflow.fade,
               ),
             ),
           ),
         ),
-        context.spacerWithFlex(flex: 5),
+        context.spacerWithFlex(flex: 2),
       ],
     );
   }
 
   /// One Ayah text
-  Widget _oneAyahText(BuildContext context) {
+  Widget _oneAyahText() {
     return Row(
       children: [
         context.spacerWithFlex(flex: 5),
         Expanded(
-          flex: 20,
+          flex: 55,
           child: FittedBox(
             child: Text(
-              'Bir Ayet:',
+              'Rastgele Bir Ayet',
               style: GoogleFonts.roboto(
                 textStyle: context.appTextTheme.headlineSmall?.copyWith(
                   color: context.themeData.colorScheme.onPrimary,
@@ -255,7 +256,8 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
             ),
           ),
         ),
-        context.spacerWithFlex(flex: 75),
+        context.spacerWithFlex(flex: 45),
+        Expanded(flex: 30, child: SvgPicture.asset('assets/svg/ayah.svg')),
       ],
     );
   }
@@ -425,6 +427,12 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
   BoxDecoration _prayerTimesContainerDecoration() => BoxDecoration(
         color: AppTheme.prayerContainerColor,
         borderRadius: context.circularBorderRadius(radius: 24),
+        boxShadow: [
+          BoxShadow(
+            color: context.themeData.colorScheme.primary,
+            blurRadius: 3,
+          ),
+        ],
       );
 
   /// Ayah container decoration
@@ -432,6 +440,12 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
     return BoxDecoration(
       color: context.themeData.colorScheme.primaryContainer,
       borderRadius: context.circularBorderRadius(radius: 24),
+      boxShadow: [
+        BoxShadow(
+          color: context.themeData.colorScheme.primaryContainer,
+          blurRadius: 3,
+        ),
+      ],
     );
   }
 
@@ -444,7 +458,7 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
       boxShadow: [
         BoxShadow(
           color: context.themeData.colorScheme.onSurface,
-          blurRadius: 6,
+          blurRadius: 3,
         ),
       ],
     );

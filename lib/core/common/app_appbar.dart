@@ -22,21 +22,17 @@ class _AppbarforappState extends State<Appbarforapp> {
     return AppBar(
       centerTitle: false,
       title: _appBarTitle(context),
-      actions: [
-        SizedBox(
-          height: 40,
-          width: 100,
-          child: Text(
-            DateFormat('dd.MM.yyyy').format(context.times.currentTime),
-            style: GoogleFonts.roboto(
-              textStyle: context.textStyles.bodyLarge?.copyWith(
-                color: context.themeData.colorScheme.primary,
-                fontWeight: context.fontWeights.fwBold,
-              ),
-            ),
-          ),
-        ),
-      ],
+      actions: [_settingsIconButton()],
+    );
+  }
+
+  Widget _settingsIconButton() {
+    return IconButton(
+      icon: Icon(
+        Icons.settings_outlined,
+        color: context.themeData.colorScheme.primary,
+      ),
+      onPressed: () {},
     );
   }
 
