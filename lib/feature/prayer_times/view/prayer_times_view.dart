@@ -238,7 +238,8 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
         children: [
           context.spacerWithFlex(flex: 5),
           Expanded(flex: 30, child: _firstThreeTimesRow(data)),
-          Expanded(flex: 30, child: _firstThreeTimesRow(data)),
+          context.spacerWithFlex(flex: 15),
+          Expanded(flex: 30, child: _lastThreeTimesRow(data)),
           context.spacerWithFlex(flex: 5),
         ],
       );
@@ -252,7 +253,7 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
           flex: 30,
           child: FittedBox(
             child: _specialTextForAllTimesTextColumn(
-              'İmsak: ${data.timings?.imsak}',
+              'İmsak\n${data.timings?.fajr}',
             ),
           ),
         ),
@@ -261,7 +262,7 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
           flex: 30,
           child: FittedBox(
             child: _specialTextForAllTimesTextColumn(
-              'Sabah: ${data.timings?.imsak}',
+              'Sabah\n${data.timings?.sunrise}',
             ),
           ),
         ),
@@ -270,7 +271,43 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
           flex: 30,
           child: FittedBox(
             child: _specialTextForAllTimesTextColumn(
-              'Öğle: ${data.timings?.imsak}',
+              'Öğle\n${data.timings?.dhuhr}',
+            ),
+          ),
+        ),
+        context.spacerWithFlex(flex: 5),
+      ],
+    );
+  }
+
+  /// Last three times row like (Ikindi, Aksam, Yatsi)
+  Widget _lastThreeTimesRow(PrayerApiData data) {
+    return Row(
+      children: [
+        context.spacerWithFlex(flex: 5),
+        Expanded(
+          flex: 30,
+          child: FittedBox(
+            child: _specialTextForAllTimesTextColumn(
+              'İkindi\n${data.timings?.asr}',
+            ),
+          ),
+        ),
+        context.spacerWithFlex(flex: 5),
+        Expanded(
+          flex: 30,
+          child: FittedBox(
+            child: _specialTextForAllTimesTextColumn(
+              'Akşam\n${data.timings?.maghrib}',
+            ),
+          ),
+        ),
+        context.spacerWithFlex(flex: 5),
+        Expanded(
+          flex: 30,
+          child: FittedBox(
+            child: _specialTextForAllTimesTextColumn(
+              'Yatsi\n${data.timings?.isha}',
             ),
           ),
         ),
@@ -286,6 +323,7 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
         style: GoogleFonts.roboto(
           textStyle: context.appTextTheme.bodyLarge?.copyWith(
             color: context.themeData.colorScheme.onPrimary,
+            fontWeight: context.fontWeights.fw500,
           ),
         ),
       );
