@@ -19,7 +19,7 @@ class _AppNavbarState extends State<AppNavbar> {
     return Theme(
       data: context.themeData.copyWith(
         bottomNavigationBarTheme: context.themeData.bottomNavigationBarTheme.copyWith(
-          selectedItemColor: context.themeData.colorScheme.secondary,
+          selectedItemColor: context.themeData.colorScheme.primary,
         ),
       ),
       child: BottomNavigationBar(
