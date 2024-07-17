@@ -4,7 +4,7 @@ import 'package:internship_project/core/router/app_router.dart';
 import 'package:internship_project/core/theme/app_theme.dart';
 
 Future<void> main() async {
-  ///
+  /// App initializer
   await AppInitializer.initialize();
 
   /// Running the app
@@ -21,7 +21,7 @@ class PrayerTime extends StatelessWidget {
   Widget build(BuildContext context) {
     /// MaterialApp
     return MaterialApp.router(
-      routerConfig: AppRouter.router,
+      routerConfig: AppRouter.router(isOnboardDone: true),
       debugShowCheckedModeBanner: false,
       title: 'Internship Project',
       theme: AppTheme.lightTheme,

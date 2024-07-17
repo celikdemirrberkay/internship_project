@@ -54,8 +54,8 @@ class RosaryViewModel extends BaseViewModel {
   Future<void> addDhikrToList(String value) async {
     /// Get dhikr list from local database
     final dbList = await db.get<List<String>>(
-      dbName: _DbServiceEnum.databaseService.name,
-      key: _DbServiceEnum.dhikrList.name,
+      dbName: _LocalDbServiceEnum.databaseService.name,
+      key: _LocalDbServiceEnum.dhikrList.name,
     );
 
     /// If db get operation success
@@ -65,8 +65,8 @@ class RosaryViewModel extends BaseViewModel {
 
       /// Set new dhikr list to local database
       final response = await db.set(
-        dbName: _DbServiceEnum.databaseService.name,
-        key: _DbServiceEnum.dhikrList.name,
+        dbName: _LocalDbServiceEnum.databaseService.name,
+        key: _LocalDbServiceEnum.dhikrList.name,
         value: dbList.right,
       );
 
@@ -87,8 +87,8 @@ class RosaryViewModel extends BaseViewModel {
   Future<List<String>> getDhikrList() async {
     /// Get dhikr list from local database
     final dbList = await db.get<List<String>>(
-      dbName: _DbServiceEnum.databaseService.name,
-      key: _DbServiceEnum.dhikrList.name,
+      dbName: _LocalDbServiceEnum.databaseService.name,
+      key: _LocalDbServiceEnum.dhikrList.name,
     );
 
     /// Return dhikr list
@@ -109,8 +109,8 @@ class RosaryViewModel extends BaseViewModel {
     // !!First get then remove then set!!
     /// Get dhikr list from local database
     final dhikrList = await db.get<List<String>>(
-      dbName: _DbServiceEnum.databaseService.name,
-      key: _DbServiceEnum.dhikrList.name,
+      dbName: _LocalDbServiceEnum.databaseService.name,
+      key: _LocalDbServiceEnum.dhikrList.name,
     );
 
     /// If db get operation success
@@ -120,8 +120,8 @@ class RosaryViewModel extends BaseViewModel {
 
       /// Set new dhikr list to local database
       await db.set(
-        dbName: _DbServiceEnum.databaseService.name,
-        key: _DbServiceEnum.dhikrList.name,
+        dbName: _LocalDbServiceEnum.databaseService.name,
+        key: _LocalDbServiceEnum.dhikrList.name,
         value: dhikrList.right,
       );
 
@@ -136,7 +136,7 @@ class RosaryViewModel extends BaseViewModel {
 }
 
 /// Database service enum
-enum _DbServiceEnum {
+enum _LocalDbServiceEnum {
   /// Database service
   databaseService,
 
