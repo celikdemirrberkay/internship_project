@@ -1,7 +1,7 @@
 import 'package:dart_vader/dart_vader.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:internship_project/core/theme/app_theme.dart';
 import 'package:lottie/lottie.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -15,13 +15,18 @@ class OnboardView extends StatefulWidget {
 }
 
 class _OnboardViewState extends State<OnboardView> {
-  late PageController _controller;
-  ValueNotifier<int> _pageIndex = ValueNotifier<int>(0);
+  /// Page controller
+  final PageController _controller = PageController();
+
+  /// Page index
+  final ValueNotifier<double> _pageIndex = ValueNotifier(0);
 
   @override
   void initState() {
     super.initState();
-    _controller = PageController();
+    _controller.addListener(() {
+      _pageIndex.value = _controller.page?.roundToDouble() ?? 0;
+    });
   }
 
   @override
@@ -41,29 +46,6 @@ class _OnboardViewState extends State<OnboardView> {
       ),
     );
   }
-
-  ///
-  Widget _bottomBar() => ValueListenableBuilder(
-        valueListenable: _pageIndex,
-        builder: (context, value, child) => SizedBox.expand(
-          child: ColoredBox(
-            color: value == 0
-                ? Colors.purple.shade900
-                : value == 1
-                    ? Colors.cyan.shade500
-                    : context.themeData.colorScheme.onSecondary,
-            child: SizedBox.expand(
-              child: Row(
-                children: [
-                  Expanded(child: _backButton()),
-                  Expanded(child: _smoothPageIndicator()),
-                  Expanded(child: _forwardButton()),
-                ],
-              ),
-            ),
-          ),
-        ),
-      );
 
   /// Page view builder
   Widget _pageViewBuilder() {
@@ -85,6 +67,29 @@ class _OnboardViewState extends State<OnboardView> {
       ],
     );
   }
+
+  ///
+  Widget _bottomBar() => ValueListenableBuilder(
+        valueListenable: _pageIndex,
+        builder: (context, value, child) => SizedBox.expand(
+          child: ColoredBox(
+            color: _pageIndex.value == 0
+                ? const Color(0xFF723d5e)
+                : _pageIndex.value == 1
+                    ? const Color(0xFF05aebd)
+                    : const Color(0xFF282828),
+            child: SizedBox.expand(
+              child: Row(
+                children: [
+                  Expanded(child: _backButton()),
+                  Expanded(child: _smoothPageIndicator()),
+                  Expanded(child: _forwardButton()),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
 
   /// Onboard specific container
   Widget _onboardContainer({required String lottiePath, required String text}) {
@@ -136,20 +141,39 @@ class _OnboardViewState extends State<OnboardView> {
 
   /// Forward button
   Widget _forwardButton() {
-    return IconButton(
-      icon: const Icon(Icons.arrow_forward_ios),
-      color: context.themeData.colorScheme.onPrimary,
-      onPressed: () {
-        if (_controller.page == 2) {
-        } else {
-          _controller.nextPage(
-            duration: const Duration(milliseconds: 500),
-            curve: Curves.easeInOut,
-          );
-        }
-      },
+    return ValueListenableBuilder(
+      valueListenable: _pageIndex,
+      builder: (context, value, child) => IconButton(
+        icon: _pageIndex.value == 2
+            ? _startButton()
+            : const Icon(
+                Icons.arrow_forward_ios,
+              ),
+        color: context.themeData.colorScheme.onPrimary,
+        onPressed: () {
+          if (_pageIndex.value == 2) {
+            context.pushReplacementNamed('main');
+          } else {
+            _controller.nextPage(
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.easeInOut,
+            );
+          }
+        },
+      ),
     );
   }
+
+  Widget _startButton() => FittedBox(
+        child: Text(
+          'Başla',
+          style: GoogleFonts.roboto(
+            textStyle: context.appTextTheme.headlineMedium,
+            color: context.themeData.colorScheme.onPrimary,
+            fontWeight: context.fontWeights.fw500,
+          ),
+        ),
+      );
 
   /// Back button
   Widget _backButton() {

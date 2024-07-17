@@ -21,7 +21,7 @@ class PrayerTime extends StatelessWidget {
   Widget build(BuildContext context) {
     /// MaterialApp
     return MaterialApp.router(
-      routerConfig: AppRouter.router(isOnboardDone: true),
+      routerConfig: AppRouter.router(isOnboardDone: false),
       debugShowCheckedModeBanner: false,
       title: 'Internship Project',
       theme: AppTheme.lightTheme,

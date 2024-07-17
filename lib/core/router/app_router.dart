@@ -10,17 +10,19 @@ import 'package:internship_project/feature/rosary/view/rosary_view.dart';
 class AppRouter {
   /// GoRouter instance
   static GoRouter router({required bool isOnboardDone}) => GoRouter(
-        initialLocation: isOnboardDone ? '/OnboardView' : '/OnboardView',
+        initialLocation: isOnboardDone ? '/MainView' : '/OnboardView',
         routes: [
           /// Main route
           GoRoute(
             path: '/MainView',
+            name: 'main',
             pageBuilder: (context, state) => const MaterialPage(child: MainView()),
           ),
 
           /// Onboard route
           GoRoute(
             path: '/OnboardView',
+            name: 'onboard',
             pageBuilder: (context, state) => const MaterialPage(child: OnboardView()),
           ),
         ],
