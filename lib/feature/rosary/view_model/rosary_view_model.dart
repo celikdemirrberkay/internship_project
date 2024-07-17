@@ -30,12 +30,7 @@ class RosaryViewModel extends BaseViewModel {
 
   /// Dhikr list
   /// It's a static list for default dhikr values
-  ValueNotifier<List<String>> dhikrStringList = ValueNotifier([
-    'Subhanallah',
-    'Elhamdulillah',
-    'Allahu ekber',
-    'La ilahe illallah',
-  ]);
+  ValueNotifier<List<String>> dhikrStringList = ValueNotifier([]);
 
   /// -------------------------------------------------------------
   /// Increase rosary count
@@ -71,6 +66,7 @@ class RosaryViewModel extends BaseViewModel {
       );
 
       /// Add dhikr to static list and update ui for listeners
+      dhikrStringList.value.clear();
       dhikrStringList.value.addAll(dbList.right);
       notifyListeners();
 
