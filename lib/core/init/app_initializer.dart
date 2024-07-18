@@ -12,6 +12,7 @@ class AppInitializer {
     /// Initialize Hive DB
     await Hive.initFlutter();
 
+    /// Setting up dependencies
     await _setFirstTimeDhikr();
   }
 
@@ -28,5 +29,24 @@ class AppInitializer {
         'La ilahe illallah',
       ],
     );
+  }
+
+  /// Is onboard done check method
+  static Future<bool> isOnboardDone() async {
+    /// Onboard situation
+    final db = locator<LocalDatabaseService>();
+    final isOnboardDone = await db.get<bool?>(
+      dbName: 'onboardService',
+      key: 'isOnboardDone',
+    );
+
+    /// If onboard is not done
+    /// Or there is an error from db
+    /// Return false
+    if (isOnboardDone.isLeft) {
+      return false;
+    } else {
+      return isOnboardDone.right ?? false;
+    }
   }
 }
