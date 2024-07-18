@@ -74,7 +74,7 @@ class _RosaryViewState extends State<RosaryView> {
         scrollDirection: Axis.horizontal,
         itemCount: viewModel.dhikrStringList.value.length,
         itemBuilder: (context, index) => FittedBox(
-          child: AppChips(
+          child: _AppChips(
             text: viewModel.dhikrStringList.value[index],
             onLongPress: () => viewModel.removeDhikrFromList(
               viewModel.dhikrStringList.value[index],
@@ -102,7 +102,7 @@ class _RosaryViewState extends State<RosaryView> {
       useSafeArea: true,
       isScrollControlled: true,
       context: context,
-      builder: (context) => CustomBottomSheet(
+      builder: (context) => _CustomBottomSheet(
         dhikrInputController: viewModel.dhikrInputController,
         onAddPressed: () async => _onAddPressedMethod(viewModel),
       ),
