@@ -1,24 +1,31 @@
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:internship_project/core/exception/exception_message.dart';
+import 'package:internship_project/repositories/local/hive/db_service.dart';
 import 'package:stacked/stacked.dart';
 
 /// Onboard view model
 class OnboardViewModel extends BaseViewModel {
-  /// Page index
-  int _pageIndex = 0;
-  int get pageIndex => _pageIndex;
+  ///
+  OnboardViewModel(this.localDatabaseService);
 
-  /// Increment page index
-  void incrementPageIndex() {
-    if (_pageIndex != 2) {
-      _pageIndex++;
-    }
-    notifyListeners();
-  }
+  /// Local database service instance
+  final LocalDatabaseService localDatabaseService;
 
-  /// Decrement page index
-  void decrementPageIndex() {
-    if (_pageIndex != 0) {
-      _pageIndex--;
+  /// Set onboard done
+  Future<void> setOnboardDone() async {
+    /// Set onboard done to local database
+    final response = await localDatabaseService.set<bool>(
+      dbName: 'onboardService',
+      key: 'isOnboardDone',
+      value: true,
+    );
+    if (response.isLeft) {
+      print(response.left);
     }
-    notifyListeners();
+
+    /// If set operation success
+    if (response.isLeft) {
+      await Fluttertoast.showToast(msg: ExceptionMessage.errorOccured.message);
+    }
   }
 }

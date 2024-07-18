@@ -1,9 +1,14 @@
+import 'dart:async';
+
 import 'package:dart_vader/dart_vader.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:internship_project/core/config/dependency_injection/dependency_container.dart';
+import 'package:internship_project/feature/onboard/view_model/onboard_view_model.dart';
 import 'package:lottie/lottie.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:stacked/stacked.dart';
 
 /// Onboard view
 class OnboardView extends StatefulWidget {
@@ -141,27 +146,33 @@ class _OnboardViewState extends State<OnboardView> {
 
   /// Forward button
   Widget _forwardButton() {
-    return ValueListenableBuilder(
-      valueListenable: _pageIndex,
-      builder: (context, value, child) => IconButton(
-        icon: _pageIndex.value == 2
-            ? _startButton()
-            : const Icon(
-                Icons.arrow_forward_ios,
-              ),
-        color: context.themeData.colorScheme.onPrimary,
-        onPressed: () {
-          if (_pageIndex.value == 2) {
-            context.pushReplacementNamed('main');
-          } else {
-            _controller.nextPage(
-              duration: const Duration(milliseconds: 500),
-              curve: Curves.easeInOut,
-            );
-          }
-        },
+    return ViewModelBuilder.nonReactive(
+      viewModelBuilder: () => OnboardViewModel(locator()),
+      builder: (context, viewModel, child) => ValueListenableBuilder(
+        valueListenable: _pageIndex,
+        builder: (context, value, child) => IconButton(
+          icon: _pageIndex.value == 2 ? _startButton() : const Icon(Icons.arrow_forward_ios),
+          color: context.themeData.colorScheme.onPrimary,
+          onPressed: () async {
+            await _forwardButtonOnPressed(viewModel);
+          },
+        ),
       ),
     );
+  }
+
+  /// Forward button onPressed
+  Future<void> _forwardButtonOnPressed(OnboardViewModel viewModel) async {
+    if (_pageIndex.value == 2) {
+      await viewModel.setOnboardDone();
+      if (!mounted) return;
+      context.pushReplacementNamed('main');
+    } else {
+      await _controller.nextPage(
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      );
+    }
   }
 
   Widget _startButton() => FittedBox(

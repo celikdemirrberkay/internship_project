@@ -2,9 +2,9 @@ part of '../view/rosary_view.dart';
 
 /// Chip widget for rosary view
 @immutable
-final class AppChips extends StatefulWidget {
+final class _AppChips extends StatefulWidget {
   ///
-  AppChips({
+  _AppChips({
     required this.text,
     this.onLongPress,
     super.key,
@@ -20,10 +20,10 @@ final class AppChips extends StatefulWidget {
   void Function()? onLongPress;
 
   @override
-  State<AppChips> createState() => _AppChipsState();
+  State<_AppChips> createState() => _AppChipsState();
 }
 
-class _AppChipsState extends State<AppChips> {
+class _AppChipsState extends State<_AppChips> {
   @override
   Widget build(BuildContext context) {
     return Padding(

@@ -1,9 +1,9 @@
 part of '../view/rosary_view.dart';
 
 /// Custom alert dialog for add dhikr
-class CustomBottomSheet extends StatefulWidget {
+class _CustomBottomSheet extends StatefulWidget {
   ///
-  const CustomBottomSheet({
+  const _CustomBottomSheet({
     required this.dhikrInputController,
     super.key,
     this.onAddPressed,
@@ -16,10 +16,10 @@ class CustomBottomSheet extends StatefulWidget {
   final TextEditingController dhikrInputController;
 
   @override
-  State<CustomBottomSheet> createState() => _CustomBottomSheetState();
+  State<_CustomBottomSheet> createState() => _CustomBottomSheetState();
 }
 
-class _CustomBottomSheetState extends State<CustomBottomSheet> {
+class _CustomBottomSheetState extends State<_CustomBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -75,7 +75,7 @@ class _CustomBottomSheetState extends State<CustomBottomSheet> {
               text: 'Ekle',
               color: context.themeData.colorScheme.primary,
               onPressed: widget.onAddPressed,
-              textColor: context.themeData.colorScheme.onSecondary,
+              textColor: context.themeData.colorScheme.secondary,
             ),
           ),
         ),
