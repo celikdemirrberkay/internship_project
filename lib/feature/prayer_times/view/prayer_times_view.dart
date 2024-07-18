@@ -223,6 +223,7 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
           flex: 96,
           child: Text(
             data.text,
+            textDirection: TextDirection.rtl,
             style: GoogleFonts.roboto(
               textStyle: context.appTextTheme.headlineSmall?.copyWith(
                 color: context.themeData.colorScheme.onPrimary,

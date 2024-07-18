@@ -30,12 +30,7 @@ class RosaryViewModel extends BaseViewModel {
 
   /// Dhikr list
   /// It's a static list for default dhikr values
-  ValueNotifier<List<String>> dhikrStringList = ValueNotifier([
-    'Subhanallah',
-    'Elhamdulillah',
-    'Allahu ekber',
-    'La ilahe illallah',
-  ]);
+  ValueNotifier<List<String>> dhikrStringList = ValueNotifier([]);
 
   /// -------------------------------------------------------------
   /// Increase rosary count
@@ -54,8 +49,8 @@ class RosaryViewModel extends BaseViewModel {
   Future<void> addDhikrToList(String value) async {
     /// Get dhikr list from local database
     final dbList = await db.get<List<String>>(
-      dbName: _DbServiceEnum.databaseService.name,
-      key: _DbServiceEnum.dhikrList.name,
+      dbName: _LocalDbServiceEnum.databaseService.name,
+      key: _LocalDbServiceEnum.dhikrList.name,
     );
 
     /// If db get operation success
@@ -65,12 +60,13 @@ class RosaryViewModel extends BaseViewModel {
 
       /// Set new dhikr list to local database
       final response = await db.set(
-        dbName: _DbServiceEnum.databaseService.name,
-        key: _DbServiceEnum.dhikrList.name,
+        dbName: _LocalDbServiceEnum.databaseService.name,
+        key: _LocalDbServiceEnum.dhikrList.name,
         value: dbList.right,
       );
 
       /// Add dhikr to static list and update ui for listeners
+      dhikrStringList.value.clear();
       dhikrStringList.value.addAll(dbList.right);
       notifyListeners();
 
@@ -87,8 +83,8 @@ class RosaryViewModel extends BaseViewModel {
   Future<List<String>> getDhikrList() async {
     /// Get dhikr list from local database
     final dbList = await db.get<List<String>>(
-      dbName: _DbServiceEnum.databaseService.name,
-      key: _DbServiceEnum.dhikrList.name,
+      dbName: _LocalDbServiceEnum.databaseService.name,
+      key: _LocalDbServiceEnum.dhikrList.name,
     );
 
     /// Return dhikr list
@@ -109,8 +105,8 @@ class RosaryViewModel extends BaseViewModel {
     // !!First get then remove then set!!
     /// Get dhikr list from local database
     final dhikrList = await db.get<List<String>>(
-      dbName: _DbServiceEnum.databaseService.name,
-      key: _DbServiceEnum.dhikrList.name,
+      dbName: _LocalDbServiceEnum.databaseService.name,
+      key: _LocalDbServiceEnum.dhikrList.name,
     );
 
     /// If db get operation success
@@ -120,8 +116,8 @@ class RosaryViewModel extends BaseViewModel {
 
       /// Set new dhikr list to local database
       await db.set(
-        dbName: _DbServiceEnum.databaseService.name,
-        key: _DbServiceEnum.dhikrList.name,
+        dbName: _LocalDbServiceEnum.databaseService.name,
+        key: _LocalDbServiceEnum.dhikrList.name,
         value: dhikrList.right,
       );
 
@@ -136,7 +132,7 @@ class RosaryViewModel extends BaseViewModel {
 }
 
 /// Database service enum
-enum _DbServiceEnum {
+enum _LocalDbServiceEnum {
   /// Database service
   databaseService,
 
