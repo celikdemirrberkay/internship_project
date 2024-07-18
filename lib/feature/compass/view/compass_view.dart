@@ -12,7 +12,7 @@ class _CompassViewState extends State<CompassView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(child: Text('data')),
+      body: SafeArea(child: Text('')),
     );
   }
 }
