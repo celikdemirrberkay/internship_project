@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:either_dart/either.dart';
 import 'package:flutter/material.dart';
 import 'package:internship_project/core/exception/exception_message.dart';
-import 'package:internship_project/repositories/model/god_names.dart';
+import 'package:internship_project/model/god_names.dart';
 
 /// Service for the God Names and meanings
 class GodNamesService {

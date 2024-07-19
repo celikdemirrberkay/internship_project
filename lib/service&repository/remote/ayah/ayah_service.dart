@@ -4,8 +4,8 @@ import 'package:dio/dio.dart';
 import 'package:either_dart/src/either.dart';
 import 'package:internship_project/core/config/env_variables/development_env.dart';
 import 'package:internship_project/core/exception/exception_message.dart';
-import 'package:internship_project/repositories/model/ayah.dart';
-import 'package:internship_project/repositories/remote/ayah/ayah_service_interface.dart';
+import 'package:internship_project/model/ayah.dart';
+import 'package:internship_project/service&repository/remote/ayah/ayah_service_interface.dart';
 
 /// AyahService class is responsible for fetching data from the remote server.
 class AyahService extends IAyahServiceInterface {

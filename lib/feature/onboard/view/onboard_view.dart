@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:internship_project/core/config/dependency_injection/dependency_container.dart';
 import 'package:internship_project/feature/onboard/view_model/onboard_view_model.dart';
+import 'package:internship_project/service&repository/permission/permission_manager.dart';
 import 'package:lottie/lottie.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:stacked/stacked.dart';
@@ -20,6 +21,12 @@ class OnboardView extends StatefulWidget {
 }
 
 class _OnboardViewState extends State<OnboardView> {
+  /// Did dependecies change
+  @override
+  Future<void> didChangeDependencies() async {
+    super.didChangeDependencies();
+  }
+
   /// Page controller
   final PageController _controller = PageController();
 
@@ -147,7 +154,9 @@ class _OnboardViewState extends State<OnboardView> {
   /// Forward button
   Widget _forwardButton() {
     return ViewModelBuilder.nonReactive(
-      viewModelBuilder: () => OnboardViewModel(locator()),
+      viewModelBuilder: () => OnboardViewModel(
+        locator(),
+      ),
       builder: (context, viewModel, child) => ValueListenableBuilder(
         valueListenable: _pageIndex,
         builder: (context, value, child) => IconButton(
