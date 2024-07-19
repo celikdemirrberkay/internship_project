@@ -4,6 +4,8 @@ import 'package:internship_project/core/router/app_router.dart';
 import 'package:internship_project/core/theme/app_theme.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   /// Initialize the app
   await AppInitializer.initialize();
 

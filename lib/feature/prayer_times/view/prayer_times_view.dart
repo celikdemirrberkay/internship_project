@@ -1,16 +1,17 @@
 import 'package:dart_vader/dart_vader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:internship_project/core/common/app_horizontal_divider.dart';
 import 'package:internship_project/core/common/exception_widget.dart';
 import 'package:internship_project/core/common/loading_widget.dart';
 import 'package:internship_project/core/config/dependency_injection/dependency_container.dart';
 import 'package:internship_project/core/exception/exception_message.dart';
-import 'package:internship_project/core/theme/app_theme.dart';
 import 'package:internship_project/feature/prayer_times/view_model/prayer_times_viewmodel.dart';
-import 'package:internship_project/repositories/model/ayah.dart';
-import 'package:internship_project/repositories/model/times_response.dart';
+import 'package:internship_project/model/ayah.dart';
+import 'package:internship_project/model/times_response.dart';
+import 'package:internship_project/service&repository/remote/location/location_service.dart';
 import 'package:lottie/lottie.dart';
 import 'package:one_clock/one_clock.dart';
 import 'package:stacked/stacked.dart';
@@ -66,6 +67,7 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
           locator(),
           locator(),
           locator(),
+          locator(),
           context,
         ),
         builder: (context, viewModel, child) => viewModel.isGodNameLoading == true
@@ -88,8 +90,8 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
               child: Column(
                 children: [
                   context.spacerWithFlex(flex: 10),
-                  Expanded(flex: 20, child: _godNameTextWidget(viewModel, context)),
-                  Expanded(flex: 10, child: _godNameMeaningTextWidget(viewModel, context)),
+                  Expanded(flex: 40, child: _godNameTextWidget(viewModel, context)),
+                  Expanded(flex: 40, child: _godNameMeaningTextWidget(viewModel, context)),
                   context.spacerWithFlex(flex: 10),
                 ],
               ),
@@ -119,6 +121,7 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
     return FittedBox(
       child: Text(
         viewModel.godNames.right[viewModel.randomInt].name,
+        textAlign: context.textAlignCenter,
         style: GoogleFonts.cookie(
           textStyle: context.appTextTheme.bodyLarge?.copyWith(
             color: context.themeData.colorScheme.secondary,
@@ -133,6 +136,7 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
   Widget _prayerTimesContainerBuilder() {
     return ViewModelBuilder.reactive(
       viewModelBuilder: () => PrayerTimesViewmodel(
+        locator(),
         locator(),
         locator(),
         locator(),
@@ -177,6 +181,7 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
   Widget _ayahContainerBuilder() {
     return ViewModelBuilder.reactive(
       viewModelBuilder: () => PrayerTimesViewmodel(
+        locator(),
         locator(),
         locator(),
         locator(),
@@ -278,7 +283,7 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
           Expanded(
             flex: 30,
             child: Text(
-              'Istanbul',
+              LocationService.cityName,
               style: GoogleFonts.roboto(
                 textStyle: context.appTextTheme.bodyLarge?.copyWith(
                   color: context.themeData.colorScheme.onPrimary,
