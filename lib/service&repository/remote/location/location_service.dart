@@ -66,7 +66,7 @@ class LocationService extends ILocationService {
       );
       return Right(position);
     } catch (e) {
-      return Left(ExceptionMessage.errorOccured.message);
+      return Left(e.toString());
     }
   }
 }

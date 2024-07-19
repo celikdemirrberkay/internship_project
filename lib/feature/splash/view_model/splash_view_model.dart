@@ -13,9 +13,8 @@ class SplashViewModel extends BaseViewModel {
   final LocationService locationService;
 
   /// Request and check permission for location
-  Future<bool> requestAndCheckPermissionForLocation() async {
-    final permissionStatus = await PermissionManager.requestPermissionForLocation();
-    return permissionStatus;
+  Future<void> requestAndCheckPermissionForLocation() async {
+    await PermissionManager.requestPermissionForLocation();
   }
 
   /// Set city and country name
@@ -24,7 +23,7 @@ class SplashViewModel extends BaseViewModel {
     final country = await locationService.getCountryName();
 
     if (city.isLeft || country.isLeft) {
-      await Fluttertoast.showToast(msg: ExceptionMessage.errorOccured.message);
+      await Fluttertoast.showToast(msg: ExceptionMessage.accessDeniedForeverForLocation.message);
     } else {
       LocationService.cityName = city.right == '' ? 'İstanbul' : city.right;
       LocationService.countryName = country.right == '' ? 'Turkey' : country.right;

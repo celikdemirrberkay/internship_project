@@ -31,7 +31,7 @@ class PermissionManager {
         await Fluttertoast.showToast(msg: ExceptionMessage.accessDeniedForLocation.message);
         return false;
       case LocationPermission.deniedForever:
-        await Fluttertoast.showToast(msg: ExceptionMessage.accessDeniedForLocation.message);
+        await Fluttertoast.showToast(msg: ExceptionMessage.accessDeniedForeverForLocation.message);
         return false;
       case LocationPermission.whileInUse:
         return true;
