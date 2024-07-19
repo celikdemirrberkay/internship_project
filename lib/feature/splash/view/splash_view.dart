@@ -4,10 +4,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:internship_project/core/common/loading_widget.dart';
+import 'package:internship_project/core/config/dependency_injection/dependency_container.dart';
 import 'package:internship_project/core/constants/app_constants.dart';
 import 'package:internship_project/core/init/app_initializer.dart';
 import 'package:internship_project/feature/splash/view_model/splash_view_model.dart';
-import 'package:stacked/stacked.dart';
 
 /// Splash View
 class SplashView extends StatefulWidget {
@@ -19,6 +19,15 @@ class SplashView extends StatefulWidget {
 }
 
 class _SplashViewState extends State<SplashView> {
+  ///
+  late final SplashViewModel _viewModel;
+
+  @override
+  void initState() {
+    super.initState();
+    _viewModel = SplashViewModel(locator());
+  }
+
   @override
   Future<void> didChangeDependencies() async {
     super.didChangeDependencies();
@@ -26,8 +35,11 @@ class _SplashViewState extends State<SplashView> {
     /// Check if onboard is done
     final onboardSituation = await AppInitializer.isOnboardDone();
 
-    // ignore: inference_failure_on_instance_creation
-    await Future.delayed(const Duration(seconds: 2));
+    /// Request location permission
+    await _viewModel.requestAndCheckPermissionForLocation();
+
+    /// Set city and country name for prayer times request
+    await _viewModel.setCityAndCountryName();
 
     // Check if the widget is still mounted before navigating
     if (!mounted) return;
@@ -61,22 +73,19 @@ class _SplashViewState extends State<SplashView> {
   }
 
   /// Splash loading widget
-  Widget _splashLoading() => ViewModelBuilder.reactive(
-        viewModelBuilder: SplashViewModel.new,
-        builder: (context, viewModel, child) => Row(
-          children: [
-            context.spacerWithFlex(flex: 40),
-            Expanded(
-              flex: 20,
-              child: FittedBox(
-                child: LoadingWidget(
-                  color: context.themeData.colorScheme.primary,
-                ),
+  Widget _splashLoading() => Row(
+        children: [
+          context.spacerWithFlex(flex: 40),
+          Expanded(
+            flex: 20,
+            child: FittedBox(
+              child: LoadingWidget(
+                color: context.themeData.colorScheme.primary,
               ),
             ),
-            context.spacerWithFlex(flex: 40),
-          ],
-        ),
+          ),
+          context.spacerWithFlex(flex: 40),
+        ],
       );
 
   /// Splash text

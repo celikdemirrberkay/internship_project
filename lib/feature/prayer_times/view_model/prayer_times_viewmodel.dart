@@ -2,12 +2,13 @@ import 'dart:math';
 import 'package:either_dart/either.dart';
 import 'package:flutter/material.dart';
 import 'package:internship_project/core/exception/exception_message.dart';
-import 'package:internship_project/repositories/local/god_names/god_names_service.dart';
-import 'package:internship_project/repositories/model/ayah.dart';
-import 'package:internship_project/repositories/model/god_names.dart';
-import 'package:internship_project/repositories/model/times_response.dart';
-import 'package:internship_project/repositories/remote/ayah/ayah_service.dart';
-import 'package:internship_project/repositories/remote/prayer_times/prayer_times_service.dart';
+import 'package:internship_project/service&repository/local/god_names/god_names_service.dart';
+import 'package:internship_project/model/ayah.dart';
+import 'package:internship_project/model/god_names.dart';
+import 'package:internship_project/model/times_response.dart';
+import 'package:internship_project/service&repository/remote/ayah/ayah_service.dart';
+import 'package:internship_project/service&repository/remote/location/location_service.dart';
+import 'package:internship_project/service&repository/remote/prayer_times/prayer_times_service.dart';
 import 'package:stacked/stacked.dart';
 
 ///
@@ -17,41 +18,63 @@ class PrayerTimesViewmodel extends BaseViewModel {
     this._prayerTimesService,
     this._godNamesService,
     this._ayahService,
+    this._locationService,
     this._context,
   ) {
-    /// Fetching data from the API's beginning
-    getPrayerTimes('istanbul', 'Turkey');
     getSpecificAyah();
     randomGodNameAndMeaning(_context);
+
+    /// Fetching data from the API's beginning
+    /// First, we get the city name then the country name
+    /// Then we fetch the prayer times with country and city name we got
+
+    getPrayerTimes(
+      city: LocationService.cityName,
+      country: LocationService.countryName,
+    );
   }
 
+  /// --------------------------------------------------------------------------
   /// The service where we fetch prayer times
   final PrayerTimesService _prayerTimesService;
 
+  /// --------------------------------------------------------------------------
   /// The service where we fetch god names
   final GodNamesService _godNamesService;
 
+  /// --------------------------------------------------------------------------
   /// The service where we fetch specific Ayah
   final AyahService _ayahService;
 
+  /// --------------------------------------------------------------------------
+  /// The service where we fetch location
+  final LocationService _locationService;
+
+  /// --------------------------------------------------------------------------
   /// BuildContext
+  /// Required for fetching data from json file
   final BuildContext _context;
 
+  /// --------------------------------------------------------------------------
   /// Prayer times
   Either<String, PrayerApiData> _datas = Left(ExceptionMessage.errorOccured.message);
   Either<String, PrayerApiData> get datas => _datas;
 
+  /// --------------------------------------------------------------------------
   /// God names
   Either<String, List<GodNames>> _godNames = Left(ExceptionMessage.errorOccured.message);
   Either<String, List<GodNames>> get godNames => _godNames;
 
+  /// --------------------------------------------------------------------------
   /// Ayah
   Either<String, Ayah> _ayah = Left(ExceptionMessage.errorOccured.message);
   Either<String, Ayah> get ayah => _ayah;
 
+  /// --------------------------------------------------------------------------
   /// Random integer for random god name
   int randomInt = Random().nextInt(99);
 
+  /// --------------------------------------------------------------------------
   /// Booleans for loading states
   bool isGodNameLoading = false;
   bool isPrayerTimesLoading = false;
@@ -59,10 +82,10 @@ class PrayerTimesViewmodel extends BaseViewModel {
 
   /// --------------------------------------------------------------------------
   /// Get prayer times
-  Future<void> getPrayerTimes(
-    String city,
-    String country,
-  ) async {
+  Future<void> getPrayerTimes({
+    required String city,
+    required String country,
+  }) async {
     /// Set isPrayerTimesLoaded state as true
     isPrayerTimesLoading = true;
     notifyListeners();
