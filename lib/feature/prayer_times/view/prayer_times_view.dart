@@ -112,7 +112,7 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
         overflow: TextOverflow.fade,
         style: GoogleFonts.roboto(
           textStyle: context.appTextTheme.headlineSmall?.copyWith(
-            color: context.themeData.colorScheme.primary,
+            color: context.themeData.colorScheme.primaryContainer,
             fontWeight: context.fontWeights.fw400,
           ),
         ),

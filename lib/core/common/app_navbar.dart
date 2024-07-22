@@ -21,25 +21,28 @@ class _AppNavbarState extends State<AppNavbar> {
     return ClipRRect(
       borderRadius: context.circularBorderRadius(radius: 24),
       child: BottomNavigationBar(
+        elevation: 10,
         showUnselectedLabels: true,
         type: BottomNavigationBarType.shifting,
+        selectedItemColor: context.themeData.colorScheme.primaryContainer,
+        unselectedItemColor: context.themeData.colorScheme.onSecondary,
+        selectedLabelStyle: GoogleFonts.roboto(fontWeight: context.fontWeights.fwBold),
         currentIndex: AppRouter.initialIndex.value,
         onTap: (value) => setState(() => AppRouter.initialIndex.value = value),
-        selectedItemColor: context.themeData.colorScheme.onPrimary,
-        selectedLabelStyle: GoogleFonts.roboto(
-          fontWeight: context.fontWeights.fwBold,
-        ),
         items: [
           BottomNavigationBarItem(
-            backgroundColor: context.themeData.colorScheme.primary,
+            backgroundColor: context.themeData.colorScheme.onPrimary,
             tooltip: 'Namaz Vakitleri',
             label: 'Namaz Vakitleri',
             icon: Container(
               width: 45,
               height: 45,
               decoration: BoxDecoration(
-                color: context.themeData.colorScheme.onPrimary,
+                color: AppRouter.initialIndex.value == 0 ? context.themeData.colorScheme.onPrimary : context.themeData.colorScheme.onSurface,
                 borderRadius: context.circularBorderRadius(radius: 24),
+                border: Border.all(
+                  color: AppRouter.initialIndex.value == 0 ? context.themeData.colorScheme.primary : context.themeData.colorScheme.secondary,
+                ),
               ),
               child: Padding(
                 padding: const EdgeInsets.all(8),
@@ -50,12 +53,19 @@ class _AppNavbarState extends State<AppNavbar> {
             ),
           ),
           BottomNavigationBarItem(
-            backgroundColor: context.themeData.colorScheme.primary,
+            backgroundColor: context.themeData.colorScheme.onPrimary,
             tooltip: 'Zikirmatik',
             label: 'Zikirmatik',
-            icon: SizedBox(
+            icon: Container(
               width: 45,
               height: 45,
+              decoration: BoxDecoration(
+                color: AppRouter.initialIndex.value == 1 ? context.themeData.colorScheme.onPrimary : context.themeData.colorScheme.onSurface,
+                borderRadius: context.circularBorderRadius(radius: 24),
+                border: Border.all(
+                  color: AppRouter.initialIndex.value == 1 ? context.themeData.colorScheme.primary : context.themeData.colorScheme.secondary,
+                ),
+              ),
               child: Padding(
                 padding: const EdgeInsets.all(8),
                 child: SvgPicture.asset(
@@ -65,12 +75,19 @@ class _AppNavbarState extends State<AppNavbar> {
             ),
           ),
           BottomNavigationBarItem(
-            backgroundColor: context.themeData.colorScheme.primary,
+            backgroundColor: context.themeData.colorScheme.onPrimary,
             tooltip: 'Kıble Yönü',
             label: 'Kıble Yönü',
-            icon: SizedBox(
+            icon: Container(
               width: 45,
               height: 45,
+              decoration: BoxDecoration(
+                color: AppRouter.initialIndex.value == 2 ? context.themeData.colorScheme.onPrimary : context.themeData.colorScheme.onSurface,
+                borderRadius: context.circularBorderRadius(radius: 24),
+                border: Border.all(
+                  color: AppRouter.initialIndex.value == 2 ? context.themeData.colorScheme.primary : context.themeData.colorScheme.secondary,
+                ),
+              ),
               child: Padding(
                 padding: const EdgeInsets.all(8),
                 child: SvgPicture.asset(
