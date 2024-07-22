@@ -1,6 +1,7 @@
 import 'package:dart_vader/dart_vader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:internship_project/core/router/app_router.dart';
 import 'package:internship_project/core/theme/app_theme.dart';
 
@@ -17,42 +18,66 @@ final class AppNavbar extends StatefulWidget {
 class _AppNavbarState extends State<AppNavbar> {
   @override
   Widget build(BuildContext context) {
-    return Theme(
-      data: context.themeData.copyWith(
-        bottomNavigationBarTheme: context.themeData.bottomNavigationBarTheme.copyWith(
-          selectedItemColor: AppTheme.bottomNavbarTextColor,
-        ),
-      ),
+    return ClipRRect(
+      borderRadius: context.circularBorderRadius(radius: 24),
       child: BottomNavigationBar(
+        showUnselectedLabels: true,
         type: BottomNavigationBarType.shifting,
-        elevation: 100,
         currentIndex: AppRouter.initialIndex.value,
         onTap: (value) => setState(() => AppRouter.initialIndex.value = value),
-        showUnselectedLabels: false,
+        selectedItemColor: context.themeData.colorScheme.onPrimary,
+        selectedLabelStyle: GoogleFonts.roboto(
+          fontWeight: context.fontWeights.fwBold,
+        ),
         items: [
           BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              'assets/svg/namaz.svg',
-              width: 30,
-              height: 30,
-            ),
+            backgroundColor: context.themeData.colorScheme.primary,
+            tooltip: 'Namaz Vakitleri',
             label: 'Namaz Vakitleri',
+            icon: Container(
+              width: 45,
+              height: 45,
+              decoration: BoxDecoration(
+                color: context.themeData.colorScheme.onPrimary,
+                borderRadius: context.circularBorderRadius(radius: 24),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8),
+                child: SvgPicture.asset(
+                  'assets/svg/praying.svg',
+                ),
+              ),
+            ),
           ),
           BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              'assets/svg/rosary.svg',
-              width: 30,
-              height: 30,
+            backgroundColor: context.themeData.colorScheme.primary,
+            tooltip: 'Zikirmatik',
+            label: 'Zikirmatik',
+            icon: SizedBox(
+              width: 45,
+              height: 45,
+              child: Padding(
+                padding: const EdgeInsets.all(8),
+                child: SvgPicture.asset(
+                  'assets/svg/prayer.svg',
+                ),
+              ),
             ),
-            label: 'Tespih',
           ),
           BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              'assets/svg/compass.svg',
-              width: 30,
-              height: 30,
+            backgroundColor: context.themeData.colorScheme.primary,
+            tooltip: 'Kıble Yönü',
+            label: 'Kıble Yönü',
+            icon: SizedBox(
+              width: 45,
+              height: 45,
+              child: Padding(
+                padding: const EdgeInsets.all(8),
+                child: SvgPicture.asset(
+                  'assets/svg/qibla.svg',
+                ),
+              ),
             ),
-            label: 'Kabe Yönü',
           ),
         ],
       ),

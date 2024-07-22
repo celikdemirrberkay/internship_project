@@ -20,9 +20,9 @@ class AppTheme {
         error: Colors.red,
         onPrimary: Colors.white,
         onSecondary: Colors.black,
-        onSurface: Colors.grey,
+        onSurface: Color(0xFF424242),
         onError: Colors.red,
-        primaryContainer: Color(0xFFf17501),
+        primaryContainer: Color.fromARGB(255, 100, 178, 234),
         brightness: Brightness.light,
       );
 

@@ -30,9 +30,9 @@ class _AppbarforappState extends State<Appbarforapp> {
 
   Widget _settingsIconButton() {
     return IconButton(
-      icon: const Icon(
+      icon: Icon(
         Icons.settings_outlined,
-        color: AppTheme.settingsButtonColor,
+        color: context.themeData.colorScheme.primaryContainer,
       ),
       onPressed: () {},
     );
