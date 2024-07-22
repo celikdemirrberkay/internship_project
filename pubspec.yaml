@@ -67,6 +67,7 @@ dependencies:
   one_clock: ^2.0.1
   fluttertoast: ^8.2.6
   smooth_page_indicator: ^1.2.0
+  custom_navigation_bar: ^0.8.2
 
 dev_dependencies:
   flutter_test:

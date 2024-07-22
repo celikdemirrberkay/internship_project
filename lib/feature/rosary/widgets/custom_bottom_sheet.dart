@@ -5,7 +5,6 @@ class _CustomBottomSheet extends StatefulWidget {
   ///
   const _CustomBottomSheet({
     required this.dhikrInputController,
-    super.key,
     this.onAddPressed,
   });
 
