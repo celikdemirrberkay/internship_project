@@ -50,9 +50,9 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
         Expanded(flex: 10, child: _lottie()),
         Expanded(flex: 40, child: _prayerTimesContainerBuilder()),
         context.spacerWithFlex(flex: 2),
-        Expanded(flex: 40, child: _ayahContainerBuilder()),
+        Expanded(flex: 40, child: _godNamesContainerBuilder()),
         context.spacerWithFlex(flex: 2),
-        Expanded(flex: 25, child: _godNamesContainerBuilder()),
+        Expanded(flex: 40, child: _ayahContainerBuilder()),
         context.spacerWithFlex(flex: 4),
       ],
     );
@@ -89,10 +89,11 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
             child: SizedBox.expand(
               child: Column(
                 children: [
-                  context.spacerWithFlex(flex: 10),
+                  context.spacerWithFlex(flex: 20),
                   Expanded(flex: 40, child: _godNameTextWidget(viewModel, context)),
+                  context.spacerWithFlex(flex: 5),
                   Expanded(flex: 40, child: _godNameMeaningTextWidget(viewModel, context)),
-                  context.spacerWithFlex(flex: 10),
+                  context.spacerWithFlex(flex: 5),
                 ],
               ),
             ),
@@ -105,12 +106,16 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
 
   /// God name meaning text widget
   Widget _godNameMeaningTextWidget(PrayerTimesViewmodel viewModel, BuildContext context) {
-    return Text(
-      '"${viewModel.godNames.right[viewModel.randomInt].meaning}"',
-      style: GoogleFonts.roboto(
-        textStyle: context.appTextTheme.headlineSmall?.copyWith(
-          color: context.themeData.colorScheme.primary,
-          fontWeight: context.fontWeights.fw300,
+    return SingleChildScrollView(
+      child: Text(
+        '"${viewModel.godNames.right[viewModel.randomInt].meaning}"',
+        textAlign: context.textAlignCenter,
+        overflow: TextOverflow.fade,
+        style: GoogleFonts.roboto(
+          textStyle: context.appTextTheme.headlineSmall?.copyWith(
+            color: context.themeData.colorScheme.primaryContainer,
+            fontWeight: context.fontWeights.fw400,
+          ),
         ),
       ),
     );
@@ -206,7 +211,7 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
             decoration: _ayahContainerDecoration(),
             child: Column(
               children: [
-                Expanded(flex: 20, child: _oneAyahText()),
+                Expanded(flex: 20, child: _randomOneAyahText()),
                 const HorizontalAppDivider(),
                 Expanded(flex: 78, child: _ayahText(data)),
                 context.spacerWithFlex(flex: 2),
@@ -226,14 +231,16 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
         context.spacerWithFlex(flex: 2),
         Expanded(
           flex: 96,
-          child: Text(
-            data.text,
-            textDirection: TextDirection.rtl,
-            style: GoogleFonts.roboto(
-              textStyle: context.appTextTheme.headlineSmall?.copyWith(
-                color: context.themeData.colorScheme.onPrimary,
-                fontWeight: context.fontWeights.fw300,
-                overflow: TextOverflow.fade,
+          child: SingleChildScrollView(
+            child: Text(
+              data.text,
+              textDirection: TextDirection.rtl,
+              style: GoogleFonts.roboto(
+                textStyle: context.appTextTheme.headlineSmall?.copyWith(
+                  color: context.themeData.colorScheme.onSecondary,
+                  fontWeight: context.fontWeights.fw300,
+                  overflow: TextOverflow.fade,
+                ),
               ),
             ),
           ),
@@ -244,7 +251,7 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
   }
 
   /// One Ayah text
-  Widget _oneAyahText() {
+  Widget _randomOneAyahText() {
     return Row(
       children: [
         context.spacerWithFlex(flex: 5),
@@ -255,7 +262,7 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
               'Rastgele Bir Ayet',
               style: GoogleFonts.roboto(
                 textStyle: context.appTextTheme.headlineSmall?.copyWith(
-                  color: context.themeData.colorScheme.onPrimary,
+                  color: context.themeData.colorScheme.onSecondary,
                   fontWeight: context.fontWeights.fwBold,
                 ),
               ),
@@ -263,10 +270,15 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
           ),
         ),
         context.spacerWithFlex(flex: 45),
-        Expanded(flex: 30, child: SvgPicture.asset('assets/svg/ayah.svg')),
+        Expanded(flex: 30, child: _ayahSvg()),
       ],
     );
   }
+
+  SvgPicture _ayahSvg() => SvgPicture.asset(
+        'assets/svg/ayah.svg',
+        color: context.themeData.colorScheme.onSecondary,
+      );
 
   /// Pin and location row
   Widget _pinAndLocationRow() => Row(
@@ -444,11 +456,11 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
   /// Ayah container decoration
   BoxDecoration _ayahContainerDecoration() {
     return BoxDecoration(
-      color: context.themeData.colorScheme.primaryContainer,
+      color: context.themeData.colorScheme.onPrimary,
       borderRadius: context.circularBorderRadius(radius: 24),
       boxShadow: [
         BoxShadow(
-          color: context.themeData.colorScheme.primaryContainer,
+          color: context.themeData.colorScheme.primary,
           blurRadius: 3,
         ),
       ],
@@ -460,11 +472,11 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
     return BoxDecoration(
       color: context.themeData.colorScheme.onPrimary,
       borderRadius: context.circularBorderRadius(radius: 24),
-      border: Border.all(color: context.themeData.primaryColor),
+      border: Border.all(color: context.themeData.colorScheme.primaryContainer),
       boxShadow: [
         BoxShadow(
-          color: context.themeData.colorScheme.onSurface,
-          blurRadius: 3,
+          color: context.themeData.colorScheme.primaryContainer,
+          blurRadius: 1,
         ),
       ],
     );
