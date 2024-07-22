@@ -89,10 +89,11 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
             child: SizedBox.expand(
               child: Column(
                 children: [
-                  context.spacerWithFlex(flex: 10),
+                  context.spacerWithFlex(flex: 20),
                   Expanded(flex: 40, child: _godNameTextWidget(viewModel, context)),
+                  context.spacerWithFlex(flex: 5),
                   Expanded(flex: 40, child: _godNameMeaningTextWidget(viewModel, context)),
-                  context.spacerWithFlex(flex: 10),
+                  context.spacerWithFlex(flex: 5),
                 ],
               ),
             ),
@@ -471,11 +472,11 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
     return BoxDecoration(
       color: context.themeData.colorScheme.onPrimary,
       borderRadius: context.circularBorderRadius(radius: 24),
-      border: Border.all(color: context.themeData.primaryColor),
+      border: Border.all(color: context.themeData.colorScheme.primaryContainer),
       boxShadow: [
         BoxShadow(
           color: context.themeData.colorScheme.primaryContainer,
-          blurRadius: 3,
+          blurRadius: 1,
         ),
       ],
     );

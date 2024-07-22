@@ -2,7 +2,6 @@
 import 'package:either_dart/src/either.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:internship_project/core/exception/exception_message.dart';
 import 'package:internship_project/service&repository/remote/location/location_service_interface.dart';
 
 /// Location service
