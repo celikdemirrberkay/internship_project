@@ -32,23 +32,27 @@ class _AppNavbarState extends State<AppNavbar> {
             decoration: BoxDecoration(
               color: context.themeData.colorScheme.onPrimary,
               borderRadius: context.circularBorderRadius(radius: 100),
+              border: Border.all(color: context.themeData.colorScheme.secondary),
             ),
             child: Padding(
-              padding: const EdgeInsets.all(10),
+              padding: EdgeInsets.symmetric(
+                horizontal: context.screenSizes.dynamicWidth(0.05),
+                vertical: context.screenSizes.dynamicHeight(0.014),
+              ),
               child: ClipRRect(
                 borderRadius: context.circularBorderRadius(radius: 100),
                 child: GNav(
                   selectedIndex: AppRouter.initialIndex.value,
                   activeColor: context.themeData.colorScheme.onPrimary,
                   backgroundColor: context.themeData.colorScheme.onPrimary,
-                  gap: 10,
+                  gap: 8,
                   tabActiveBorder: Border.all(
-                    color: context.themeData.colorScheme.onSurface,
+                    color: context.themeData.colorScheme.primary,
                   ),
                   tabs: [
                     /// Prayer times
                     GButton(
-                      padding: const EdgeInsets.all(7),
+                      padding: const EdgeInsets.all(2),
                       icon: LineIcons.pray,
                       text: 'Namaz Vakitleri',
                       textStyle: _navbarTextStyle(context),
@@ -63,7 +67,7 @@ class _AppNavbarState extends State<AppNavbar> {
 
                     /// Rosary counter
                     GButton(
-                      padding: const EdgeInsets.all(7),
+                      padding: const EdgeInsets.all(2),
                       icon: LineIcons.pray,
                       text: 'Zikirmatik',
                       textStyle: _navbarTextStyle(context),
@@ -78,7 +82,7 @@ class _AppNavbarState extends State<AppNavbar> {
 
                     /// Qibla direction
                     GButton(
-                      padding: const EdgeInsets.all(7),
+                      padding: const EdgeInsets.all(2),
                       icon: LineIcons.pray,
                       text: 'Kıble Yönü',
                       textStyle: _navbarTextStyle(context),

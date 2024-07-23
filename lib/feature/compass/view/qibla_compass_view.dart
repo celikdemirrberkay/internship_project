@@ -63,9 +63,9 @@ class _QiblahCompassViewState extends State<QiblahCompassView> with SingleTicker
                   final qiblahDirection = snapshot.data;
                   animation = Tween(
                     begin: begin,
-                    end: qiblahDirection!.qiblah * (pi / 180) * 1,
+                    end: qiblahDirection!.qiblah * (pi / 180) * -1,
                   ).animate(_animationController!);
-                  begin = qiblahDirection.qiblah * (pi / 180) * 1;
+                  begin = qiblahDirection.qiblah * (pi / 180) * -1;
                   _animationController!.forward(from: 0);
 
                   return _compassWidget(qiblahDirection);
@@ -82,13 +82,6 @@ class _QiblahCompassViewState extends State<QiblahCompassView> with SingleTicker
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            '${qiblahDirection.direction.toInt()}°',
-            style: const TextStyle(color: Colors.white, fontSize: 24),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
           SizedBox(
             height: 300,
             child: AnimatedBuilder(
