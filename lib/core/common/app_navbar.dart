@@ -24,99 +24,94 @@ class _AppNavbarState extends State<AppNavbar> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.all(8),
-        child: Container(
-          height: context.screenSizes.dynamicHeight(0.08),
-          decoration: BoxDecoration(
-            color: context.themeData.colorScheme.onPrimary,
-            borderRadius: BorderRadius.circular(100),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(10),
-            child: ClipRRect(
+        padding: const EdgeInsets.only(
+          bottom: 25,
+          left: 10,
+          right: 10,
+        ),
+        child: ValueListenableBuilder(
+          valueListenable: AppRouter.initialIndex,
+          builder: (context, value, child) => Container(
+            height: context.screenSizes.dynamicHeight(0.082),
+            decoration: BoxDecoration(
+              color: context.themeData.colorScheme.onPrimary,
               borderRadius: context.circularBorderRadius(radius: 100),
-              child: GNav(
-                selectedIndex: AppRouter.initialIndex.value,
-                activeColor: context.themeData.colorScheme.onPrimary,
-                backgroundColor: context.themeData.colorScheme.onPrimary,
-                gap: 10,
-                tabActiveBorder: Border.all(
-                  color: context.themeData.colorScheme.onSurface,
-                ),
-                tabs: [
-                  /// Prayer times
-                  GButton(
-                    padding: const EdgeInsets.all(10),
-                    icon: LineIcons.pray,
-                    text: 'Namaz Vakitleri',
-                    textStyle: GoogleFonts.roboto(
-                      textStyle: context.textStyles.bodyLarge?.copyWith(
-                        color: context.themeData.colorScheme.onSecondary,
-                        fontWeight: context.fontWeights.fwBold,
-                      ),
-                    ),
-                    backgroundColor: AppTheme.bottomNavbarTextBackgroundColor,
-                    leading: CircleAvatar(
-                      backgroundColor: Colors.grey.shade300,
-                      child: FittedBox(
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: ClipRRect(
+                borderRadius: context.circularBorderRadius(radius: 100),
+                child: GNav(
+                  selectedIndex: AppRouter.initialIndex.value,
+                  activeColor: context.themeData.colorScheme.onPrimary,
+                  backgroundColor: context.themeData.colorScheme.onPrimary,
+                  gap: 10,
+                  tabActiveBorder: Border.all(
+                    color: context.themeData.colorScheme.onSurface,
+                  ),
+                  tabs: [
+                    /// Prayer times
+                    GButton(
+                      padding: const EdgeInsets.all(7),
+                      icon: LineIcons.pray,
+                      text: 'Namaz Vakitleri',
+                      textStyle: _navbarTextStyle(context),
+                      backgroundColor: AppTheme.bottomNavbarTextBackgroundColor,
+                      leading: CircleAvatar(
+                        backgroundColor: context.themeData.colorScheme.onSurface,
                         child: SvgPicture.asset(
                           'assets/svg/praying.svg',
                         ),
                       ),
                     ),
-                  ),
 
-                  /// Rosary counter
-                  GButton(
-                    padding: const EdgeInsets.all(10),
-                    icon: LineIcons.pray,
-                    text: 'Zikirmatik',
-                    textStyle: GoogleFonts.roboto(
-                      textStyle: context.textStyles.bodyLarge?.copyWith(
-                        color: context.themeData.colorScheme.onSecondary,
-                        fontWeight: context.fontWeights.fwBold,
-                      ),
-                    ),
-                    backgroundColor: AppTheme.bottomNavbarTextBackgroundColor,
-                    leading: CircleAvatar(
-                      backgroundColor: Colors.grey.shade300,
-                      child: FittedBox(
+                    /// Rosary counter
+                    GButton(
+                      padding: const EdgeInsets.all(7),
+                      icon: LineIcons.pray,
+                      text: 'Zikirmatik',
+                      textStyle: _navbarTextStyle(context),
+                      backgroundColor: AppTheme.bottomNavbarTextBackgroundColor,
+                      leading: CircleAvatar(
+                        backgroundColor: context.themeData.colorScheme.onSurface,
                         child: SvgPicture.asset(
                           'assets/svg/prayer.svg',
                         ),
                       ),
                     ),
-                  ),
 
-                  /// Qibla direction
-                  GButton(
-                    padding: const EdgeInsets.all(10),
-                    icon: LineIcons.pray,
-                    text: 'Kıble Yönü',
-                    textStyle: GoogleFonts.roboto(
-                      textStyle: context.textStyles.bodyLarge?.copyWith(
-                        color: context.themeData.colorScheme.onSecondary,
-                        fontWeight: context.fontWeights.fwBold,
-                      ),
-                    ),
-                    backgroundColor: AppTheme.bottomNavbarTextBackgroundColor,
-                    leading: CircleAvatar(
-                      backgroundColor: Colors.grey.shade300,
-                      child: FittedBox(
+                    /// Qibla direction
+                    GButton(
+                      padding: const EdgeInsets.all(7),
+                      icon: LineIcons.pray,
+                      text: 'Kıble Yönü',
+                      textStyle: _navbarTextStyle(context),
+                      backgroundColor: AppTheme.bottomNavbarTextBackgroundColor,
+                      leading: CircleAvatar(
+                        backgroundColor: Colors.grey.shade300,
                         child: SvgPicture.asset(
                           'assets/svg/qibla.svg',
                         ),
                       ),
                     ),
-                  ),
-                ],
-                onTabChange: (value) {
-                  AppRouter.initialIndex.value = value;
-                },
+                  ],
+                  onTabChange: (value) {
+                    AppRouter.initialIndex.value = value;
+                  },
+                ),
               ),
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  TextStyle _navbarTextStyle(BuildContext context) {
+    return GoogleFonts.roboto(
+      textStyle: context.textStyles.bodyLarge?.copyWith(
+        color: context.themeData.colorScheme.onSecondary,
+        fontWeight: context.fontWeights.fwBold,
       ),
     );
   }
