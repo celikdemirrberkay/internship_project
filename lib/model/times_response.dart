@@ -6,12 +6,6 @@ class PrayerApiResponse {
     this.data,
   });
 
-  /// Status code
-  int? code;
-
-  /// Including times data
-  PrayerApiData? data;
-
   /// Convert json to factory ApiResponse object
   factory PrayerApiResponse.fromJson(Map<String, dynamic> json) {
     return PrayerApiResponse(
@@ -19,6 +13,12 @@ class PrayerApiResponse {
       data: PrayerApiData.fromJson(json['data'] as Map<String, dynamic>),
     );
   }
+
+  /// Status code
+  int? code;
+
+  /// Including times data
+  PrayerApiData? data;
 }
 
 /// Data returned from api
@@ -30,12 +30,6 @@ class PrayerApiData {
     this.date,
   });
 
-  /// All pray times
-  Timings? timings;
-
-  /// Date of specific pray times
-  Date? date;
-
   /// Convert json to factory Data object
   factory PrayerApiData.fromJson(Map<String, dynamic> json) {
     return PrayerApiData(
@@ -43,6 +37,12 @@ class PrayerApiData {
       date: Date.fromJson(json['date'] as Map<String, dynamic>),
     );
   }
+
+  /// All pray times
+  Timings? timings;
+
+  /// Date of specific pray times
+  Date? date;
 }
 
 ///
@@ -53,12 +53,6 @@ class Date {
     this.timestamp,
   });
 
-  /// Date in human readable format
-  String? readable;
-
-  /// Date in timestamp format
-  String? timestamp;
-
   /// Convert json to factory Date object
   factory Date.fromJson(Map<String, dynamic> json) {
     return Date(
@@ -66,6 +60,12 @@ class Date {
       timestamp: json['timestamp'] as String?,
     );
   }
+
+  /// Date in human readable format
+  String? readable;
+
+  /// Date in timestamp format
+  String? timestamp;
 }
 
 /// Times for prayers data class
@@ -84,6 +84,23 @@ class Timings {
     this.firstthird,
     this.lastthird,
   });
+
+  /// Convert json to factory Timings object
+  factory Timings.fromJson(Map<String, dynamic> json) {
+    return Timings(
+      fajr: json['Fajr'] as String?,
+      sunrise: json['Sunrise'] as String?,
+      dhuhr: json['Dhuhr'] as String?,
+      asr: json['Asr'] as String?,
+      sunset: json['Sunset'] as String?,
+      maghrib: json['Maghrib'] as String?,
+      isha: json['Isha'] as String?,
+      imsak: json['Imsak'] as String?,
+      midnight: json['Midnight'] as String?,
+      firstthird: json['Firstthird'] as String?,
+      lastthird: json['Lastthird'] as String?,
+    );
+  }
 
   /// Fajr time
   String? fajr;
@@ -117,21 +134,4 @@ class Timings {
 
   /// Last third time
   String? lastthird;
-
-  /// Convert json to factory Timings object
-  factory Timings.fromJson(Map<String, dynamic> json) {
-    return Timings(
-      fajr: json['Fajr'] as String?,
-      sunrise: json['Sunrise'] as String?,
-      dhuhr: json['Dhuhr'] as String?,
-      asr: json['Asr'] as String?,
-      sunset: json['Sunset'] as String?,
-      maghrib: json['Maghrib'] as String?,
-      isha: json['Isha'] as String?,
-      imsak: json['Imsak'] as String?,
-      midnight: json['Midnight'] as String?,
-      firstthird: json['Firstthird'] as String?,
-      lastthird: json['Lastthird'] as String?,
-    );
-  }
 }
