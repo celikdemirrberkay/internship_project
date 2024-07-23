@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:internship_project/feature/compass/view/compass_view.dart';
+import 'package:internship_project/feature/compass/view/qibla_compass_view.dart';
 import 'package:internship_project/feature/main_view.dart';
 import 'package:internship_project/feature/onboard/view/onboard_view.dart';
 import 'package:internship_project/feature/prayer_times/view/prayer_times_view.dart';
@@ -11,7 +11,7 @@ import 'package:internship_project/feature/splash/view/splash_view.dart';
 class AppRouter {
   /// GoRouter instance
   static GoRouter router() => GoRouter(
-        initialLocation: '/MainView',
+        initialLocation: '/SplashView',
         routes: [
           /// Splash route
           GoRoute(
@@ -40,7 +40,7 @@ class AppRouter {
   static List<Widget> allViewsForBottomNavBar = [
     const PrayerTimesView(),
     const RosaryView(),
-    const CompassView(),
+    const QiblaCompassView(),
   ];
 
   /// Initial index for the bottom navigation bar

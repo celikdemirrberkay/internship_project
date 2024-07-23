@@ -42,8 +42,9 @@ dependencies:
   permission_handler: ^11.3.1
 
   # Location
-  geolocator: ^12.0.0
+  geolocator: ^11.1.0
   geocoding: ^3.0.0
+  flutter_qiblah: ^3.0.3
 
 
 
@@ -67,7 +68,8 @@ dependencies:
   one_clock: ^2.0.1
   fluttertoast: ^8.2.6
   smooth_page_indicator: ^1.2.0
-  custom_navigation_bar: ^0.8.2
+  google_nav_bar: ^5.0.6
+  line_icons: ^2.0.3
 
 dev_dependencies:
   flutter_test:
@@ -100,7 +102,7 @@ flutter:
     - assets/lottie/
     - assets/static/
     - assets/svg/
-
+    - assets/images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

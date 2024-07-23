@@ -6,8 +6,7 @@ import 'package:flutter/material.dart';
 final class ExceptionWidget extends StatefulWidget {
   ///
   const ExceptionWidget({
-    super.key,
-    required this.message,
+    required this.message, super.key,
   });
 
   /// Error message

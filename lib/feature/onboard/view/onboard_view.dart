@@ -6,7 +6,6 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:internship_project/core/config/dependency_injection/dependency_container.dart';
 import 'package:internship_project/feature/onboard/view_model/onboard_view_model.dart';
-import 'package:internship_project/service&repository/permission/permission_manager.dart';
 import 'package:lottie/lottie.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:stacked/stacked.dart';
