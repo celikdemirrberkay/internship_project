@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:dart_vader/dart_vader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -24,11 +22,7 @@ class _AppNavbarState extends State<AppNavbar> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.only(
-          bottom: 25,
-          left: 10,
-          right: 10,
-        ),
+        padding: const EdgeInsets.all(10),
         child: ValueListenableBuilder(
           valueListenable: AppRouter.initialIndex,
           builder: (context, value, child) => Container(
@@ -38,7 +32,7 @@ class _AppNavbarState extends State<AppNavbar> {
               borderRadius: context.circularBorderRadius(radius: 100),
             ),
             child: Padding(
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(14),
               child: ClipRRect(
                 borderRadius: context.circularBorderRadius(radius: 100),
                 child: GNav(
