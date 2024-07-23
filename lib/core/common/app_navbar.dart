@@ -24,11 +24,7 @@ class _AppNavbarState extends State<AppNavbar> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.only(
-          bottom: 25,
-          left: 10,
-          right: 10,
-        ),
+        padding: const EdgeInsets.all(10),
         child: ValueListenableBuilder(
           valueListenable: AppRouter.initialIndex,
           builder: (context, value, child) => Container(
