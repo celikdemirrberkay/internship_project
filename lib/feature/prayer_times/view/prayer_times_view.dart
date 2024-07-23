@@ -1,7 +1,6 @@
 import 'package:dart_vader/dart_vader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:geocoding/geocoding.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:internship_project/core/common/app_horizontal_divider.dart';
 import 'package:internship_project/core/common/exception_widget.dart';
@@ -67,7 +66,6 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
           locator(),
           locator(),
           locator(),
-          locator(),
           context,
         ),
         builder: (context, viewModel, child) => viewModel.isGodNameLoading == true
@@ -113,7 +111,7 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
         overflow: TextOverflow.fade,
         style: GoogleFonts.roboto(
           textStyle: context.appTextTheme.headlineSmall?.copyWith(
-            color: context.themeData.colorScheme.primaryContainer,
+            color: context.themeData.colorScheme.onSecondary,
             fontWeight: context.fontWeights.fw400,
           ),
         ),
@@ -141,7 +139,6 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
   Widget _prayerTimesContainerBuilder() {
     return ViewModelBuilder.reactive(
       viewModelBuilder: () => PrayerTimesViewmodel(
-        locator(),
         locator(),
         locator(),
         locator(),
@@ -189,7 +186,6 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
         locator(),
         locator(),
         locator(),
-        locator(),
         context,
       ),
       builder: (context, viewModel, child) => viewModel.isRandomAyahLoading
@@ -211,6 +207,7 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
             decoration: _ayahContainerDecoration(),
             child: Column(
               children: [
+                context.spacerWithFlex(flex: 10),
                 Expanded(flex: 20, child: _randomOneAyahText()),
                 const HorizontalAppDivider(),
                 Expanded(flex: 78, child: _ayahText(data)),
@@ -228,9 +225,9 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
   Widget _ayahText(Ayah data) {
     return Row(
       children: [
-        context.spacerWithFlex(flex: 2),
+        context.spacerWithFlex(flex: 5),
         Expanded(
-          flex: 96,
+          flex: 90,
           child: SingleChildScrollView(
             child: Text(
               data.text,
@@ -245,7 +242,7 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
             ),
           ),
         ),
-        context.spacerWithFlex(flex: 2),
+        context.spacerWithFlex(flex: 5),
       ],
     );
   }
@@ -445,12 +442,9 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
   BoxDecoration _prayerTimesContainerDecoration() => BoxDecoration(
         color: context.themeData.colorScheme.primary,
         borderRadius: context.circularBorderRadius(radius: 24),
-        boxShadow: [
-          BoxShadow(
-            color: context.themeData.colorScheme.primary,
-            blurRadius: 3,
-          ),
-        ],
+        border: Border.all(
+          color: context.themeData.colorScheme.onSurface,
+        ),
       );
 
   /// Ayah container decoration
@@ -458,12 +452,9 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
     return BoxDecoration(
       color: context.themeData.colorScheme.onPrimary,
       borderRadius: context.circularBorderRadius(radius: 24),
-      boxShadow: [
-        BoxShadow(
-          color: context.themeData.colorScheme.primary,
-          blurRadius: 3,
-        ),
-      ],
+      border: Border.all(
+        color: context.themeData.colorScheme.onSurface,
+      ),
     );
   }
 
@@ -472,7 +463,9 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
     return BoxDecoration(
       color: context.themeData.colorScheme.onPrimary,
       borderRadius: context.circularBorderRadius(radius: 24),
-      border: Border.all(color: context.themeData.colorScheme.primaryContainer),
+      border: Border.all(
+        color: context.themeData.colorScheme.onSurface,
+      ),
       boxShadow: [
         BoxShadow(
           color: context.themeData.colorScheme.primaryContainer,

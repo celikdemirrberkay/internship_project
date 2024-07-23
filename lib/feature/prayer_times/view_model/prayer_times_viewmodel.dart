@@ -1,11 +1,12 @@
 import 'dart:math';
+
 import 'package:either_dart/either.dart';
 import 'package:flutter/material.dart';
 import 'package:internship_project/core/exception/exception_message.dart';
-import 'package:internship_project/service&repository/local/god_names/god_names_service.dart';
 import 'package:internship_project/model/ayah.dart';
 import 'package:internship_project/model/god_names.dart';
 import 'package:internship_project/model/times_response.dart';
+import 'package:internship_project/service&repository/local/god_names/god_names_service.dart';
 import 'package:internship_project/service&repository/remote/ayah/ayah_service.dart';
 import 'package:internship_project/service&repository/remote/location/location_service.dart';
 import 'package:internship_project/service&repository/remote/prayer_times/prayer_times_service.dart';
@@ -18,7 +19,6 @@ class PrayerTimesViewmodel extends BaseViewModel {
     this._prayerTimesService,
     this._godNamesService,
     this._ayahService,
-    this._locationService,
     this._context,
   ) {
     getSpecificAyah();
@@ -45,10 +45,6 @@ class PrayerTimesViewmodel extends BaseViewModel {
   /// --------------------------------------------------------------------------
   /// The service where we fetch specific Ayah
   final AyahService _ayahService;
-
-  /// --------------------------------------------------------------------------
-  /// The service where we fetch location
-  final LocationService _locationService;
 
   /// --------------------------------------------------------------------------
   /// BuildContext

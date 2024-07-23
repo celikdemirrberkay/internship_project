@@ -2,8 +2,6 @@ import 'package:dart_vader/dart_vader.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:internship_project/core/constants/app_constants.dart';
-import 'package:internship_project/core/theme/app_theme.dart';
-import 'package:intl/intl.dart';
 
 /// Appbar for the main view
 class Appbarforapp extends StatefulWidget implements PreferredSizeWidget {
@@ -32,7 +30,7 @@ class _AppbarforappState extends State<Appbarforapp> {
     return IconButton(
       icon: Icon(
         Icons.settings_outlined,
-        color: context.themeData.colorScheme.primaryContainer,
+        color: context.themeData.colorScheme.primary,
       ),
       onPressed: () {},
     );
@@ -44,11 +42,8 @@ class _AppbarforappState extends State<Appbarforapp> {
       child: Text(
         AppConstants.appName,
         style: GoogleFonts.playfair(
-          textStyle: context.appTextTheme.displaySmall,
+          textStyle: context.appTextTheme.headlineMedium,
           color: context.themeData.colorScheme.onSecondary,
-          shadows: [
-            Shadow(color: context.themeData.colorScheme.primary),
-          ],
         ),
       ),
     );
