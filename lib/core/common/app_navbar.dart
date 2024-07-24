@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:dart_vader/dart_vader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -52,7 +50,7 @@ class _AppNavbarState extends State<AppNavbar> {
                   tabs: [
                     /// Prayer times
                     GButton(
-                      padding: const EdgeInsets.all(2),
+                      padding: EdgeInsets.all(context.screenSizes.dynamicWidth(0.01)),
                       icon: LineIcons.pray,
                       text: 'Namaz Vakitleri',
                       textStyle: _navbarTextStyle(context),
@@ -67,7 +65,7 @@ class _AppNavbarState extends State<AppNavbar> {
 
                     /// Rosary counter
                     GButton(
-                      padding: const EdgeInsets.all(2),
+                      padding: EdgeInsets.all(context.screenSizes.dynamicWidth(0.01)),
                       icon: LineIcons.pray,
                       text: 'Zikirmatik',
                       textStyle: _navbarTextStyle(context),
@@ -82,7 +80,7 @@ class _AppNavbarState extends State<AppNavbar> {
 
                     /// Qibla direction
                     GButton(
-                      padding: const EdgeInsets.all(2),
+                      padding: EdgeInsets.all(context.screenSizes.dynamicWidth(0.01)),
                       icon: LineIcons.pray,
                       text: 'Kıble Yönü',
                       textStyle: _navbarTextStyle(context),

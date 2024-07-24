@@ -24,8 +24,8 @@ class _ExceptionWidgetState extends State<ExceptionWidget> {
     return Center(
       child: Column(
         children: [
-          context.spacerWithFlex(flex: 1),
-          Expanded(flex: 2, child: SvgPicture.asset('assets/svg/error.svg')),
+          context.spacerWithFlex(flex: 2),
+          Expanded(flex: 2, child: FittedBox(child: SvgPicture.asset('assets/svg/error.svg'))),
           Expanded(
             flex: 2,
             child: Text(
@@ -33,7 +33,7 @@ class _ExceptionWidgetState extends State<ExceptionWidget> {
               style: TextStyle(color: context.themeData.colorScheme.error),
             ),
           ),
-          context.spacerWithFlex(flex: 1),
+          context.spacerWithFlex(flex: 2),
         ],
       ),
     );
