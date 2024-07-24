@@ -30,4 +30,6 @@ class AppTheme {
   static const Color settingsButtonColor = Colors.green;
   static const Color bottomNavbarTextColor = Color.fromARGB(255, 44, 132, 46);
   static const Color bottomNavbarTextBackgroundColor = Color(0xFFd3f3e6);
+  static const Color shimmerBaseColor = Color.fromARGB(255, 188, 188, 188);
+  static const Color shimmerHighlightColor = Color.fromARGB(255, 224, 224, 224);
 }
