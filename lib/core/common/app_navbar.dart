@@ -30,23 +30,24 @@ class _AppNavbarState extends State<AppNavbar> {
             decoration: BoxDecoration(
               color: context.themeData.colorScheme.onPrimary,
               borderRadius: context.circularBorderRadius(radius: 100),
+              border: Border.all(color: context.themeData.colorScheme.secondary),
             ),
             child: Padding(
-              padding: const EdgeInsets.all(14),
+              padding: EdgeInsets.all(14),
               child: ClipRRect(
                 borderRadius: context.circularBorderRadius(radius: 100),
                 child: GNav(
                   selectedIndex: AppRouter.initialIndex.value,
                   activeColor: context.themeData.colorScheme.onPrimary,
                   backgroundColor: context.themeData.colorScheme.onPrimary,
-                  gap: 10,
+                  gap: 8,
                   tabActiveBorder: Border.all(
-                    color: context.themeData.colorScheme.onSurface,
+                    color: context.themeData.colorScheme.primary,
                   ),
                   tabs: [
                     /// Prayer times
                     GButton(
-                      padding: const EdgeInsets.all(7),
+                      padding: EdgeInsets.all(context.screenSizes.dynamicWidth(0.01)),
                       icon: LineIcons.pray,
                       text: 'Namaz Vakitleri',
                       textStyle: _navbarTextStyle(context),
@@ -61,7 +62,7 @@ class _AppNavbarState extends State<AppNavbar> {
 
                     /// Rosary counter
                     GButton(
-                      padding: const EdgeInsets.all(7),
+                      padding: EdgeInsets.all(context.screenSizes.dynamicWidth(0.01)),
                       icon: LineIcons.pray,
                       text: 'Zikirmatik',
                       textStyle: _navbarTextStyle(context),
@@ -76,7 +77,7 @@ class _AppNavbarState extends State<AppNavbar> {
 
                     /// Qibla direction
                     GButton(
-                      padding: const EdgeInsets.all(7),
+                      padding: EdgeInsets.all(context.screenSizes.dynamicWidth(0.01)),
                       icon: LineIcons.pray,
                       text: 'Kıble Yönü',
                       textStyle: _navbarTextStyle(context),

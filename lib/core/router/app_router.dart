@@ -40,7 +40,7 @@ class AppRouter {
   static List<Widget> allViewsForBottomNavBar = [
     const PrayerTimesView(),
     const RosaryView(),
-    const QiblaCompassView(),
+    const QiblahCompassView(),
   ];
 
   /// Initial index for the bottom navigation bar
