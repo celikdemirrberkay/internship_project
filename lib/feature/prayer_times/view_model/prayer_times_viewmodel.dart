@@ -85,6 +85,7 @@ class PrayerTimesViewmodel extends BaseViewModel {
     /// Set isPrayerTimesLoaded state as true
     isPrayerTimesLoading = true;
     notifyListeners();
+    await Future.delayed(Durations.extralong4);
 
     final response = await _prayerTimesService.getPrayerTimes(city, country);
     _datas = response;
