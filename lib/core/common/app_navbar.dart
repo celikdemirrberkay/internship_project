@@ -33,10 +33,7 @@ class _AppNavbarState extends State<AppNavbar> {
               border: Border.all(color: context.themeData.colorScheme.secondary),
             ),
             child: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: context.screenSizes.dynamicWidth(0.05),
-                vertical: context.screenSizes.dynamicHeight(0.014),
-              ),
+              padding: EdgeInsets.all(14),
               child: ClipRRect(
                 borderRadius: context.circularBorderRadius(radius: 100),
                 child: GNav(
