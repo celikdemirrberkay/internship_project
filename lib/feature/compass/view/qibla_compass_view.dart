@@ -87,16 +87,30 @@ class _QiblahCompassViewState extends State<QiblahCompassView> with SingleTicker
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          context.spacerWithFlex(flex: 15),
+          Expanded(flex: 6, child: _findQiblahText()),
+          context.spacerWithFlex(flex: 15),
+          Expanded(flex: 8, child: _qiblahDirectionText(qiblahDirection)),
+          context.spacerWithFlex(flex: 5),
+          Expanded(flex: 50, child: _qiblahSvg()),
           context.spacerWithFlex(flex: 30),
-          Expanded(flex: 10, child: _qiblahDirectionText(qiblahDirection)),
-          Expanded(flex: 30, child: _qiblahSvg()),
-          context.spacerWithFlex(flex: 30),
-          Expanded(flex: 8, child: _howToUseButton()),
+          Expanded(flex: 10, child: _howToUseButton()),
           context.spacerWithFlex(flex: 5),
         ],
       ),
     );
   }
+
+  Widget _findQiblahText() => FittedBox(
+        child: Text(
+          'Kıble yönünü bul',
+          style: GoogleFonts.roboto(
+            textStyle: context.textStyles.headlineMedium?.copyWith(
+              color: context.themeData.colorScheme.onSecondary,
+            ),
+          ),
+        ),
+      );
 
   /// How to use button
   Widget _howToUseButton() {
@@ -130,7 +144,13 @@ class _QiblahCompassViewState extends State<QiblahCompassView> with SingleTicker
         animation: animation!,
         builder: (context, child) => Transform.rotate(
           angle: animation!.value,
-          child: SvgPicture.asset('assets/svg/needle.svg'),
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              SvgPicture.asset('assets/svg/compass.svg'),
+              SvgPicture.asset('assets/svg/needle.svg'),
+            ],
+          ),
         ),
       ),
     );
@@ -143,7 +163,6 @@ class _QiblahCompassViewState extends State<QiblahCompassView> with SingleTicker
         '${qiblahDirection.direction.toInt() - 180}°',
         style: TextStyle(
           color: qiblahDirection.direction.toInt() - 180 == 0 ? context.themeData.colorScheme.primary : context.themeData.colorScheme.error,
-          fontSize: 20,
         ),
       ),
     );
