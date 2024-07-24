@@ -22,6 +22,7 @@ class _AppbarforappState extends State<Appbarforapp> {
     return AppBar(
       centerTitle: false,
       title: _appBarTitle(context),
+      backgroundColor: context.themeData.colorScheme.onPrimary,
       actions: [_settingsIconButton()],
     );
   }

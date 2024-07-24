@@ -7,12 +7,14 @@ import 'package:internship_project/core/common/exception_widget.dart';
 import 'package:internship_project/core/common/loading_widget.dart';
 import 'package:internship_project/core/config/dependency_injection/dependency_container.dart';
 import 'package:internship_project/core/exception/exception_message.dart';
+import 'package:internship_project/core/theme/app_theme.dart';
 import 'package:internship_project/feature/prayer_times/view_model/prayer_times_viewmodel.dart';
 import 'package:internship_project/model/ayah.dart';
 import 'package:internship_project/model/times_response.dart';
 import 'package:internship_project/service&repository/remote/location/location_service.dart';
 import 'package:lottie/lottie.dart';
 import 'package:one_clock/one_clock.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:stacked/stacked.dart';
 
 /// Prayer Times View
@@ -69,7 +71,7 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
           context,
         ),
         builder: (context, viewModel, child) => viewModel.isGodNameLoading == true
-            ? const LoadingWidget()
+            ? _shimmerLoadingContainer()
             : viewModel.godNames.isRight
                 ? _godNamesAndMeaningContainer(context, viewModel)
                 : ExceptionWidget(message: ExceptionMessage.errorOccured.message),
@@ -145,12 +147,33 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
         context,
       ),
       builder: (context, viewModel, child) => viewModel.isPrayerTimesLoading
-          ? const LoadingWidget()
+          ? _shimmerLoadingContainer()
           : viewModel.datas.isRight
               ? _prayerTimesContainer(context, viewModel.datas.right)
               : ExceptionWidget(message: ExceptionMessage.errorOccured.message),
     );
   }
+
+  /// Shimmer loading effect container
+  Widget _shimmerLoadingContainer() => Shimmer.fromColors(
+        baseColor: AppTheme.shimmerBaseColor,
+        highlightColor: AppTheme.shimmerHighlightColor,
+        child: Row(
+          children: [
+            context.spacerWithFlex(flex: 3),
+            Expanded(
+              flex: 94,
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: context.circularBorderRadius(radius: 24),
+                  color: Colors.grey,
+                ),
+              ),
+            ),
+            context.spacerWithFlex(flex: 3),
+          ],
+        ),
+      );
 
   /// God name container
   Widget _prayerTimesContainer(BuildContext context, PrayerApiData data) {
@@ -189,7 +212,7 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
         context,
       ),
       builder: (context, viewModel, child) => viewModel.isRandomAyahLoading
-          ? const LoadingWidget()
+          ? _shimmerLoadingContainer()
           : viewModel.ayah.isRight
               ? _ayahTimesContainer(context, viewModel.ayah.right)
               : ExceptionWidget(message: ExceptionMessage.errorOccured.message),
