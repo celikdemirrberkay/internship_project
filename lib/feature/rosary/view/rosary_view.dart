@@ -128,6 +128,7 @@ class _RosaryViewState extends State<RosaryView> {
       onPressed: () => viewModel.resetRosaryCount(),
       text: 'Sıfırla',
       textColor: context.themeData.primaryColor,
+      color: context.themeData.colorScheme.onPrimary,
     );
   }
 

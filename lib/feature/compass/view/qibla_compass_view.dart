@@ -4,32 +4,39 @@ import 'package:flutter/material.dart';
 import 'package:flutter_qiblah/flutter_qiblah.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:internship_project/core/common/app_elevated_button.dart';
+import 'package:internship_project/core/common/exception_widget.dart';
 import 'package:internship_project/core/common/loading_widget.dart';
+import 'package:internship_project/core/exception/exception_message.dart';
+import 'package:lottie/lottie.dart';
 
-/// Qibla Compass View
-/// This widget is used to show the Qibla's direction
-class QiblaCompassView extends StatefulWidget {
+part '../widget/stepper_for_qibla.dart';
+
+///
+class QiblahCompassView extends StatefulWidget {
   ///
-  const QiblaCompassView({super.key});
+  const QiblahCompassView({super.key});
 
   @override
-  State<QiblaCompassView> createState() => _QiblaCompassViewState();
+  State<QiblahCompassView> createState() => _QiblahCompassViewState();
 }
 
-Animation<double>? animation;
-AnimationController? _animationController;
-double begin = 0.0;
+///
+late Animation<double>? animation;
+late AnimationController? _animationController;
+double begin = 0;
 
-class _QiblaCompassViewState extends State<QiblaCompassView> with SingleTickerProviderStateMixin {
+class _QiblahCompassViewState extends State<QiblahCompassView> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     _animationController = AnimationController(
       vsync: this,
-      duration: const Duration(
-        milliseconds: 500,
-      ),
+      duration: const Duration(milliseconds: 500),
     );
-    animation = Tween(begin: 0.0, end: 0.0).animate(_animationController!);
+    animation = Tween(
+      begin: 0.0,
+      end: 0.0,
+    ).animate(_animationController!);
     super.initState();
   }
 
@@ -46,58 +53,116 @@ class _QiblaCompassViewState extends State<QiblaCompassView> with SingleTickerPr
         body: StreamBuilder(
           stream: FlutterQiblah.qiblahStream,
           builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child: LoadingWidget(),
-              );
+            switch (snapshot.connectionState) {
+              case ConnectionState.none:
+                return ExceptionWidget(message: ExceptionMessage.errorOccured.message);
+              case ConnectionState.waiting:
+                return const Center(child: LoadingWidget());
+              case ConnectionState.active:
+              case ConnectionState.done:
+                if (snapshot.hasError || snapshot.data == null) {
+                  return ExceptionWidget(
+                    message: ExceptionMessage.errorOccured.message,
+                  );
+                } else {
+                  final qiblahDirection = snapshot.data;
+                  animation = Tween(
+                    begin: begin,
+                    end: qiblahDirection!.qiblah * (pi / 180) * -1,
+                  ).animate(_animationController!);
+                  begin = qiblahDirection.qiblah * (pi / 180) * -1;
+                  _animationController!.forward(from: 0);
+
+                  return _compassWidget(qiblahDirection);
+                }
             }
-
-            if (snapshot.hasError) {
-              return Center(
-                child: Text(
-                  snapshot.error.toString(),
-                  style: GoogleFonts.roboto(
-                    color: context.themeData.colorScheme.primary,
-                  ),
-                ),
-              );
-            }
-
-            final qiblahDirection = snapshot.data;
-            animation = Tween(
-              begin: begin,
-              end: qiblahDirection!.qiblah * (pi / 180) * -1,
-            ).animate(
-              _animationController!,
-            );
-            begin = qiblahDirection.qiblah * (pi / 180) * -1;
-            _animationController!.forward(from: 0);
-
-            return Center(
-              child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                Text(
-                  "${qiblahDirection.direction.toInt()}°",
-                  style: GoogleFonts.roboto(
-                    color: context.themeData.colorScheme.primary,
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                SizedBox(
-                    height: 300,
-                    child: AnimatedBuilder(
-                      animation: animation!,
-                      builder: (context, child) => Transform.rotate(
-                        angle: animation!.value,
-                        child: SvgPicture.asset(
-                          'assets/svg/needle.svg',
-                        ),
-                      ),
-                    ))
-              ]),
-            );
           },
+        ),
+      ),
+    );
+  }
+
+  Widget _compassWidget(QiblahDirection qiblahDirection) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          context.spacerWithFlex(flex: 15),
+          Expanded(flex: 6, child: _findQiblahText()),
+          context.spacerWithFlex(flex: 15),
+          Expanded(flex: 8, child: _qiblahDirectionText(qiblahDirection)),
+          context.spacerWithFlex(flex: 5),
+          Expanded(flex: 50, child: _qiblahSvg()),
+          context.spacerWithFlex(flex: 30),
+          Expanded(flex: 10, child: _howToUseButton()),
+          context.spacerWithFlex(flex: 5),
+        ],
+      ),
+    );
+  }
+
+  Widget _findQiblahText() => FittedBox(
+        child: Text(
+          'Kıble yönünü bul',
+          style: GoogleFonts.roboto(
+            textStyle: context.textStyles.headlineMedium?.copyWith(
+              color: context.themeData.colorScheme.onSecondary,
+            ),
+          ),
+        ),
+      );
+
+  /// How to use button
+  Widget _howToUseButton() {
+    return FittedBox(
+      child: AppElevatedButton(
+        text: 'Nasıl kullanılır?',
+        onPressed: _buildModalBottomSheet,
+        color: context.themeData.colorScheme.onPrimary,
+        textColor: context.themeData.colorScheme.primary,
+      ),
+    );
+  }
+
+  /// Build modal bottom sheet
+  Future<void> _buildModalBottomSheet() {
+    return showModalBottomSheet(
+      isScrollControlled: true,
+      context: context,
+      builder: (context) => SizedBox(
+        width: context.screenSizes.width,
+        height: context.screenSizes.dynamicHeight(0.8),
+        child: const _StepperForQibla(),
+      ),
+    );
+  }
+
+  /// Qiblah SVG
+  Widget _qiblahSvg() {
+    return SizedBox(
+      child: AnimatedBuilder(
+        animation: animation!,
+        builder: (context, child) => Transform.rotate(
+          angle: animation!.value,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              SvgPicture.asset('assets/svg/compass.svg'),
+              SvgPicture.asset('assets/svg/needle.svg'),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// Qiblah direction text
+  Widget _qiblahDirectionText(QiblahDirection qiblahDirection) {
+    return FittedBox(
+      child: Text(
+        '${qiblahDirection.direction.toInt() - 180}°',
+        style: TextStyle(
+          color: qiblahDirection.direction.toInt() - 180 == 0 ? context.themeData.colorScheme.primary : context.themeData.colorScheme.error,
         ),
       ),
     );
