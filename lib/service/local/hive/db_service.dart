@@ -1,7 +1,7 @@
 import 'package:either_dart/src/either.dart';
 import 'package:hive/hive.dart';
 import 'package:internship_project/core/exception/exception_message.dart';
-import 'package:internship_project/service&repository/local/hive/db_service_interface.dart';
+import 'package:internship_project/service/local/hive/db_service_interface.dart';
 
 /// Abstraction of local database service
 class LocalDatabaseService extends ILocalDatabaseService {

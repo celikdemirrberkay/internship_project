@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
-import 'package:internship_project/service&repository/local/god_names/god_names_service.dart';
-import 'package:internship_project/service&repository/local/hive/db_service.dart';
-import 'package:internship_project/service&repository/remote/ayah/ayah_service.dart';
-import 'package:internship_project/service&repository/remote/location/location_service.dart';
-import 'package:internship_project/service&repository/remote/prayer_times/prayer_times_service.dart';
+import 'package:internship_project/service/local/god_names/god_names_service.dart';
+import 'package:internship_project/service/local/hive/db_service.dart';
+import 'package:internship_project/service/remote/ayah/ayah_service.dart';
+import 'package:internship_project/service/remote/location/location_service.dart';
+import 'package:internship_project/service/remote/prayer_times/prayer_times_service.dart';
 
 /// The locator class where we register our dependencies
 final locator = GetIt.instance;

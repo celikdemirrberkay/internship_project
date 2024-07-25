@@ -1,17 +1,21 @@
 import 'package:dart_vader/dart_vader.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:internship_project/core/base/resource.dart';
 import 'package:internship_project/core/common/app_horizontal_divider.dart';
 import 'package:internship_project/core/common/exception_widget.dart';
 import 'package:internship_project/core/common/loading_widget.dart';
 import 'package:internship_project/core/config/dependency_injection/dependency_container.dart';
 import 'package:internship_project/core/exception/exception_message.dart';
+import 'package:internship_project/core/exception/exception_type.dart';
+import 'package:internship_project/core/exception/exception_util.dart';
 import 'package:internship_project/core/theme/app_theme.dart';
 import 'package:internship_project/feature/prayer_times/view_model/prayer_times_viewmodel.dart';
 import 'package:internship_project/model/ayah.dart';
 import 'package:internship_project/model/times_response.dart';
-import 'package:internship_project/service&repository/remote/location/location_service.dart';
+import 'package:internship_project/service/remote/location/location_service.dart';
 import 'package:lottie/lottie.dart';
 import 'package:one_clock/one_clock.dart';
 import 'package:shimmer/shimmer.dart';
@@ -211,16 +215,24 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
         locator(),
         context,
       ),
-      builder: (context, viewModel, child) => viewModel.isRandomAyahLoading
-          ? _shimmerLoadingContainer()
-          : viewModel.ayah.isRight
-              ? _ayahTimesContainer(context, viewModel.ayah.right)
-              : ExceptionWidget(message: ExceptionMessage.errorOccured.message),
+      builder: (context, viewModel, child) => switch (viewModel.ayah) {
+        SuccessState<Ayah>() => _ayahTimesContainer(viewModel.ayah.data!),
+        ErrorState<Ayah>() => _errorWidget(ExceptionUtil.getExceptionMessage(viewModel.ayah.type!)),
+        LoadingState<Ayah>() => _shimmerLoadingContainer(),
+      },
+    );
+  }
+
+  Widget _errorWidget(String message) {
+    return FittedBox(
+      child: ExceptionWidget(
+        message: message,
+      ),
     );
   }
 
   /// God name container
-  Widget _ayahTimesContainer(BuildContext context, Ayah data) {
+  Widget _ayahTimesContainer(Ayah data) {
     return Row(
       children: [
         context.spacerWithFlex(flex: 3),

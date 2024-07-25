@@ -2,14 +2,15 @@ import 'dart:math';
 
 import 'package:either_dart/either.dart';
 import 'package:flutter/material.dart';
+import 'package:internship_project/core/base/resource.dart';
 import 'package:internship_project/core/exception/exception_message.dart';
 import 'package:internship_project/model/ayah.dart';
 import 'package:internship_project/model/god_names.dart';
 import 'package:internship_project/model/times_response.dart';
-import 'package:internship_project/service&repository/local/god_names/god_names_service.dart';
-import 'package:internship_project/service&repository/remote/ayah/ayah_service.dart';
-import 'package:internship_project/service&repository/remote/location/location_service.dart';
-import 'package:internship_project/service&repository/remote/prayer_times/prayer_times_service.dart';
+import 'package:internship_project/service/local/god_names/god_names_service.dart';
+import 'package:internship_project/service/remote/ayah/ayah_service.dart';
+import 'package:internship_project/service/remote/location/location_service.dart';
+import 'package:internship_project/service/remote/prayer_times/prayer_times_service.dart';
 import 'package:stacked/stacked.dart';
 
 ///
@@ -63,8 +64,8 @@ class PrayerTimesViewmodel extends BaseViewModel {
 
   /// --------------------------------------------------------------------------
   /// Ayah
-  Either<String, Ayah> _ayah = Left(ExceptionMessage.errorOccured.message);
-  Either<String, Ayah> get ayah => _ayah;
+  Resource<Ayah> _ayah = LoadingState();
+  Resource<Ayah> get ayah => _ayah;
 
   /// --------------------------------------------------------------------------
   /// Random integer for random god name
@@ -113,15 +114,8 @@ class PrayerTimesViewmodel extends BaseViewModel {
   /// --------------------------------------------------------------------------
   /// Get specific Ayah
   Future<void> getSpecificAyah() async {
-    /// Set isRandomAyahLoaded state as true
-    isRandomAyahLoading = true;
-    notifyListeners();
-
     final response = await _ayahService.getSpecificAyah();
     _ayah = response;
-
-    /// Set isRandomAyahLoaded state as false
-    isRandomAyahLoading = false;
     notifyListeners();
   }
 }

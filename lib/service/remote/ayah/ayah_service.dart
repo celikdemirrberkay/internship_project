@@ -2,10 +2,12 @@ import 'dart:math';
 
 import 'package:dio/dio.dart';
 import 'package:either_dart/src/either.dart';
+import 'package:internship_project/core/base/resource.dart';
 import 'package:internship_project/core/config/env_variables/development_env.dart';
 import 'package:internship_project/core/exception/exception_message.dart';
+import 'package:internship_project/core/exception/exception_type.dart';
 import 'package:internship_project/model/ayah.dart';
-import 'package:internship_project/service&repository/remote/ayah/ayah_service_interface.dart';
+import 'package:internship_project/service/remote/ayah/ayah_service_interface.dart';
 
 /// AyahService class is responsible for fetching data from the remote server.
 class AyahService extends IAyahServiceInterface {
@@ -14,7 +16,7 @@ class AyahService extends IAyahServiceInterface {
 
   /// Get Ayahs from API
   @override
-  Future<Either<String, Ayah>> getSpecificAyah() async {
+  Future<Resource<Ayah>> getSpecificAyah() async {
     try {
       /// Generate random number between 0 and 6236
       final randomAyahNumber = Random().nextInt(6235);
@@ -26,14 +28,14 @@ class AyahService extends IAyahServiceInterface {
         /// Getting only ayah from the response
         final responseOnlyData = response.data!['data'] as Map<String, dynamic>;
 
-        return Right(Ayah.fromJson(responseOnlyData));
+        return SuccessState(Ayah.fromJson(responseOnlyData));
       } else {
-        return Left(ExceptionMessage.noData.message);
+        return ErrorState(ExceptionType.noData);
       }
-    } on DioException catch (e) {
-      return Left(e.message ?? ExceptionMessage.errorOccured.message);
+    } on DioException catch (_) {
+      return ErrorState(ExceptionType.errorOccured);
     } catch (e) {
-      return Left(ExceptionMessage.errorOccured.message);
+      return ErrorState(ExceptionType.errorOccured);
     }
   }
 }
