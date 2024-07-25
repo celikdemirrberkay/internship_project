@@ -1,8 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:either_dart/either.dart';
 import 'package:internship_project/core/base/resource.dart';
 import 'package:internship_project/core/config/env_variables/development_env.dart';
-import 'package:internship_project/core/exception/exception_message.dart';
 import 'package:internship_project/core/exception/exception_type.dart';
 import 'package:internship_project/model/times_response.dart';
 import 'package:internship_project/service/remote/prayer_times/prayer_times_interface.dart';
@@ -38,14 +36,14 @@ class PrayerTimesService extends IPrayerTimesService {
         final responseAsApiResponse = PrayerApiResponse.fromJson(response.data!);
         return SuccessState(responseAsApiResponse.data!);
       } else {
-        return ErrorState(ExceptionType.noData);
+        return const ErrorState(ExceptionType.noData);
       }
 
       /// Catching errors
-    } on DioException catch (dioError) {
-      return ErrorState(ExceptionType.errorOccured);
-    } catch (error) {
-      return ErrorState(ExceptionType.errorOccured);
+    } on DioException catch (_) {
+      return const ErrorState(ExceptionType.errorOccured);
+    } catch (_) {
+      return const ErrorState(ExceptionType.errorOccured);
     }
   }
 }

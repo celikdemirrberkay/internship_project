@@ -1,5 +1,4 @@
 // ignore: implementation_imports
-import 'package:either_dart/src/either.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:internship_project/core/base/resource.dart';
@@ -31,7 +30,7 @@ class LocationService extends ILocationService {
         return SuccessState(place.locality ?? 'istanbul');
       }
     } catch (_) {
-      return ErrorState(ExceptionType.errorOccured);
+      return const ErrorState(ExceptionType.errorOccured);
     }
   }
 
@@ -54,7 +53,7 @@ class LocationService extends ILocationService {
         return SuccessState(place.country ?? 'Turkey');
       }
     } catch (_) {
-      return ErrorState(ExceptionType.errorOccured);
+      return const ErrorState(ExceptionType.errorOccured);
     }
   }
 
@@ -67,7 +66,7 @@ class LocationService extends ILocationService {
       );
       return SuccessState(position);
     } catch (e) {
-      return ErrorState(ExceptionType.errorOccured);
+      return const ErrorState(ExceptionType.errorOccured);
     }
   }
 }

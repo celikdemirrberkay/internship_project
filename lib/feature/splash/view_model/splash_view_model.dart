@@ -23,7 +23,7 @@ class SplashViewModel extends BaseViewModel {
     final city = await locationService.getCityName();
     final country = await locationService.getCountryName();
 
-    if (city.runtimeType == ErrorState || country.runtimeType == ErrorState) {
+    if (city is ErrorState<String> || country.runtimeType is ErrorState<String>) {
       await Fluttertoast.showToast(
         msg: ExceptionMessage.accessDeniedForeverForLocation.message,
       );

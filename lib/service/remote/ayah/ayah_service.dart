@@ -1,10 +1,8 @@
 import 'dart:math';
 
 import 'package:dio/dio.dart';
-import 'package:either_dart/src/either.dart';
 import 'package:internship_project/core/base/resource.dart';
 import 'package:internship_project/core/config/env_variables/development_env.dart';
-import 'package:internship_project/core/exception/exception_message.dart';
 import 'package:internship_project/core/exception/exception_type.dart';
 import 'package:internship_project/model/ayah.dart';
 import 'package:internship_project/service/remote/ayah/ayah_service_interface.dart';
@@ -30,12 +28,12 @@ class AyahService extends IAyahServiceInterface {
 
         return SuccessState(Ayah.fromJson(responseOnlyData));
       } else {
-        return ErrorState(ExceptionType.noData);
+        return const ErrorState(ExceptionType.noData);
       }
     } on DioException catch (_) {
-      return ErrorState(ExceptionType.errorOccured);
+      return const ErrorState(ExceptionType.errorOccured);
     } catch (e) {
-      return ErrorState(ExceptionType.errorOccured);
+      return const ErrorState(ExceptionType.errorOccured);
     }
   }
 }

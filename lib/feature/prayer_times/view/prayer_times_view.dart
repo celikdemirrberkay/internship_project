@@ -1,15 +1,11 @@
 import 'package:dart_vader/dart_vader.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:internship_project/core/base/resource.dart';
 import 'package:internship_project/core/common/app_horizontal_divider.dart';
 import 'package:internship_project/core/common/exception_widget.dart';
-import 'package:internship_project/core/common/loading_widget.dart';
 import 'package:internship_project/core/config/dependency_injection/dependency_container.dart';
-import 'package:internship_project/core/exception/exception_message.dart';
-import 'package:internship_project/core/exception/exception_type.dart';
 import 'package:internship_project/core/exception/exception_util.dart';
 import 'package:internship_project/core/theme/app_theme.dart';
 import 'package:internship_project/feature/prayer_times/view_model/prayer_times_viewmodel.dart';
@@ -64,7 +60,9 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
   }
 
   /// Lottie builder
-  LottieBuilder _lottie() => LottieBuilder.asset('assets/lottie/prayer.json');
+  LottieBuilder _lottie() => LottieBuilder.asset(
+        'assets/lottie/prayer.json',
+      );
 
   /// God names container
   Widget _godNamesContainerBuilder() => ViewModelBuilder.reactive(
@@ -74,15 +72,15 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
           locator(),
           context,
         ),
-        builder: (context, viewModel, child) => viewModel.isGodNameLoading == true
-            ? _shimmerLoadingContainer()
-            : viewModel.godNames.isRight
-                ? _godNamesAndMeaningContainer(context, viewModel)
-                : ExceptionWidget(message: ExceptionMessage.errorOccured.message),
+        builder: (context, viewModel, child) => switch (viewModel.godNames) {
+          SuccessState() => _godNamesAndMeaningContainer(viewModel),
+          ErrorState() => _errorWidget(ExceptionUtil.getExceptionMessage(viewModel.godNames.exceptionType!)),
+          LoadingState() => _shimmerLoadingContainer(),
+        },
       );
 
   /// God name and meaning container (with box decoration etc..)
-  Widget _godNamesAndMeaningContainer(BuildContext context, PrayerTimesViewmodel viewModel) {
+  Widget _godNamesAndMeaningContainer(PrayerTimesViewmodel viewModel) {
     return Row(
       children: [
         context.spacerWithFlex(flex: 3),
@@ -94,9 +92,9 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
               child: Column(
                 children: [
                   context.spacerWithFlex(flex: 20),
-                  Expanded(flex: 40, child: _godNameTextWidget(viewModel, context)),
+                  Expanded(flex: 40, child: _godNameTextWidget(viewModel)),
                   context.spacerWithFlex(flex: 5),
-                  Expanded(flex: 40, child: _godNameMeaningTextWidget(viewModel, context)),
+                  Expanded(flex: 40, child: _godNameMeaningTextWidget(viewModel)),
                   context.spacerWithFlex(flex: 5),
                 ],
               ),
@@ -109,10 +107,10 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
   }
 
   /// God name meaning text widget
-  Widget _godNameMeaningTextWidget(PrayerTimesViewmodel viewModel, BuildContext context) {
+  Widget _godNameMeaningTextWidget(PrayerTimesViewmodel viewModel) {
     return SingleChildScrollView(
       child: Text(
-        '"${viewModel.godNames.right[viewModel.randomInt].meaning}"',
+        '"${viewModel.godNames.data!.meaning}"',
         textAlign: context.textAlignCenter,
         overflow: TextOverflow.fade,
         style: GoogleFonts.roboto(
@@ -126,10 +124,10 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
   }
 
   /// God name text widget
-  Widget _godNameTextWidget(PrayerTimesViewmodel viewModel, BuildContext context) {
+  Widget _godNameTextWidget(PrayerTimesViewmodel viewModel) {
     return FittedBox(
       child: Text(
-        viewModel.godNames.right[viewModel.randomInt].name,
+        viewModel.godNames.data!.name,
         textAlign: context.textAlignCenter,
         style: GoogleFonts.cookie(
           textStyle: context.appTextTheme.bodyLarge?.copyWith(
@@ -150,34 +148,13 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
         locator(),
         context,
       ),
-      builder: (context, viewModel, child) => switch (viewModel.datas) {
-        SuccessState<PrayerApiData>() => _prayerTimesContainer(viewModel.datas.data!),
-        ErrorState<PrayerApiData>() => _errorWidget(ExceptionUtil.getExceptionMessage(viewModel.datas.exceptionType!)),
-        LoadingState<PrayerApiData>() => _shimmerLoadingContainer()
+      builder: (context, viewModel, child) => switch (viewModel.prayerTimesData) {
+        SuccessState() => _prayerTimesContainer(viewModel.prayerTimesData.data!),
+        ErrorState() => _errorWidget(ExceptionUtil.getExceptionMessage(viewModel.prayerTimesData.exceptionType!)),
+        LoadingState() => _shimmerLoadingContainer(),
       },
     );
   }
-
-  /// Shimmer loading effect container
-  Widget _shimmerLoadingContainer() => Shimmer.fromColors(
-        baseColor: AppTheme.shimmerBaseColor,
-        highlightColor: AppTheme.shimmerHighlightColor,
-        child: Row(
-          children: [
-            context.spacerWithFlex(flex: 3),
-            Expanded(
-              flex: 94,
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: context.circularBorderRadius(radius: 24),
-                  color: Colors.grey,
-                ),
-              ),
-            ),
-            context.spacerWithFlex(flex: 3),
-          ],
-        ),
-      );
 
   /// God name container
   Widget _prayerTimesContainer(PrayerApiData data) {
@@ -216,9 +193,9 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
         context,
       ),
       builder: (context, viewModel, child) => switch (viewModel.ayah) {
-        SuccessState<Ayah>() => _ayahTimesContainer(viewModel.ayah.data!),
-        ErrorState<Ayah>() => _errorWidget(ExceptionUtil.getExceptionMessage(viewModel.ayah.exceptionType!)),
-        LoadingState<Ayah>() => _shimmerLoadingContainer(),
+        SuccessState() => _ayahTimesContainer(viewModel.ayah.data!),
+        ErrorState() => _errorWidget(ExceptionUtil.getExceptionMessage(viewModel.ayah.exceptionType!)),
+        LoadingState() => _shimmerLoadingContainer(),
       },
     );
   }
@@ -468,6 +445,27 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
               ),
             ],
           ),
+        ),
+      );
+
+  /// Shimmer loading effect container
+  Widget _shimmerLoadingContainer() => Shimmer.fromColors(
+        baseColor: AppTheme.shimmerBaseColor,
+        highlightColor: AppTheme.shimmerHighlightColor,
+        child: Row(
+          children: [
+            context.spacerWithFlex(flex: 3),
+            Expanded(
+              flex: 94,
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: context.circularBorderRadius(radius: 24),
+                  color: Colors.grey,
+                ),
+              ),
+            ),
+            context.spacerWithFlex(flex: 3),
+          ],
         ),
       );
 

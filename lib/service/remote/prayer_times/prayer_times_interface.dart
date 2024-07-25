@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:either_dart/either.dart';
 import 'package:internship_project/core/base/resource.dart';
 import 'package:internship_project/model/times_response.dart';
 

@@ -1,9 +1,7 @@
 import 'dart:math';
 
-import 'package:either_dart/either.dart';
 import 'package:flutter/material.dart';
 import 'package:internship_project/core/base/resource.dart';
-import 'package:internship_project/core/exception/exception_message.dart';
 import 'package:internship_project/model/ayah.dart';
 import 'package:internship_project/model/god_names.dart';
 import 'package:internship_project/model/times_response.dart';
@@ -54,17 +52,17 @@ class PrayerTimesViewmodel extends BaseViewModel {
 
   /// --------------------------------------------------------------------------
   /// Prayer times
-  Resource<PrayerApiData> _datas = LoadingState();
-  Resource<PrayerApiData> get datas => _datas;
+  Resource<PrayerApiData> _prayerTimesData = const LoadingState();
+  Resource<PrayerApiData> get prayerTimesData => _prayerTimesData;
 
   /// --------------------------------------------------------------------------
   /// God names
-  Either<String, List<GodNames>> _godNames = Left(ExceptionMessage.errorOccured.message);
-  Either<String, List<GodNames>> get godNames => _godNames;
+  Resource<God> _godNames = const LoadingState();
+  Resource<God> get godNames => _godNames;
 
   /// --------------------------------------------------------------------------
   /// Ayah
-  Resource<Ayah> _ayah = LoadingState();
+  Resource<Ayah> _ayah = const LoadingState();
   Resource<Ayah> get ayah => _ayah;
 
   /// --------------------------------------------------------------------------
@@ -84,23 +82,15 @@ class PrayerTimesViewmodel extends BaseViewModel {
     required String country,
   }) async {
     final response = await _prayerTimesService.getPrayerTimes(city, country);
-    _datas = response;
-
+    _prayerTimesData = response;
     notifyListeners();
   }
 
   /// --------------------------------------------------------------------------
   /// Fetching data from json file and returning a list of GodNames
   Future<void> randomGodNameAndMeaning(BuildContext context) async {
-    /// Set isGodNameLoaded state as true
-    isGodNameLoading = true;
-    notifyListeners();
-
     final response = await _godNamesService.randomGodNameAndMeaning(context);
     _godNames = response;
-
-    /// Set isGodNameLoaded state as false
-    isGodNameLoading = false;
     notifyListeners();
   }
 
