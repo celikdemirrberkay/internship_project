@@ -54,8 +54,8 @@ class PrayerTimesViewmodel extends BaseViewModel {
 
   /// --------------------------------------------------------------------------
   /// Prayer times
-  Either<String, PrayerApiData> _datas = Left(ExceptionMessage.errorOccured.message);
-  Either<String, PrayerApiData> get datas => _datas;
+  Resource<PrayerApiData> _datas = LoadingState();
+  Resource<PrayerApiData> get datas => _datas;
 
   /// --------------------------------------------------------------------------
   /// God names
@@ -83,16 +83,9 @@ class PrayerTimesViewmodel extends BaseViewModel {
     required String city,
     required String country,
   }) async {
-    /// Set isPrayerTimesLoaded state as true
-    isPrayerTimesLoading = true;
-    notifyListeners();
-    await Future.delayed(Durations.extralong4);
-
     final response = await _prayerTimesService.getPrayerTimes(city, country);
     _datas = response;
 
-    /// Set isPrayerTimesLoaded state as false
-    isPrayerTimesLoading = false;
     notifyListeners();
   }
 

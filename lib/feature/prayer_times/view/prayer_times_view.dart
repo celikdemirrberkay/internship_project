@@ -150,11 +150,11 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
         locator(),
         context,
       ),
-      builder: (context, viewModel, child) => viewModel.isPrayerTimesLoading
-          ? _shimmerLoadingContainer()
-          : viewModel.datas.isRight
-              ? _prayerTimesContainer(context, viewModel.datas.right)
-              : ExceptionWidget(message: ExceptionMessage.errorOccured.message),
+      builder: (context, viewModel, child) => switch (viewModel.datas) {
+        SuccessState<PrayerApiData>() => _prayerTimesContainer(viewModel.datas.data!),
+        ErrorState<PrayerApiData>() => _errorWidget(ExceptionUtil.getExceptionMessage(viewModel.datas.exceptionType!)),
+        LoadingState<PrayerApiData>() => _shimmerLoadingContainer()
+      },
     );
   }
 
@@ -180,7 +180,7 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
       );
 
   /// God name container
-  Widget _prayerTimesContainer(BuildContext context, PrayerApiData data) {
+  Widget _prayerTimesContainer(PrayerApiData data) {
     return Row(
       children: [
         context.spacerWithFlex(flex: 3),
@@ -217,7 +217,7 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
       ),
       builder: (context, viewModel, child) => switch (viewModel.ayah) {
         SuccessState<Ayah>() => _ayahTimesContainer(viewModel.ayah.data!),
-        ErrorState<Ayah>() => _errorWidget(ExceptionUtil.getExceptionMessage(viewModel.ayah.type!)),
+        ErrorState<Ayah>() => _errorWidget(ExceptionUtil.getExceptionMessage(viewModel.ayah.exceptionType!)),
         LoadingState<Ayah>() => _shimmerLoadingContainer(),
       },
     );
