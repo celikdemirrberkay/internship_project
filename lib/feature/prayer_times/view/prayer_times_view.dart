@@ -224,10 +224,8 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
   }
 
   Widget _errorWidget(String message) {
-    return FittedBox(
-      child: ExceptionWidget(
-        message: message,
-      ),
+    return ExceptionWidget(
+      message: message,
     );
   }
 
