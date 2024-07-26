@@ -1,5 +1,6 @@
 import 'package:dart_vader/dart_vader.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:internship_project/core/constants/app_constants.dart';
 
@@ -33,7 +34,7 @@ class _AppbarforappState extends State<Appbarforapp> {
         Icons.settings_outlined,
         color: context.themeData.colorScheme.primary,
       ),
-      onPressed: () {},
+      onPressed: () => context.pushNamed('settings'),
     );
   }
 
