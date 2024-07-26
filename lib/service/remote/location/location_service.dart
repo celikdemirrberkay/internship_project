@@ -18,7 +18,7 @@ class LocationService extends ILocationService {
   Future<Resource<String>> getCityName() async {
     try {
       final position = await _getCurrentPosition();
-      if (position.runtimeType == ErrorState) {
+      if (position.runtimeType == ErrorState<Position>) {
         return ErrorState(position.exceptionType!);
       } else {
         final placemarks = await placemarkFromCoordinates(
