@@ -1,7 +1,10 @@
+import 'package:dio/dio.dart';
 import 'package:either_dart/src/either.dart';
 import 'package:hive/hive.dart';
+import 'package:internship_project/core/base/resource.dart';
 import 'package:internship_project/core/exception/exception_message.dart';
-import 'package:internship_project/service&repository/local/hive/db_service_interface.dart';
+import 'package:internship_project/core/exception/exception_type.dart';
+import 'package:internship_project/service/local/hive/db_service_interface.dart';
 
 /// Abstraction of local database service
 class LocalDatabaseService extends ILocalDatabaseService {
@@ -9,7 +12,7 @@ class LocalDatabaseService extends ILocalDatabaseService {
   LocalDatabaseService();
 
   @override
-  Future<Either<String, T>> get<T>({
+  Future<Resource<T>> get<T>({
     required String dbName,
     required String key,
   }) async {
@@ -19,17 +22,17 @@ class LocalDatabaseService extends ILocalDatabaseService {
       final response = box.get(key);
 
       if (response != null) {
-        return Right(response);
+        return SuccessState(response);
       } else {
-        return Left(ExceptionMessage.noData.name);
+        return const ErrorState(ExceptionType.noData);
       }
     } catch (e) {
-      return Left(e.toString());
+      return const ErrorState(ExceptionType.errorOccured);
     }
   }
 
   @override
-  Future<Either<String, String>> remove<T>({
+  Future<Resource<String>> remove<T>({
     required String dbName,
     required String key,
   }) async {
@@ -38,14 +41,14 @@ class LocalDatabaseService extends ILocalDatabaseService {
       final box = await Hive.openBox<T?>(dbName);
       await box.delete(key);
 
-      return const Right('Başarıyla silindi.');
+      return const SuccessState('Başarıyla silindi.');
     } catch (e) {
-      return Left(e.toString());
+      return const ErrorState(ExceptionType.errorOccured);
     }
   }
 
   @override
-  Future<Either<String, String>> set<T>({
+  Future<Resource<String>> set<T>({
     required String dbName,
     required String key,
     required T value,
@@ -55,9 +58,9 @@ class LocalDatabaseService extends ILocalDatabaseService {
       final box = await Hive.openBox<T?>(dbName);
       await box.put(key, value);
 
-      return const Right('Başarıyla kaydedildi');
+      return const SuccessState('Başarıyla kaydedildi');
     } catch (e) {
-      return Left(e.toString());
+      return const ErrorState(ExceptionType.errorOccured);
     }
   }
 }

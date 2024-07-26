@@ -55,7 +55,9 @@ class _QiblahCompassViewState extends State<QiblahCompassView> with SingleTicker
           builder: (context, snapshot) {
             switch (snapshot.connectionState) {
               case ConnectionState.none:
-                return ExceptionWidget(message: ExceptionMessage.errorOccured.message);
+                return ExceptionWidget(
+                  message: ExceptionMessage.errorOccured.message,
+                );
               case ConnectionState.waiting:
                 return const Center(child: LoadingWidget());
               case ConnectionState.active:

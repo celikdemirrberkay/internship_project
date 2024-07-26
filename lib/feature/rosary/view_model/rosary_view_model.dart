@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:internship_project/core/base/resource.dart';
 import 'package:internship_project/core/exception/exception_message.dart';
-import 'package:internship_project/service&repository/local/hive/db_service.dart';
+import 'package:internship_project/core/exception/exception_util.dart';
+import 'package:internship_project/service/local/hive/db_service.dart';
 import 'package:stacked/stacked.dart';
 
 /// Rosary page ViewModel
@@ -54,27 +56,29 @@ class RosaryViewModel extends BaseViewModel {
     );
 
     /// If db get operation success
-    if (dbList.isRight) {
+    if (dbList is SuccessState<List<String>>) {
       /// Add dhikr to list
-      dbList.right.add(value);
+      dbList.data!.add(value);
 
       /// Set new dhikr list to local database
       final response = await db.set(
         dbName: _LocalDbServiceEnum.databaseService.name,
         key: _LocalDbServiceEnum.dhikrList.name,
-        value: dbList.right,
+        value: dbList.data!,
       );
 
       /// Add dhikr to static list and update ui for listeners
       dhikrStringList.value.clear();
-      dhikrStringList.value.addAll(dbList.right);
+      dhikrStringList.value.addAll(dbList.data!);
       notifyListeners();
 
       /// Show success toast message
-      await Fluttertoast.showToast(msg: response.right);
+      await Fluttertoast.showToast(msg: response.data!);
     } else {
       /// Show error toast message if db get operation failed
-      await Fluttertoast.showToast(msg: ExceptionMessage.errorOccured.message);
+      await Fluttertoast.showToast(
+        msg: ExceptionUtil.getExceptionMessage(dbList.exceptionType!),
+      );
     }
   }
 
@@ -88,9 +92,9 @@ class RosaryViewModel extends BaseViewModel {
     );
 
     /// Return dhikr list
-    if (dbList.isRight) {
+    if (dbList is SuccessState<List<String>>) {
       /// If db get operation success return dhikr list
-      return dbList.right;
+      return dbList.data!;
     } else {
       /// If db get operation failed return empty list
       /// and show error toast message
@@ -102,32 +106,28 @@ class RosaryViewModel extends BaseViewModel {
   /// -------------------------------------------------------------
   /// Remove dhikr from list
   Future<void> removeDhikrFromList(String name) async {
-    // !!First get then remove then set!!
     /// Get dhikr list from local database
     final dhikrList = await db.get<List<String>>(
       dbName: _LocalDbServiceEnum.databaseService.name,
       key: _LocalDbServiceEnum.dhikrList.name,
     );
 
-    /// If db get operation success
-    if (dhikrList.isRight) {
-      /// Remove dhikr from list
-      dhikrList.right.remove(name);
+    /// Remove dhikr from list
+    dhikrList.data!.remove(name);
 
-      /// Set new dhikr list to local database
-      await db.set(
-        dbName: _LocalDbServiceEnum.databaseService.name,
-        key: _LocalDbServiceEnum.dhikrList.name,
-        value: dhikrList.right,
-      );
+    /// Set new dhikr list to local database
+    await db.set(
+      dbName: _LocalDbServiceEnum.databaseService.name,
+      key: _LocalDbServiceEnum.dhikrList.name,
+      value: dhikrList.data,
+    );
 
-      /// Remove dhikr from static list and update ui for listeners
-      dhikrStringList.value.remove(name);
-      notifyListeners();
+    /// Remove dhikr from static list and update ui for listeners
+    dhikrStringList.value.remove(name);
+    notifyListeners();
 
-      /// Show success toast message
-      await Fluttertoast.showToast(msg: 'Başarıyla silindi');
-    }
+    /// Show success toast message
+    await Fluttertoast.showToast(msg: 'Başarıyla silindi');
   }
 }
 

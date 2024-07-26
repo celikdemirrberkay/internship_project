@@ -1,6 +1,7 @@
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:internship_project/core/base/resource.dart';
 import 'package:internship_project/core/config/dependency_injection/dependency_container.dart';
-import 'package:internship_project/service&repository/local/hive/db_service.dart';
+import 'package:internship_project/service/local/hive/db_service.dart';
 
 /// AppInitializer is a class that initializes the app.
 class AppInitializer {
@@ -43,10 +44,10 @@ class AppInitializer {
     /// If onboard is not done
     /// Or there is an error from db
     /// Return false
-    if (isOnboardDone.isLeft) {
+    if (isOnboardDone.runtimeType == ErrorState<bool?>) {
       return false;
     } else {
-      return isOnboardDone.right ?? false;
+      return isOnboardDone.data ?? false;
     }
   }
 }

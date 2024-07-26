@@ -1,4 +1,4 @@
-/// Exception messages
+/// Exception messages enum that holds exception messages.
 enum ExceptionMessage {
   /// Error occurred
   errorOccured('Hata meydana geldi!'),

@@ -1,6 +1,6 @@
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:internship_project/core/exception/exception_message.dart';
-import 'package:internship_project/service&repository/local/hive/db_service.dart';
+import 'package:internship_project/core/base/resource.dart';
+import 'package:internship_project/service/local/hive/db_service.dart';
 import 'package:stacked/stacked.dart';
 
 /// Onboard view model
@@ -21,8 +21,10 @@ class OnboardViewModel extends BaseViewModel {
     );
 
     /// If set operation success
-    if (response.isLeft) {
-      await Fluttertoast.showToast(msg: ExceptionMessage.errorOccured.message);
+    if (response is SuccessState<String>) {
+      await Fluttertoast.showToast(
+        msg: response.data!,
+      );
     }
   }
 }

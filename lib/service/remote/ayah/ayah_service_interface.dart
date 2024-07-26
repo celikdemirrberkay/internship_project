@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:either_dart/either.dart';
+import 'package:internship_project/core/base/resource.dart';
 import 'package:internship_project/model/ayah.dart';
 
 /// Ayah service interface
@@ -11,5 +11,5 @@ abstract class IAyahServiceInterface {
   final Dio dio;
 
   /// Get specific Ayah
-  Future<Either<String, Ayah>> getSpecificAyah();
+  Future<Resource<Ayah>> getSpecificAyah();
 }
