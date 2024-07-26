@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
-import 'package:either_dart/either.dart';
+import 'package:internship_project/core/base/resource.dart';
 import 'package:internship_project/core/config/env_variables/development_env.dart';
-import 'package:internship_project/core/exception/exception_message.dart';
+import 'package:internship_project/core/exception/exception_type.dart';
 import 'package:internship_project/model/times_response.dart';
-import 'package:internship_project/service&repository/remote/prayer_times/prayer_times_interface.dart';
+import 'package:internship_project/service/remote/prayer_times/prayer_times_interface.dart';
 import 'package:intl/intl.dart';
 
 /// The service where we fetch prayer times
@@ -16,7 +16,7 @@ class PrayerTimesService extends IPrayerTimesService {
   /// Returns either error message or response data.
   /// Did the null check here to avoid null safety issues.
   @override
-  Future<Either<String, PrayerApiData>> getPrayerTimes(
+  Future<Resource<PrayerApiData>> getPrayerTimes(
     String city,
     String country,
   ) async {
@@ -34,16 +34,16 @@ class PrayerTimesService extends IPrayerTimesService {
       if (response.data != null) {
         /// Converting response to ApiResponse object
         final responseAsApiResponse = PrayerApiResponse.fromJson(response.data!);
-        return Right(responseAsApiResponse.data!);
+        return SuccessState(responseAsApiResponse.data!);
       } else {
-        return Left(ExceptionMessage.noData.message);
+        return const ErrorState(ExceptionType.noData);
       }
 
       /// Catching errors
-    } on DioException catch (dioError) {
-      return Left(dioError.message ?? ExceptionMessage.errorOccured.message);
-    } catch (error) {
-      return Left(ExceptionMessage.errorOccured.message);
+    } on DioException catch (_) {
+      return const ErrorState(ExceptionType.errorOccured);
+    } catch (_) {
+      return const ErrorState(ExceptionType.errorOccured);
     }
   }
 }

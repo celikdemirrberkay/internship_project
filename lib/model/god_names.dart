@@ -1,14 +1,14 @@
 /// This class is used to store the names of the gods
-class GodNames {
+class God {
   ///
-  GodNames({
+  God({
     required this.name,
     required this.meaning,
   });
 
   /// Factory method to create a GodNames object from a json object
-  factory GodNames.fromJson(Map<String, dynamic> json) {
-    return GodNames(
+  factory God.fromJson(Map<String, dynamic> json) {
+    return God(
       name: json['name'] as String,
       meaning: json['meaning'] as String,
     );

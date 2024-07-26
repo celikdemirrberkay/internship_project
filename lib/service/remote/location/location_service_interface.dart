@@ -1,10 +1,10 @@
-import 'package:either_dart/either.dart';
+import 'package:internship_project/core/base/resource.dart';
 
 /// Location service interface
 abstract class ILocationService {
   /// Get city name from the position
-  Future<Either<String, String>> getCityName();
+  Future<Resource<String>> getCityName();
 
   /// Get country name from the position
-  Future<Either<String, String>> getCountryName();
+  Future<Resource<String>> getCountryName();
 }

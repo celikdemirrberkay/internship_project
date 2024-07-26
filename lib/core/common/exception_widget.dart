@@ -21,20 +21,33 @@ final class ExceptionWidget extends StatefulWidget {
 class _ExceptionWidgetState extends State<ExceptionWidget> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        children: [
-          context.spacerWithFlex(flex: 2),
-          Expanded(flex: 2, child: FittedBox(child: SvgPicture.asset('assets/svg/error.svg'))),
-          Expanded(
-            flex: 2,
-            child: Text(
-              widget.message,
-              style: TextStyle(color: context.themeData.colorScheme.error),
+    return SizedBox(
+      child: Center(
+        child: Column(
+          children: [
+            context.spacerWithFlex(flex: 2),
+            Expanded(
+              flex: 2,
+              child: FittedBox(
+                child: SizedBox(
+                  height: 100,
+                  width: 100,
+                  child: SvgPicture.asset(
+                    'assets/svg/error.svg',
+                  ),
+                ),
+              ),
             ),
-          ),
-          context.spacerWithFlex(flex: 2),
-        ],
+            Expanded(
+              flex: 2,
+              child: Text(
+                widget.message,
+                style: TextStyle(color: context.themeData.colorScheme.error),
+              ),
+            ),
+            context.spacerWithFlex(flex: 2),
+          ],
+        ),
       ),
     );
   }

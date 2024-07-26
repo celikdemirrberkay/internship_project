@@ -1,8 +1,9 @@
 // ignore: implementation_imports
-import 'package:either_dart/src/either.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:internship_project/service&repository/remote/location/location_service_interface.dart';
+import 'package:internship_project/core/base/resource.dart';
+import 'package:internship_project/core/exception/exception_type.dart';
+import 'package:internship_project/service/remote/location/location_service_interface.dart';
 
 /// Location service
 class LocationService extends ILocationService {
@@ -14,58 +15,58 @@ class LocationService extends ILocationService {
   /// Get city name
   /// Before use check the location permission
   @override
-  Future<Either<String, String>> getCityName() async {
+  Future<Resource<String>> getCityName() async {
     try {
       final position = await _getCurrentPosition();
-      if (position.isLeft) {
-        return Left(position.left);
+      if (position.runtimeType == ErrorState) {
+        return ErrorState(position.exceptionType!);
       } else {
         final placemarks = await placemarkFromCoordinates(
-          position.right.latitude,
-          position.right.longitude,
+          position.data!.latitude,
+          position.data!.longitude,
         );
 
         final place = placemarks[0];
-        return Right(place.locality ?? 'istanbul');
+        return SuccessState(place.locality ?? 'istanbul');
       }
-    } catch (e) {
-      return Left(e.toString());
+    } catch (_) {
+      return const ErrorState(ExceptionType.errorOccured);
     }
   }
 
   /// Get country name
   @override
-  Future<Either<String, String>> getCountryName() async {
+  Future<Resource<String>> getCountryName() async {
     try {
       final position = await _getCurrentPosition();
-      if (position.isLeft) {
-        return Left(position.left);
+      if (position.runtimeType == ErrorState) {
+        return ErrorState(position.exceptionType!);
       } else {
         /// Placemarks
         final placemarks = await placemarkFromCoordinates(
-          position.right.latitude,
-          position.right.longitude,
+          position.data!.latitude,
+          position.data!.longitude,
         );
 
         /// Place
         final place = placemarks[0];
-        return Right(place.country ?? 'Turkey');
+        return SuccessState(place.country ?? 'Turkey');
       }
-    } catch (e) {
-      return Left(e.toString());
+    } catch (_) {
+      return const ErrorState(ExceptionType.errorOccured);
     }
   }
 
   /// Get current position as latitude and longitude
-  Future<Either<String, Position>> _getCurrentPosition() async {
+  Future<Resource<Position>> _getCurrentPosition() async {
     try {
       /// Get current position
       final position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high,
       );
-      return Right(position);
+      return SuccessState(position);
     } catch (e) {
-      return Left(e.toString());
+      return const ErrorState(ExceptionType.errorOccured);
     }
   }
 }
