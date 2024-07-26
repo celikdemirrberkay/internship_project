@@ -20,7 +20,5 @@ To run this project you will need to add the following environment variables to 
 
 ## Screenshots
 
+<img src="[ana_ekran.png](https://github.com/user-attachments/assets/72e1be85-d3e5-424c-884e-135f24df3d51)" alt="Ana Ekran" width="400" height="300">
 
-![prayer](https://github.com/user-attachments/assets/72e1be85-d3e5-424c-884e-135f24df3d51)
-![rosary](https://github.com/user-attachments/assets/1a9b4c88-43d1-4a23-a18f-97c2c06f1098)
-![settings](https://github.com/user-attachments/assets/37afd473-eb25-4040-96c0-3db0d8dccae6)
