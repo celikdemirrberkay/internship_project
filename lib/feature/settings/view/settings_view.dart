@@ -2,6 +2,10 @@ import 'package:dart_vader/dart_vader.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:internship_project/core/theme/app_theme.dart';
+import 'package:internship_project/feature/settings/view_model/settings_view_model.dart';
+import 'package:line_icons/line_icons.dart';
+import 'package:stacked/stacked.dart';
 
 /// Settings view where user can change settings
 class SettingsView extends StatefulWidget {
@@ -46,7 +50,17 @@ class _SettingsViewState extends State<SettingsView> {
     );
   }
 
-  Widget _apiDescriptionText() => Text('data');
+  Widget _apiDescriptionText() => FittedBox(
+        child: Text(
+          'Tüm namaz vakitleri verileri\naladhan.com sitesinden alınmaktadır.',
+          textAlign: context.textAlignCenter,
+          style: GoogleFonts.roboto(
+            textStyle: context.appTextTheme.bodySmall?.copyWith(
+              color: AppTheme.shimmerBaseColor,
+            ),
+          ),
+        ),
+      );
 
   Widget _specialCards() {
     return Row(
@@ -132,7 +146,7 @@ class _SettingsViewState extends State<SettingsView> {
                     ),
                   ),
                 ),
-                Expanded(flex: 20, child: Switch(value: false, onChanged: (_) {})),
+                Expanded(flex: 20, child: _themeSwitch()),
               ],
             ),
           ),
@@ -141,6 +155,25 @@ class _SettingsViewState extends State<SettingsView> {
       ],
     );
   }
+
+  /// Theme selection switch
+  Widget _themeSwitch() => ViewModelBuilder.reactive(
+        viewModelBuilder: SettingsViewModel.new,
+        builder: (context, viewModel, child) => Switch(
+          value: viewModel.isDarkMode,
+          inactiveTrackColor: Colors.yellow.shade100,
+          inactiveThumbColor: Colors.yellow,
+          activeTrackColor: Colors.blue.shade100,
+          activeColor: Colors.blue,
+          thumbIcon: WidgetStatePropertyAll(
+            Icon(
+              viewModel.isDarkMode ? LineIcons.moon : LineIcons.sun,
+              color: context.themeData.colorScheme.onSecondary,
+            ),
+          ),
+          onChanged: (_) => viewModel.updateTheme(),
+        ),
+      );
 
   /// Special card for notification
   Widget _specialCardForNotification() {
@@ -172,7 +205,7 @@ class _SettingsViewState extends State<SettingsView> {
                 Expanded(
                   flex: 60,
                   child: Text(
-                    'Bildirimleri açın',
+                    'Bildirimleri kontrol edin',
                     style: GoogleFonts.roboto(
                       textStyle: context.appTextTheme.bodyLarge?.copyWith(
                         color: context.themeData.colorScheme.onSecondary,
@@ -180,7 +213,7 @@ class _SettingsViewState extends State<SettingsView> {
                     ),
                   ),
                 ),
-                Expanded(flex: 20, child: Switch(value: true, onChanged: (_) {})),
+                Expanded(flex: 20, child: _notificationSwitch()),
               ],
             ),
           ),
@@ -190,6 +223,16 @@ class _SettingsViewState extends State<SettingsView> {
     );
   }
 
+  /// Notification switch
+  Widget _notificationSwitch() => ViewModelBuilder.reactive(
+        viewModelBuilder: SettingsViewModel.new,
+        builder: (context, viewModel, child) => Switch(
+          value: viewModel.isNotificationOpen,
+          onChanged: (_) => viewModel.updateNotificationStatus(),
+        ),
+      );
+
+  /// Header text
   Widget _headerText(String text) {
     return Row(
       children: [
