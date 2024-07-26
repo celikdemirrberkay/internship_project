@@ -19,6 +19,7 @@ class LocationService extends ILocationService {
     try {
       final position = await _getCurrentPosition();
       if (position.runtimeType == ErrorState<Position>) {
+
         return ErrorState(position.exceptionType!);
       } else {
         final placemarks = await placemarkFromCoordinates(
