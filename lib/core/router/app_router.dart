@@ -5,6 +5,7 @@ import 'package:internship_project/feature/main_view.dart';
 import 'package:internship_project/feature/onboard/view/onboard_view.dart';
 import 'package:internship_project/feature/prayer_times/view/prayer_times_view.dart';
 import 'package:internship_project/feature/rosary/view/rosary_view.dart';
+import 'package:internship_project/feature/settings/view/settings_view.dart';
 import 'package:internship_project/feature/splash/view/splash_view.dart';
 
 /// We edit the route logic in our application from here
@@ -32,6 +33,13 @@ class AppRouter {
             path: '/MainView',
             name: 'main',
             pageBuilder: (context, state) => const MaterialPage(child: MainView()),
+          ),
+
+          /// Settings route
+          GoRoute(
+            path: '/SettingsView',
+            name: 'settings',
+            pageBuilder: (context, state) => const MaterialPage(child: SettingsView()),
           ),
         ],
       );
