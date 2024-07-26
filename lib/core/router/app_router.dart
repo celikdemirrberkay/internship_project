@@ -12,7 +12,7 @@ import 'package:internship_project/feature/splash/view/splash_view.dart';
 class AppRouter {
   /// GoRouter instance
   static GoRouter router() => GoRouter(
-        initialLocation: '/SettingsView',
+        initialLocation: '/SplashView',
         routes: [
           /// Splash route
           GoRoute(
