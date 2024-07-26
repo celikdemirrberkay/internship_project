@@ -39,12 +39,14 @@ class _SettingsViewState extends State<SettingsView> {
           Expanded(flex: 5, child: _headerText('Bildirim')),
           Expanded(flex: 8, child: _specialCardForNotification()),
           context.spacerWithFlex(flex: 45),
-          Expanded(flex: 5, child: Text('data')),
+          Expanded(flex: 5, child: _apiDescriptionText()),
           context.spacerWithFlex(flex: 2),
         ],
       ),
     );
   }
+
+  Widget _apiDescriptionText() => Text('data');
 
   Widget _specialCards() {
     return Row(
