@@ -2,6 +2,7 @@ import 'package:stacked/stacked.dart';
 
 /// SettingsViewModel class is responsible for the settings view logic.
 class SettingsViewModel extends BaseViewModel {
+  //TODO: Theme and notif implementation
   /// Dark mode status
   bool _isDarkMode = false;
   bool get isDarkMode => _isDarkMode;

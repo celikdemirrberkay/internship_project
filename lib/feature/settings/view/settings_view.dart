@@ -24,6 +24,7 @@ class _SettingsViewState extends State<SettingsView> {
         centerTitle: true,
         title: _title(),
         leading: _backButton(context),
+        backgroundColor: context.themeData.colorScheme.onPrimary,
       ),
       body: SafeArea(child: _column()),
     );
