@@ -290,6 +290,7 @@ class _SettingsViewState extends State<SettingsView> {
         ),
       );
 
+  /// Build city selection modal bottom sheet
   Future<void> _buildCityModalBottomSheet() => showModalBottomSheet(
         context: context,
         useSafeArea: true,

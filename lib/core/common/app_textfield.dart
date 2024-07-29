@@ -13,6 +13,7 @@ final class AppTextfield extends StatefulWidget {
     this.maxLength,
     this.prefixIcon,
     this.onChanged,
+    this.suffixIcon,
   });
 
   /// Hint text
@@ -26,6 +27,9 @@ final class AppTextfield extends StatefulWidget {
 
   /// Prefix icon
   final IconData? prefixIcon;
+
+  /// Prefix icon
+  final IconData? suffixIcon;
 
   /// On changed
   final void Function(String)? onChanged;
@@ -69,6 +73,12 @@ class _AppTextfieldState extends State<AppTextfield> {
             : Icon(
                 widget.prefixIcon,
                 color: context.themeData.colorScheme.primary,
+              ),
+        suffixIcon: widget.suffixIcon == null
+            ? null
+            : Icon(
+                widget.suffixIcon,
+                color: context.themeData.colorScheme.onSecondary,
               ),
       ),
     );

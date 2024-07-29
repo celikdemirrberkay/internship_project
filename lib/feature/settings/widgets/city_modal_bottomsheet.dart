@@ -58,6 +58,7 @@ class __CityModalBottomSheetState extends State<_CityModalBottomSheet> {
               controller: _controllerForSearchCity,
               prefixIcon: LineIcons.city,
               onChanged: (value) => _searchCity(value, viewModel),
+              suffixIcon: Icons.search,
             ),
           ),
           context.spacerWithFlex(flex: 5),
