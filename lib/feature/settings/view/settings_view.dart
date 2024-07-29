@@ -1,6 +1,6 @@
 import 'package:dart_vader/dart_vader.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:internship_project/core/base/resource.dart';
@@ -13,6 +13,7 @@ import 'package:internship_project/core/exception/exception_util.dart';
 import 'package:internship_project/core/theme/app_theme.dart';
 import 'package:internship_project/feature/settings/view_model/settings_view_model.dart';
 import 'package:internship_project/model/city.dart';
+import 'package:internship_project/service/remote/location/location_service.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:stacked/stacked.dart';
 
@@ -275,7 +276,7 @@ class _SettingsViewState extends State<SettingsView> {
         Icons.arrow_back_ios,
         color: context.themeData.colorScheme.onSecondary,
       ),
-      onPressed: () => context.pop(),
+      onPressed: () => context.pushReplacementNamed('main'),
     );
   }
 

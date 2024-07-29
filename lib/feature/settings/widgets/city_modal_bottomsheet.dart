@@ -79,7 +79,6 @@ class __CityModalBottomSheetState extends State<_CityModalBottomSheet> {
           LoadingState<List<City>>() => const LoadingWidget(),
           SuccessState<List<City>>() => _cityListView(),
         },
-        fireOnViewModelReadyOnce: true,
         onViewModelReady: (viewModel) async {
           await viewModel.getCityNames(context);
           searchableCityList = viewModel.cityNames.data ?? [];
@@ -113,6 +112,10 @@ class __CityModalBottomSheetState extends State<_CityModalBottomSheet> {
           ),
         ),
         onTap: () {
+          LocationService.cityName.value = searchableCityList[index].name;
+          Fluttertoast.showToast(
+            msg: 'Namaz vakitleri ${searchableCityList[index].name} şehrine göre ayarlandı',
+          );
           context.pop();
         },
       ),

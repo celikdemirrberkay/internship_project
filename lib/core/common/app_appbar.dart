@@ -34,7 +34,7 @@ class _AppbarforappState extends State<Appbarforapp> {
         Icons.settings_outlined,
         color: context.themeData.colorScheme.primary,
       ),
-      onPressed: () => context.pushNamed('settings'),
+      onPressed: () => context.pushReplacementNamed('settings'),
     );
   }
 
