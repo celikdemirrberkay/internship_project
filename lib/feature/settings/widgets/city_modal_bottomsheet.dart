@@ -35,8 +35,8 @@ class __CityModalBottomSheetState extends State<_CityModalBottomSheet> {
         width: context.screenSizes.width,
         child: Column(
           children: [
-            Expanded(flex: 25, child: _textField()),
-            Expanded(flex: 70, child: _cityListBuilder()),
+            Expanded(flex: 20, child: _textField()),
+            Expanded(flex: 80, child: _cityListBuilder()),
             context.spacerWithFlex(flex: 5),
           ],
         ),
