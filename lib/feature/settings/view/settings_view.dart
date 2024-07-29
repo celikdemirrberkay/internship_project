@@ -1,11 +1,15 @@
 import 'package:dart_vader/dart_vader.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:internship_project/core/common/app_textfield.dart';
 import 'package:internship_project/core/theme/app_theme.dart';
 import 'package:internship_project/feature/settings/view_model/settings_view_model.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:stacked/stacked.dart';
+
+part '../widgets/city_modal_bottomsheet.dart';
 
 /// Settings view where user can change settings
 class SettingsView extends StatefulWidget {
@@ -20,6 +24,7 @@ class _SettingsViewState extends State<SettingsView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         centerTitle: true,
         title: _title(),
@@ -36,7 +41,7 @@ class _SettingsViewState extends State<SettingsView> {
         children: [
           context.spacerWithFlex(flex: 3),
           Expanded(flex: 5, child: _headerText('Konum')),
-          Expanded(flex: 8, child: _specialCards()),
+          Expanded(flex: 8, child: _specialCardForCity()),
           context.spacerWithFlex(flex: 3),
           Expanded(flex: 5, child: _headerText('Tema')),
           Expanded(flex: 8, child: _specialCardForTheme()),
@@ -63,44 +68,47 @@ class _SettingsViewState extends State<SettingsView> {
         ),
       );
 
-  Widget _specialCards() {
+  Widget _specialCardForCity() {
     return Row(
       children: [
         context.spacerWithFlex(flex: 3),
         Expanded(
           flex: 94,
-          child: Container(
-            height: double.infinity,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              borderRadius: context.circularBorderRadius(radius: 12),
-              color: context.themeData.colorScheme.onPrimary,
-            ),
-            child: Row(
-              children: [
-                context.spacerWithFlex(flex: 3),
-                Expanded(
-                  flex: 5,
-                  child: FittedBox(
-                    child: Icon(
-                      Icons.location_on_outlined,
-                      color: context.themeData.colorScheme.primary,
-                    ),
-                  ),
-                ),
-                context.spacerWithFlex(flex: 2),
-                Expanded(
-                  flex: 80,
-                  child: Text(
-                    'Şehri seçiniz',
-                    style: GoogleFonts.roboto(
-                      textStyle: context.appTextTheme.bodyLarge?.copyWith(
-                        color: context.themeData.colorScheme.onSecondary,
+          child: InkWell(
+            onTap: () async => _buildCityModalBottomSheet(),
+            child: Container(
+              height: double.infinity,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                borderRadius: context.circularBorderRadius(radius: 12),
+                color: context.themeData.colorScheme.onPrimary,
+              ),
+              child: Row(
+                children: [
+                  context.spacerWithFlex(flex: 3),
+                  Expanded(
+                    flex: 5,
+                    child: FittedBox(
+                      child: Icon(
+                        Icons.location_on_outlined,
+                        color: context.themeData.colorScheme.primary,
                       ),
                     ),
                   ),
-                ),
-              ],
+                  context.spacerWithFlex(flex: 2),
+                  Expanded(
+                    flex: 80,
+                    child: Text(
+                      'Şehri seçiniz',
+                      style: GoogleFonts.roboto(
+                        textStyle: context.appTextTheme.bodyLarge?.copyWith(
+                          color: context.themeData.colorScheme.onSecondary,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -272,5 +280,12 @@ class _SettingsViewState extends State<SettingsView> {
             color: context.themeData.colorScheme.onSecondary,
           ),
         ),
+      );
+
+  Future<void> _buildCityModalBottomSheet() => showModalBottomSheet(
+        context: context,
+        useSafeArea: true,
+        isScrollControlled: true,
+        builder: (context) => const _CityModalBottomSheet(),
       );
 }
