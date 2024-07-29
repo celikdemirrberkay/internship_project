@@ -12,6 +12,7 @@ final class AppTextfield extends StatefulWidget {
     this.controller,
     this.maxLength,
     this.prefixIcon,
+    this.onChanged,
   });
 
   /// Hint text
@@ -26,6 +27,9 @@ final class AppTextfield extends StatefulWidget {
   /// Prefix icon
   final IconData? prefixIcon;
 
+  /// On changed
+  final void Function(String)? onChanged;
+
   @override
   State<AppTextfield> createState() => _AppTextfieldState();
 }
@@ -34,6 +38,7 @@ class _AppTextfieldState extends State<AppTextfield> {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      onChanged: widget.onChanged,
       controller: widget.controller,
       maxLength: widget.maxLength,
       style: GoogleFonts.roboto(
@@ -63,7 +68,7 @@ class _AppTextfieldState extends State<AppTextfield> {
             ? null
             : Icon(
                 widget.prefixIcon,
-                color: context.themeData.colorScheme.secondary,
+                color: context.themeData.colorScheme.primary,
               ),
       ),
     );

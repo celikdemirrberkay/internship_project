@@ -5,7 +5,10 @@ import 'package:flutter/material.dart';
 @immutable
 final class HorizontalAppDivider extends StatefulWidget {
   ///
-  const HorizontalAppDivider({super.key});
+  const HorizontalAppDivider({super.key, this.dividerColor});
+
+  /// Divider color
+  final Color? dividerColor;
 
   @override
   State<HorizontalAppDivider> createState() => _HorizontalAppDividerState();
@@ -15,7 +18,7 @@ class _HorizontalAppDividerState extends State<HorizontalAppDivider> {
   @override
   Widget build(BuildContext context) {
     return Divider(
-      color: context.themeData.colorScheme.primary,
+      color: widget.dividerColor == null ? context.themeData.colorScheme.primary : widget.dividerColor,
     );
   }
 }
