@@ -1,4 +1,5 @@
 // ignore: implementation_imports
+import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:internship_project/core/base/resource.dart';
@@ -9,8 +10,8 @@ import 'package:internship_project/service/remote/location/location_service_inte
 class LocationService extends ILocationService {
   /// Default city name and country name
   /// Used when location permission is not granted scenario
-  static String cityName = 'İstanbul';
-  static String countryName = 'Turkey';
+  static ValueNotifier<String> cityName = ValueNotifier('İstanbul');
+  static ValueNotifier<String> countryName = ValueNotifier('Turkey');
 
   /// Get city name
   /// Before use check the location permission
@@ -19,7 +20,6 @@ class LocationService extends ILocationService {
     try {
       final position = await _getCurrentPosition();
       if (position.runtimeType == ErrorState<Position>) {
-
         return ErrorState(position.exceptionType!);
       } else {
         final placemarks = await placemarkFromCoordinates(
