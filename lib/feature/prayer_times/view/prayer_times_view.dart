@@ -1,6 +1,7 @@
 import 'package:dart_vader/dart_vader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:internship_project/core/base/resource.dart';
 import 'package:internship_project/core/common/app_horizontal_divider.dart';
@@ -141,18 +142,28 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
 
   /// Prayer times container builder
   Widget _prayerTimesContainerBuilder() {
-    return ViewModelBuilder.reactive(
-      viewModelBuilder: () => PrayerTimesViewmodel(
-        locator(),
-        locator(),
-        locator(),
-        context,
+    return ValueListenableBuilder(
+      valueListenable: LocationService.cityName,
+      builder: (context, cityName, child) => ViewModelBuilder.reactive(
+        viewModelBuilder: () => PrayerTimesViewmodel(
+          locator(),
+          locator(),
+          locator(),
+          context,
+        ),
+        disposeViewModel: false,
+        builder: (context, viewModel, child) => switch (viewModel.prayerTimesData) {
+          SuccessState() => _prayerTimesContainer(viewModel.prayerTimesData.data!),
+          ErrorState() => _errorWidget(ExceptionUtil.getExceptionMessage(viewModel.prayerTimesData.exceptionType!)),
+          LoadingState() => _shimmerLoadingContainer(),
+        },
+        onViewModelReady: (viewModel) async {
+          await viewModel.getPrayerTimes(
+            city: cityName,
+            country: 'turkey',
+          );
+        },
       ),
-      builder: (context, viewModel, child) => switch (viewModel.prayerTimesData) {
-        SuccessState() => _prayerTimesContainer(viewModel.prayerTimesData.data!),
-        ErrorState() => _errorWidget(ExceptionUtil.getExceptionMessage(viewModel.prayerTimesData.exceptionType!)),
-        LoadingState() => _shimmerLoadingContainer(),
-      },
     );
   }
 
@@ -302,7 +313,7 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
           Expanded(
             flex: 30,
             child: Text(
-              LocationService.cityName,
+              LocationService.cityName.value,
               style: GoogleFonts.roboto(
                 textStyle: context.appTextTheme.bodyLarge?.copyWith(
                   color: context.themeData.colorScheme.onPrimary,

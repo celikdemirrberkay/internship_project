@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:internship_project/service/local/city_name/city_name_service.dart';
 import 'package:internship_project/service/local/god_names/god_names_service.dart';
 import 'package:internship_project/service/local/hive/db_service.dart';
 import 'package:internship_project/service/remote/ayah/ayah_service.dart';
@@ -17,6 +18,9 @@ Future<void> setupDependencies() async {
 
     /// Registering GodNamesService as Singleton
     ..registerSingleton<GodNamesService>(GodNamesService())
+
+    /// Registering CityNameService as Singleton
+    ..registerSingleton<CityNameService>(CityNameService())
 
     /// Registering GodNamesService as Singleton
     ..registerSingleton<LocationService>(LocationService())

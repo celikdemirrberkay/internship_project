@@ -1,4 +1,3 @@
-import 'package:either_dart/either.dart';
 import 'package:internship_project/core/base/resource.dart';
 
 /// Abstraction of local database service

@@ -28,8 +28,8 @@ class PrayerTimesViewmodel extends BaseViewModel {
     /// Then we fetch the prayer times with country and city name we got
 
     getPrayerTimes(
-      city: LocationService.cityName,
-      country: LocationService.countryName,
+      city: LocationService.cityName.value,
+      country: LocationService.countryName.value,
     );
   }
 
