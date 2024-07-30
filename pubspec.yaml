@@ -31,7 +31,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  # Core
+  # Core (Http Requests, Local Storage, Notifications etc.)
   dio: ^5.5.0+1
   isar_flutter_libs: ^4.0.0-dev.13
   path_provider: ^2.1.0
@@ -40,6 +40,7 @@ dependencies:
   hive: ^2.0.4
   hive_flutter: ^1.1.0
   permission_handler: ^11.3.1
+  flutter_local_notifications: ^17.2.1+2
 
   # Location
   geolocator: ^11.1.0

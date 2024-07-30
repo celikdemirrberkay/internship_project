@@ -2,6 +2,8 @@ PODS:
   - Flutter (1.0.0)
   - flutter_compass_v2 (0.0.1):
     - Flutter
+  - flutter_local_notifications (0.0.1):
+    - Flutter
   - flutter_qiblah (0.0.1):
     - Flutter
   - fluttertoast (0.0.2):
@@ -23,6 +25,7 @@ PODS:
 DEPENDENCIES:
   - Flutter (from `Flutter`)
   - flutter_compass_v2 (from `.symlinks/plugins/flutter_compass_v2/ios`)
+  - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
   - flutter_qiblah (from `.symlinks/plugins/flutter_qiblah/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - geocoding_ios (from `.symlinks/plugins/geocoding_ios/ios`)
@@ -40,6 +43,8 @@ EXTERNAL SOURCES:
     :path: Flutter
   flutter_compass_v2:
     :path: ".symlinks/plugins/flutter_compass_v2/ios"
+  flutter_local_notifications:
+    :path: ".symlinks/plugins/flutter_local_notifications/ios"
   flutter_qiblah:
     :path: ".symlinks/plugins/flutter_qiblah/ios"
   fluttertoast:
@@ -58,6 +63,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   flutter_compass_v2: f7704b078814b705e76ae2bd48fe48ae6cd067df
+  flutter_local_notifications: 4cde75091f6327eb8517fa068a0a5950212d2086
   flutter_qiblah: f69eeb708d127a2634073ab1f27771c979928f50
   fluttertoast: e9a18c7be5413da53898f660530c56f35edfba9c
   geocoding_ios: d7460f56e80e118d57678efe5c2cdc888739ff18

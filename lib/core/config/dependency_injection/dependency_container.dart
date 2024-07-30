@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internship_project/service/local/city_name/city_name_service.dart';
 import 'package:internship_project/service/local/god_names/god_names_service.dart';
