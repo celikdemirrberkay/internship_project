@@ -10,7 +10,7 @@ enum ExceptionMessage {
   noData('Veri bulunamadı!'),
 
   /// Access denied for notification
-  accessDeniedForNotification('Bildirim erişim izni verilmedi! Ayarlardan bildirim izni vermelisiniz'),
+  accessDeniedForNotification('Bildirim erişim izni verilmedi! Ayarlardan bildirim için izni vermelisiniz'),
 
   /// Access denied for location
   accessDeniedForLocation('Konum erişim reddedildi! Bu sebeple İstanbul konumu kullanılacak'),

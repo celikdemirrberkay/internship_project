@@ -242,7 +242,11 @@ class _SettingsViewState extends State<SettingsView> {
 
   /// Notification switch
   Widget _notificationSwitch() => ViewModelBuilder.reactive(
-        viewModelBuilder: () => SettingsViewModel(locator(), locator(), locator()),
+        viewModelBuilder: () => SettingsViewModel(
+          locator(),
+          locator(),
+          locator(),
+        ),
         builder: (context, viewModel, child) => switch (viewModel.isNotificationOpen) {
           ErrorState<bool>() => const Icon(LineIcons.cross),
           LoadingState<bool>() => const LoadingWidget(),

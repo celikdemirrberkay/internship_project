@@ -2,7 +2,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:internship_project/core/base/resource.dart';
 import 'package:internship_project/core/config/dependency_injection/dependency_container.dart';
 import 'package:internship_project/service/local/hive/db_service.dart';
-import 'package:internship_project/service/notification/notification_service.dart';
 
 /// AppInitializer is a class that initializes the app.
 class AppInitializer {
@@ -25,11 +24,25 @@ class AppInitializer {
   /// Notifications of the application will only be active if the user opens it
   /// from the settings screen.
   static Future<void> _setNotificationDisableForFirstTime() async {
-    await locator<LocalDatabaseService>().set<bool>(
+    final isNotificationOpen = await locator<LocalDatabaseService>().get<bool>(
       dbName: 'notificationDatabase',
       key: 'isNotificationOpen',
-      value: false,
     );
+    if (isNotificationOpen is SuccessState<bool>) {
+      if (isNotificationOpen.data == null) {
+        await locator<LocalDatabaseService>().set<bool>(
+          dbName: 'notificationDatabase',
+          key: 'isNotificationOpen',
+          value: false,
+        );
+      }
+    } else {
+      await locator<LocalDatabaseService>().set<bool>(
+        dbName: 'notificationDatabase',
+        key: 'isNotificationOpen',
+        value: false,
+      );
+    }
   }
 
   /// Set first time dhikr.

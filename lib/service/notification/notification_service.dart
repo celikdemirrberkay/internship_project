@@ -71,7 +71,7 @@ class LocalNotificationService {
       prayerTimes.forEach((key, value) async {
         /// Each prayer time (Fajr, Dhuhr, Asr, Maghrib, Isha)
         final prayerTime = DateTime.parse(
-          '${DateFormat('yyyy-MM-dd').format(DateTime.now())} ${value as String}',
+          '${DateFormat('yyyy-MM-dd').format(DateTime.now())} ${value as String}:15',
         );
 
         if (prayerTime.isAfter(DateTime.now())) {
@@ -80,20 +80,20 @@ class LocalNotificationService {
             id,
             title,
             body,
-            payload: 'prayer_time_notification',
+            payload: 'prayer-times',
             tz.TZDateTime.from(scheduledNotificationDateTime, tz.local),
             const NotificationDetails(
               iOS: DarwinNotificationDetails(),
               android: AndroidNotificationDetails(
                 'reminder_channel',
                 'Reminder Channel',
+                tag: 'prayer-reminder',
                 importance: Importance.high,
                 priority: Priority.high,
               ),
             ),
             uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
             matchDateTimeComponents: DateTimeComponents.dateAndTime,
-            androidAllowWhileIdle: true,
             androidScheduleMode: AndroidScheduleMode.exact,
           );
         }
@@ -154,6 +154,9 @@ class LocalNotificationService {
   /// --------------------------------------------------------------------------
   /// Cancel All Notifications
   Future<void> cancelPrayerTimeNotification() async {
-    await flutterLocalNotificationsPlugin.cancel(0);
+    await flutterLocalNotificationsPlugin.cancel(
+      0,
+      tag: 'prayer-reminder',
+    );
   }
 }
