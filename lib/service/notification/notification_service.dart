@@ -49,7 +49,6 @@ class LocalNotificationService {
   /// --------------------------------------------------------------------------
   /// Schedule Notification for Prayer Times
   Future<void> scheduleNotificationForPrayerTimes({
-    required int id,
     required String title,
     required String body,
   }) async {
@@ -65,22 +64,23 @@ class LocalNotificationService {
     /// If the response is success, schedule the notifications
     if (prayerResponse is SuccessState<Map<String, dynamic>>) {
       final prayerTimes = prayerResponse.data!['data']['timings'] as Map<String, dynamic>;
+      var id = 0;
 
       /// For each prayer time, schedule the notification
-      // ignore: cascade_invocations
-      prayerTimes.forEach((key, value) async {
+      await Future.forEach(prayerTimes.entries, (entry) async {
+        final now = DateTime.now();
+
         /// Each prayer time (Fajr, Dhuhr, Asr, Maghrib, Isha)
         final prayerTime = DateTime.parse(
-          '${DateFormat('yyyy-MM-dd').format(DateTime.now())} ${value as String}:15',
+          '${DateFormat('yyyy-MM-dd').format(now)} ${entry.value as String}:15',
         );
-
-        if (prayerTime.isAfter(DateTime.now())) {
+        if (prayerTime.isAfter(now)) {
           final scheduledNotificationDateTime = prayerTime;
           await flutterLocalNotificationsPlugin.zonedSchedule(
             id,
             title,
             body,
-            payload: 'prayer-times',
+            payload: '$scheduledNotificationDateTime',
             tz.TZDateTime.from(scheduledNotificationDateTime, tz.local),
             const NotificationDetails(
               iOS: DarwinNotificationDetails(),
@@ -96,8 +96,14 @@ class LocalNotificationService {
             matchDateTimeComponents: DateTimeComponents.dateAndTime,
             androidScheduleMode: AndroidScheduleMode.exact,
           );
+
+          /// Increment the id for each prayer time
+          id++;
         }
       });
+
+      /// Reset id to 0
+      id = 0;
     }
   }
 
@@ -109,12 +115,7 @@ class LocalNotificationService {
       if (Platform.isAndroid) {
         final androidImplementation = flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>();
         final areNotificationsEnabled = await androidImplementation?.areNotificationsEnabled() ?? false;
-
-        if (areNotificationsEnabled) {
-          return true;
-        } else {
-          return false;
-        }
+        return areNotificationsEnabled;
       }
 
       // iOS
@@ -124,30 +125,10 @@ class LocalNotificationService {
         return areNotificationsEnabled?.isEnabled ?? false;
       }
 
-      /// If the platform is not Android or iOS, return false
+      /// Default return value
       return false;
     } catch (e) {
       return false;
-    }
-  }
-
-  /// --------------------------------------------------------------------------
-  /// Check Notification Permission
-  Future<void> requestNotificationPermission() async {
-    try {
-      // Android
-      if (Platform.isAndroid) {
-        final androidImplementation = flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>();
-        await androidImplementation?.requestNotificationsPermission();
-      }
-
-      // iOS
-      if (Platform.isIOS) {
-        final iosPlugin = flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>();
-        await iosPlugin?.requestPermissions();
-      }
-    } catch (e) {
-      return;
     }
   }
 

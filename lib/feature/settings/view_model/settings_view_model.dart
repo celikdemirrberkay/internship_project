@@ -63,7 +63,6 @@ class SettingsViewModel extends BaseViewModel {
   /// --------------------------------------------------------------------------
   /// Update notification status
   Future<void> updateNotificationStatus({required bool value}) async {
-    final hasPermission = await localNotificationService.checkNotificationPermission();
     if (value == true) {
       /// Set switch to loading state
       _isNotificationOpen = const LoadingState();
@@ -73,6 +72,7 @@ class SettingsViewModel extends BaseViewModel {
       await _initNotification();
 
       /// Initialize Local Notification Service
+      final hasPermission = await localNotificationService.checkNotificationPermission();
 
       /// If the permission is granted, schedule the notification
       if (hasPermission) {
@@ -84,9 +84,7 @@ class SettingsViewModel extends BaseViewModel {
 
     /// If switch is off, cancel all notifications
     else {
-      if (hasPermission) {
-        await _turnSwitchOff(value);
-      }
+      await _turnSwitchOff(value);
     }
     notifyListeners();
   }
@@ -104,7 +102,6 @@ class SettingsViewModel extends BaseViewModel {
     await localNotificationService.scheduleNotificationForPrayerTimes(
       title: 'Namaz Vakti',
       body: 'Namaz Vakti geldi. Haydi namaza!',
-      id: 0,
     );
 
     final setNotifTrueResponse = await localDatabaseService.set<bool>(
