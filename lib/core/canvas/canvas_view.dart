@@ -54,12 +54,12 @@ class _CanvasViewState extends State<CanvasView> {
                     if (Platform.isIOS) {
                       final iosPlugin = FlutterLocalNotificationsPlugin().resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>();
                       final areNotificationsEnabled = await iosPlugin?.getActiveNotifications();
-                      print(areNotificationsEnabled ?? 'null knk');
+                      print(areNotificationsEnabled ?? 'null');
                     }
                     if (Platform.isAndroid) {
                       final androidPlugin = FlutterLocalNotificationsPlugin().resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>();
                       final areNotificationsEnabled = await androidPlugin?.pendingNotificationRequests();
-                      print(areNotificationsEnabled?.length ?? 'null knk');
+                      print(areNotificationsEnabled?.length ?? 'null');
                     }
                   },
                 ),
