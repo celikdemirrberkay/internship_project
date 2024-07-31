@@ -18,12 +18,13 @@ class SplashViewModel extends BaseViewModel {
     await PermissionManager.requestPermissionForLocation();
   }
 
-  /// Set city and country name
+  /// Set city and country name for prayer times request
+  /// If there is no city or country name, set default values
   Future<void> setCityAndCountryName() async {
     final city = await locationService.getCityName();
     final country = await locationService.getCountryName();
 
-    if (city is ErrorState<String> || country.runtimeType is ErrorState<String>) {
+    if (city is ErrorState<String> || country is ErrorState<String>) {
       await Fluttertoast.showToast(
         msg: ExceptionMessage.accessDeniedForeverForLocation.message,
       );

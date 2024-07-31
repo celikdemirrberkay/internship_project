@@ -16,6 +16,8 @@ class ExceptionUtil {
         return ExceptionMessage.accessDeniedForLocation.message;
       case ExceptionType.accessDeniedForeverForLocation:
         return ExceptionMessage.accessDeniedForeverForLocation.message;
+      case ExceptionType.accessDeniedForNotification:
+        return ExceptionMessage.accessDeniedForNotification.message;
     }
   }
 }
