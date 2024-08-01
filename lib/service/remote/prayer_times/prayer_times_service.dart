@@ -46,7 +46,6 @@ class PrayerTimesService extends IPrayerTimesService {
       return const ErrorState(ExceptionType.errorOccured);
     }
   }
-
   /// --------------------------------------------------------------------------
   /// Get prayer times for schedule notifications
   Future<Resource<Map<String, dynamic>>> getPrayerTimesForScheduleNotifications(

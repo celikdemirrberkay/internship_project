@@ -24,6 +24,7 @@ class SettingsViewModel extends BaseViewModel {
   /// CityNameService instance
   final CityNameService cityNameService;
 
+
   /// LocalNotificationService instance
   final LocalNotificationService localNotificationService;
 
@@ -32,6 +33,7 @@ class SettingsViewModel extends BaseViewModel {
 
   /// City name
   Resource<List<City>> _cityNames = const LoadingState();
+
   Resource<List<City>> get cityNames => _cityNames;
 
   /// Dark mode status

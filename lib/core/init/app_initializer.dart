@@ -45,8 +45,7 @@ class AppInitializer {
     }
   }
 
-  /// Set first time dhikr.
-  /// Setting up custom dhikr list for the first time.
+
   static Future<void> _setFirstTimeDhikr() async {
     final db = locator<LocalDatabaseService>();
     await db.set<List<String>>(

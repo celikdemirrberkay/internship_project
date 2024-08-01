@@ -21,7 +21,7 @@ class AppRouter {
             name: 'canvas',
             pageBuilder: (context, state) => const MaterialPage(child: CanvasView()),
           ),
-
+          
           /// Splash route
           GoRoute(
             path: '/SplashView',
