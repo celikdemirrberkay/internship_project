@@ -45,5 +45,4 @@ app.*.map.json
 
 **Todos
 
-assets/env/
 assets/env/.dev.env

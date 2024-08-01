@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:internship_project/core/base/resource.dart';
 import 'package:internship_project/core/config/dependency_injection/dependency_container.dart';
+import 'package:internship_project/service/notification/notification_logger.dart';
 import 'package:internship_project/service/remote/location/location_service.dart';
 import 'package:internship_project/service/remote/prayer_times/prayer_times_service.dart';
 import 'package:intl/intl.dart';
@@ -75,36 +76,53 @@ class LocalNotificationService {
           '${DateFormat('yyyy-MM-dd').format(now)} ${entry.value as String}:15',
         );
         if (prayerTime.isAfter(now)) {
+          /// Scheculed Notification Date Times
           final scheduledNotificationDateTime = prayerTime;
-          await flutterLocalNotificationsPlugin.zonedSchedule(
-            id,
-            title,
-            body,
-            payload: '$scheduledNotificationDateTime',
-            tz.TZDateTime.from(scheduledNotificationDateTime, tz.local),
-            const NotificationDetails(
-              iOS: DarwinNotificationDetails(),
-              android: AndroidNotificationDetails(
-                'reminder_channel',
-                'Reminder Channel',
-                tag: 'prayer-reminder',
-                importance: Importance.high,
-                priority: Priority.high,
-              ),
-            ),
-            uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
-            matchDateTimeComponents: DateTimeComponents.dateAndTime,
-            androidScheduleMode: AndroidScheduleMode.exact,
-          );
+
+          /// Set Zoned Schedule
+          await _setZonedSchedule(id, title, body, scheduledNotificationDateTime);
+
+          /// Log notification details
+          await NotificationLogger.logNotificationDetails();
 
           /// Increment the id for each prayer time
           id++;
         }
       });
 
-      /// Reset id to 0
+      /// Reset id to 0 at the end
       id = 0;
     }
+  }
+
+  /// --------------------------------------------------------------------------
+  /// Set zonedSchedule for Notification
+  Future<void> _setZonedSchedule(
+    int id,
+    String title,
+    String body,
+    DateTime scheduledNotificationDateTime,
+  ) async {
+    await flutterLocalNotificationsPlugin.zonedSchedule(
+      id,
+      title,
+      body,
+      payload: '$scheduledNotificationDateTime',
+      tz.TZDateTime.from(scheduledNotificationDateTime, tz.local),
+      const NotificationDetails(
+        iOS: DarwinNotificationDetails(),
+        android: AndroidNotificationDetails(
+          'reminder_channel',
+          'Reminder Channel',
+          tag: 'prayer-reminder',
+          importance: Importance.high,
+          priority: Priority.high,
+        ),
+      ),
+      uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
+      matchDateTimeComponents: DateTimeComponents.dateAndTime,
+      androidScheduleMode: AndroidScheduleMode.exact,
+    );
   }
 
   /// --------------------------------------------------------------------------
