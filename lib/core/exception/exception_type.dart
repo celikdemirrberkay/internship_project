@@ -5,4 +5,5 @@ enum ExceptionType {
   noData,
   accessDeniedForLocation,
   accessDeniedForeverForLocation,
+  accessDeniedForNotification,
 }

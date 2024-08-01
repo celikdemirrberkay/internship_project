@@ -47,7 +47,7 @@ class __CityModalBottomSheetState extends State<_CityModalBottomSheet> {
   /// Text field for searching city
   Widget _textField() {
     return ViewModelBuilder.reactive(
-      viewModelBuilder: () => SettingsViewModel(locator(), context),
+      viewModelBuilder: () => SettingsViewModel(locator(), locator(), locator()),
       builder: (context, viewModel, child) => Row(
         children: [
           context.spacerWithFlex(flex: 5),
@@ -74,7 +74,7 @@ class __CityModalBottomSheetState extends State<_CityModalBottomSheet> {
 
   /// City list builder
   Widget _cityListBuilder() => ViewModelBuilder.reactive(
-        viewModelBuilder: () => SettingsViewModel(locator(), context),
+        viewModelBuilder: () => SettingsViewModel(locator(), locator(), locator()),
         builder: (context, viewModel, child) => switch (viewModel.cityNames) {
           ErrorState<List<City>>() => ExceptionWidget(message: ExceptionUtil.getExceptionMessage(viewModel.cityNames.exceptionType!)),
           LoadingState<List<City>>() => const LoadingWidget(),

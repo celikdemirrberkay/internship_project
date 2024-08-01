@@ -13,11 +13,39 @@ class AppInitializer {
     /// Initialize Hive DB
     await Hive.initFlutter();
 
-    /// Setting up dependencies
+    /// set Dhikr List for first time
     await _setFirstTimeDhikr();
+
+    /// Set notification disable for first time
+    await _setNotificationDisableForFirstTime();
   }
 
-  /// Set first time dhikr
+  /// Set notification disable for first time
+  /// Notifications of the application will only be active if the user opens it
+  /// from the settings screen.
+  static Future<void> _setNotificationDisableForFirstTime() async {
+    final isNotificationOpen = await locator<LocalDatabaseService>().get<bool>(
+      dbName: 'notificationDatabase',
+      key: 'isNotificationOpen',
+    );
+    if (isNotificationOpen is SuccessState<bool>) {
+      if (isNotificationOpen.data == null) {
+        await locator<LocalDatabaseService>().set<bool>(
+          dbName: 'notificationDatabase',
+          key: 'isNotificationOpen',
+          value: false,
+        );
+      }
+    } else {
+      await locator<LocalDatabaseService>().set<bool>(
+        dbName: 'notificationDatabase',
+        key: 'isNotificationOpen',
+        value: false,
+      );
+    }
+  }
+
+
   static Future<void> _setFirstTimeDhikr() async {
     final db = locator<LocalDatabaseService>();
     await db.set<List<String>>(
@@ -44,7 +72,7 @@ class AppInitializer {
     /// If onboard is not done
     /// Or there is an error from db
     /// Return false
-    if (isOnboardDone.runtimeType == ErrorState<bool?>) {
+    if (isOnboardDone is ErrorState<bool?>) {
       return false;
     } else {
       return isOnboardDone.data ?? false;

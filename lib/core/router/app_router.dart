@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:internship_project/core/canvas/canvas_view.dart';
 import 'package:internship_project/feature/compass/view/qibla_compass_view.dart';
 import 'package:internship_project/feature/main_view.dart';
 import 'package:internship_project/feature/onboard/view/onboard_view.dart';
@@ -12,8 +13,15 @@ import 'package:internship_project/feature/splash/view/splash_view.dart';
 class AppRouter {
   /// GoRouter instance
   static GoRouter router() => GoRouter(
-        initialLocation: '/SplashView',
+        initialLocation: '/CanvasView',
         routes: [
+          /// Canvas route
+          GoRoute(
+            path: '/CanvasView',
+            name: 'canvas',
+            pageBuilder: (context, state) => const MaterialPage(child: CanvasView()),
+          ),
+          
           /// Splash route
           GoRoute(
             path: '/SplashView',

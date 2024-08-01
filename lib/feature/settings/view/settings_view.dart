@@ -175,7 +175,7 @@ class _SettingsViewState extends State<SettingsView> {
 
   /// Theme selection switch
   Widget _themeSwitch() => ViewModelBuilder.reactive(
-        viewModelBuilder: () => SettingsViewModel(locator(), context),
+        viewModelBuilder: () => SettingsViewModel(locator(), locator(), locator()),
         builder: (context, viewModel, child) => Switch(
           value: viewModel.isDarkMode,
           inactiveTrackColor: Colors.yellow.shade100,
@@ -242,11 +242,19 @@ class _SettingsViewState extends State<SettingsView> {
 
   /// Notification switch
   Widget _notificationSwitch() => ViewModelBuilder.reactive(
-        viewModelBuilder: () => SettingsViewModel(locator(), context),
-        builder: (context, viewModel, child) => Switch(
-          value: viewModel.isNotificationOpen,
-          onChanged: (_) => viewModel.updateNotificationStatus(),
+        viewModelBuilder: () => SettingsViewModel(
+          locator(),
+          locator(),
+          locator(),
         ),
+        builder: (context, viewModel, child) => switch (viewModel.isNotificationOpen) {
+          ErrorState<bool>() => const Icon(LineIcons.cross),
+          LoadingState<bool>() => const LoadingWidget(),
+          SuccessState<bool>() => Switch(
+              value: viewModel.isNotificationOpen.data ?? false,
+              onChanged: (value) => viewModel.updateNotificationStatus(value: value),
+            ),
+        },
       );
 
   /// Header text
