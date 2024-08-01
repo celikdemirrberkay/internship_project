@@ -13,7 +13,7 @@ import 'package:internship_project/feature/splash/view/splash_view.dart';
 class AppRouter {
   /// GoRouter instance
   static GoRouter router() => GoRouter(
-        initialLocation: '/CanvasView',
+        initialLocation: '/SplashView',
         routes: [
           /// Canvas route
           GoRoute(
@@ -21,7 +21,7 @@ class AppRouter {
             name: 'canvas',
             pageBuilder: (context, state) => const MaterialPage(child: CanvasView()),
           ),
-          
+
           /// Splash route
           GoRoute(
             path: '/SplashView',
