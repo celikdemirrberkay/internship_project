@@ -1,5 +1,4 @@
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:internship_project/core/base/resource.dart';
 import 'package:internship_project/core/config/dependency_injection/dependency_container.dart';
 import 'package:internship_project/service/local/hive/db_service.dart';
 import 'package:internship_project/service/notification/background_service.dart';
@@ -34,11 +33,5 @@ class AppInitializer {
   /// Set Dhikr List for first time
   static Future<void> _setFirstTimeDhikr() async {
     await locator<LocalDatabaseService>().setFirstTimeDhikr();
-  }
-
-  /// Is onboard done check method
-  static Future<bool> isOnboardDone() async {
-    final isOnboardDone = await locator<LocalDatabaseService>().isOnboardDone();
-    return isOnboardDone;
   }
 }
