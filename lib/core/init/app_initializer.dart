@@ -2,80 +2,43 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:internship_project/core/base/resource.dart';
 import 'package:internship_project/core/config/dependency_injection/dependency_container.dart';
 import 'package:internship_project/service/local/hive/db_service.dart';
+import 'package:internship_project/service/notification/background_service.dart';
 
 /// AppInitializer is a class that initializes the app.
 class AppInitializer {
   /// Initialize the app
   static Future<void> initialize() async {
-    /// Setting up dependencies
-    await setupDependencies();
-
     /// Initialize Hive DB
     await Hive.initFlutter();
+
+    /// Setting up dependencies
+    await setupDependencies();
 
     /// set Dhikr List for first time
     await _setFirstTimeDhikr();
 
     /// Set notification disable for first time
     await _setNotificationDisableForFirstTime();
+
+    /// Configure background service
+    await BackgroundService.configureAndStartBackgroundService();
   }
 
   /// Set notification disable for first time
   /// Notifications of the application will only be active if the user opens it
   /// from the settings screen.
   static Future<void> _setNotificationDisableForFirstTime() async {
-    final isNotificationOpen = await locator<LocalDatabaseService>().get<bool>(
-      dbName: 'notificationDatabase',
-      key: 'isNotificationOpen',
-    );
-    if (isNotificationOpen is SuccessState<bool>) {
-      if (isNotificationOpen.data == null) {
-        await locator<LocalDatabaseService>().set<bool>(
-          dbName: 'notificationDatabase',
-          key: 'isNotificationOpen',
-          value: false,
-        );
-      }
-    } else {
-      await locator<LocalDatabaseService>().set<bool>(
-        dbName: 'notificationDatabase',
-        key: 'isNotificationOpen',
-        value: false,
-      );
-    }
+    await locator<LocalDatabaseService>().setNotificationDisableForFirstTime();
   }
 
-
+  /// Set Dhikr List for first time
   static Future<void> _setFirstTimeDhikr() async {
-    final db = locator<LocalDatabaseService>();
-    await db.set<List<String>>(
-      dbName: 'databaseService',
-      key: 'dhikrList',
-      value: [
-        'Subhanallah',
-        'Elhamdulillah',
-        'Allahu ekber',
-        'La ilahe illallah',
-      ],
-    );
+    await locator<LocalDatabaseService>().setFirstTimeDhikr();
   }
 
   /// Is onboard done check method
   static Future<bool> isOnboardDone() async {
-    /// Onboard situation
-    final db = locator<LocalDatabaseService>();
-    final isOnboardDone = await db.get<bool?>(
-      dbName: 'onboardService',
-      key: 'isOnboardDone',
-    );
-
-    /// If onboard is not done
-    /// Or there is an error from db
-    /// Return false
-    if (isOnboardDone is ErrorState<bool?>) {
-      return false;
-    } else {
-      return isOnboardDone.data ?? false;
-    }
+    final isOnboardDone = await locator<LocalDatabaseService>().isOnboardDone();
+    return isOnboardDone;
   }
 }

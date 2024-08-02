@@ -12,13 +12,27 @@ class NotificationLogger {
       // iOS
       if (Platform.isIOS) {
         final iosPlugin = FlutterLocalNotificationsPlugin().resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>();
-        final areNotificationsEnabled = await iosPlugin?.pendingNotificationRequests();
-        print(areNotificationsEnabled?.length ?? 'null');
+        final pendingNotif = await iosPlugin?.pendingNotificationRequests();
+        print('${pendingNotif?.length} notifications pending');
+        for (PendingNotificationRequest notification in pendingNotif ?? []) {
+          print('--------------------${notification.id}-------------------------');
+          print('Notification title: ${notification.title}');
+          print('Notification body: ${notification.body}');
+          print('Notification payload: ${notification.payload}');
+        }
       }
+
+      // Android
       if (Platform.isAndroid) {
         final androidPlugin = FlutterLocalNotificationsPlugin().resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>();
-        final areNotificationsEnabled = await androidPlugin?.pendingNotificationRequests();
-        print(areNotificationsEnabled?.first.payload);
+        final pendingNotif = await androidPlugin?.pendingNotificationRequests();
+        print('${pendingNotif?.length} notifications pending');
+        for (PendingNotificationRequest notification in pendingNotif ?? []) {
+          print('--------------------${notification.id}-------------------------');
+          print('Notification title: ${notification.title}');
+          print('Notification body: ${notification.body}');
+          print('Notification payload: ${notification.payload}');
+        }
       }
     }
   }

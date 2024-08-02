@@ -24,6 +24,11 @@
 	<string>Konumunuzu her zaman kullanmak istiyoruz.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Konumunuzu kullanmak istiyoruz.</string>
+	<key>UIBackgroundModes</key>
+	<array>
+  		<string>fetch</string>
+  		<string>processing</string>
+	</array>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
@@ -39,6 +44,10 @@
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>BGTaskSchedulerPermittedIdentifiers</key>
+	<array>
+    	<string>dev.flutter.background.refresh</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>

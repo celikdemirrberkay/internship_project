@@ -1,6 +1,7 @@
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:internship_project/core/base/resource.dart';
 import 'package:internship_project/core/exception/exception_message.dart';
+import 'package:internship_project/service/notification/background_service.dart';
 import 'package:internship_project/service/permission/permission_manager.dart';
 import 'package:internship_project/service/remote/location/location_service.dart';
 import 'package:stacked/stacked.dart';
@@ -25,7 +26,6 @@ class SplashViewModel extends BaseViewModel {
     final country = await locationService.getCountryName();
 
     if (city is ErrorState<String> || country is ErrorState<String>) {
-
       await Fluttertoast.showToast(
         msg: ExceptionMessage.accessDeniedForeverForLocation.message,
       );

@@ -24,7 +24,6 @@ class SettingsViewModel extends BaseViewModel {
   /// CityNameService instance
   final CityNameService cityNameService;
 
-
   /// LocalNotificationService instance
   final LocalNotificationService localNotificationService;
 
