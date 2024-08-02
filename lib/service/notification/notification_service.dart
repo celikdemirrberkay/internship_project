@@ -1,10 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:internship_project/core/base/resource.dart';
-import 'package:internship_project/service/notification/notification_logger.dart';
-import 'package:internship_project/service/remote/location/location_service.dart';
-import 'package:internship_project/service/remote/prayer_times/prayer_times_service.dart';
+import '../../core/base/resource.dart';
+import 'notification_logger.dart';
+import '../remote/location/location_service.dart';
+import '../remote/prayer_times/prayer_times_service.dart';
 import 'package:intl/intl.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;

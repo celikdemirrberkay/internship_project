@@ -1,4 +1,4 @@
-import 'package:internship_project/core/base/resource.dart';
+import '../../../core/base/resource.dart';
 
 /// Abstraction of local database service
 abstract class ILocalDatabaseService {

@@ -1,11 +1,11 @@
 import 'dart:math';
 
 import 'package:dio/dio.dart';
-import 'package:internship_project/core/base/resource.dart';
-import 'package:internship_project/core/config/env_variables/development_env.dart';
-import 'package:internship_project/core/exception/exception_type.dart';
-import 'package:internship_project/model/ayah.dart';
-import 'package:internship_project/service/remote/ayah/ayah_service_interface.dart';
+import '../../../core/base/resource.dart';
+import '../../../core/config/env_variables/development_env.dart';
+import '../../../core/exception/exception_type.dart';
+import '../../../model/ayah.dart';
+import 'ayah_service_interface.dart';
 
 /// AyahService class is responsible for fetching data from the remote server.
 class AyahService extends IAyahServiceInterface {

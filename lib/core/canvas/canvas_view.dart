@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:internship_project/core/common/app_elevated_button.dart';
-import 'package:internship_project/core/config/dependency_injection/dependency_container.dart';
-import 'package:internship_project/feature/settings/view_model/settings_view_model.dart';
+import '../common/app_elevated_button.dart';
+import '../config/dependency_injection/dependency_container.dart';
+import '../../feature/settings/view_model/settings_view_model.dart';
 
 /// Test Template
 class CanvasView extends StatefulWidget {

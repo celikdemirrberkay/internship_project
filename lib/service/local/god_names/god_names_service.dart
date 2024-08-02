@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:internship_project/core/base/resource.dart';
-import 'package:internship_project/core/exception/exception_type.dart';
-import 'package:internship_project/model/god_names.dart';
+import '../../../core/base/resource.dart';
+import '../../../core/exception/exception_type.dart';
+import '../../../model/god_names.dart';
 
 /// Service for the God Names and meanings
 class GodNamesService {

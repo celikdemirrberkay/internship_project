@@ -3,12 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:internship_project/core/common/loading_widget.dart';
-import 'package:internship_project/core/config/dependency_injection/dependency_container.dart';
-import 'package:internship_project/core/constants/app_constants.dart';
-import 'package:internship_project/core/init/app_initializer.dart';
-import 'package:internship_project/feature/splash/view_model/splash_view_model.dart';
-import 'package:internship_project/service/local/hive/db_service.dart';
+import '../../../core/common/loading_widget.dart';
+import '../../../core/config/dependency_injection/dependency_container.dart';
+import '../../../core/constants/app_constants.dart';
+import '../view_model/splash_view_model.dart';
+import '../../../service/local/hive/db_service.dart';
 
 /// Splash View
 class SplashView extends StatefulWidget {

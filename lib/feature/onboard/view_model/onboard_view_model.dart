@@ -1,6 +1,6 @@
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:internship_project/core/base/resource.dart';
-import 'package:internship_project/service/local/hive/db_service.dart';
+import '../../../core/base/resource.dart';
+import '../../../service/local/hive/db_service.dart';
 import 'package:stacked/stacked.dart';
 
 /// Onboard view model

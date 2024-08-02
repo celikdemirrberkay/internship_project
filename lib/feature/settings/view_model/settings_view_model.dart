@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:internship_project/core/base/resource.dart';
-import 'package:internship_project/core/exception/exception_type.dart';
-import 'package:internship_project/core/exception/exception_util.dart';
-import 'package:internship_project/model/city.dart';
-import 'package:internship_project/service/local/city_name/city_name_service.dart';
-import 'package:internship_project/service/local/hive/db_service.dart';
-import 'package:internship_project/service/notification/notification_service.dart';
+import '../../../core/base/resource.dart';
+import '../../../core/exception/exception_type.dart';
+import '../../../core/exception/exception_util.dart';
+import '../../../model/city.dart';
+import '../../../service/local/city_name/city_name_service.dart';
+import '../../../service/local/hive/db_service.dart';
+import '../../../service/notification/notification_service.dart';
 import 'package:stacked/stacked.dart';
 
 /// SettingsViewModel class is responsible for the settings view logic.

@@ -1,7 +1,7 @@
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:internship_project/core/config/dependency_injection/dependency_container.dart';
-import 'package:internship_project/service/local/hive/db_service.dart';
-import 'package:internship_project/service/notification/background_service.dart';
+import '../config/dependency_injection/dependency_container.dart';
+import '../../service/local/hive/db_service.dart';
+import '../../service/notification/background_service.dart';
 
 /// AppInitializer is a class that initializes the app.
 class AppInitializer {

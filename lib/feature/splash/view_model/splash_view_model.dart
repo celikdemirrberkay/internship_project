@@ -1,11 +1,11 @@
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:internship_project/core/base/resource.dart';
-import 'package:internship_project/core/config/dependency_injection/dependency_container.dart';
-import 'package:internship_project/core/exception/exception_message.dart';
-import 'package:internship_project/service/local/hive/db_service.dart';
-import 'package:internship_project/service/notification/notification_service.dart';
-import 'package:internship_project/service/permission/permission_manager.dart';
-import 'package:internship_project/service/remote/location/location_service.dart';
+import '../../../core/base/resource.dart';
+import '../../../core/config/dependency_injection/dependency_container.dart';
+import '../../../core/exception/exception_message.dart';
+import '../../../service/local/hive/db_service.dart';
+import '../../../service/notification/notification_service.dart';
+import '../../../service/permission/permission_manager.dart';
+import '../../../service/remote/location/location_service.dart';
 import 'package:stacked/stacked.dart';
 
 /// Splash view model

@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:internship_project/core/config/dependency_injection/dependency_container.dart';
-import 'package:internship_project/service/local/hive/db_service.dart';
-import 'package:internship_project/service/notification/notification_service.dart';
-import 'package:internship_project/service/remote/prayer_times/prayer_times_service.dart';
+import '../../core/config/dependency_injection/dependency_container.dart';
+import '../local/hive/db_service.dart';
+import 'notification_service.dart';
+import '../remote/prayer_times/prayer_times_service.dart';
 
 /// WorkManager is a plugin that allows you to schedule background work on Android and iOS.
 class BackgroundService {
