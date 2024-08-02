@@ -18,6 +18,13 @@ To run this project you will need to add the following environment variables to 
 
 `BASE_URL = "API BASE URL"`
 
+## Project Structure
+The foldering of the project is as follows ->
+ - Core
+ - Feature
+ - Model
+ - Service
+
 ## Screenshots
 
 <img width="200" alt="1" src="https://github.com/user-attachments/assets/c148c448-c547-4f18-a649-6171868d6b6a">
