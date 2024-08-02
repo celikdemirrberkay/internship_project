@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:internship_project/core/common/app_appbar.dart';
-import 'package:internship_project/core/common/app_navbar.dart';
-import 'package:internship_project/core/router/app_router.dart';
+import '../core/common/app_appbar.dart';
+import '../core/common/app_navbar.dart';
+import '../core/router/app_router.dart';
 
 /// A top view to manage our routes
 class MainView extends StatefulWidget {

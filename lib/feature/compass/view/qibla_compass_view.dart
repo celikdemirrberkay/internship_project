@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_qiblah/flutter_qiblah.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:internship_project/core/common/app_elevated_button.dart';
-import 'package:internship_project/core/common/exception_widget.dart';
-import 'package:internship_project/core/common/loading_widget.dart';
-import 'package:internship_project/core/exception/exception_message.dart';
+import '../../../core/common/app_elevated_button.dart';
+import '../../../core/common/exception_widget.dart';
+import '../../../core/common/loading_widget.dart';
+import '../../../core/exception/exception_message.dart';
 import 'package:lottie/lottie.dart';
 
 part '../widget/stepper_for_qibla.dart';

@@ -1,21 +1,27 @@
 import 'dart:io';
 
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:internship_project/core/base/resource.dart';
-import 'package:internship_project/core/config/dependency_injection/dependency_container.dart';
-import 'package:internship_project/service/remote/location/location_service.dart';
-import 'package:internship_project/service/remote/prayer_times/prayer_times_service.dart';
+import '../../core/base/resource.dart';
+import 'notification_logger.dart';
+import '../remote/location/location_service.dart';
+import '../remote/prayer_times/prayer_times_service.dart';
 import 'package:intl/intl.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
 /// Local Notification Service
 class LocalNotificationService {
+  ///
+  LocalNotificationService(
+    this._prayerTimesService,
+    this._flutterLocalNotificationsPlugin,
+  );
+
   /// Flutter Local Notifications Plugin
-  static final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin;
 
   /// Prayer Time Service
-  final PrayerTimesService _prayerTimesService = PrayerTimesService(locator());
+  final PrayerTimesService _prayerTimesService;
 
   /// --------------------------------------------------------------------------
   /// On Did Receive Notification
@@ -34,13 +40,13 @@ class LocalNotificationService {
         android: androidInitializationSettings,
         iOS: iOSInitializationSettings,
       );
-      await flutterLocalNotificationsPlugin.initialize(
+      await _flutterLocalNotificationsPlugin.initialize(
         initializationSettings,
         onDidReceiveNotificationResponse: onDidReceiveNotification,
         onDidReceiveBackgroundNotificationResponse: onDidReceiveNotification,
       );
 
-      return await flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()?.requestNotificationsPermission();
+      return await _flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()?.requestNotificationsPermission();
     } catch (e) {
       return false;
     }
@@ -63,11 +69,18 @@ class LocalNotificationService {
 
     /// If the response is success, schedule the notifications
     if (prayerResponse is SuccessState<Map<String, dynamic>>) {
-      final prayerTimes = prayerResponse.data!['data']['timings'] as Map<String, dynamic>;
+      final prayerTimesWithDuplicates = prayerResponse.data!['data']['timings'] as Map<String, dynamic>;
+      final prayerTimesWithoutDuplicates = prayerTimesWithDuplicates
+        ..remove('Sunset')
+        ..remove('Imsak')
+        ..remove('Midnight')
+        ..remove('Lastthird')
+        ..remove('Firstthird');
+
       var id = 0;
 
       /// For each prayer time, schedule the notification
-      await Future.forEach(prayerTimes.entries, (entry) async {
+      await Future.forEach(prayerTimesWithoutDuplicates.entries, (entry) async {
         final now = DateTime.now();
 
         /// Each prayer time (Fajr, Dhuhr, Asr, Maghrib, Isha)
@@ -75,36 +88,68 @@ class LocalNotificationService {
           '${DateFormat('yyyy-MM-dd').format(now)} ${entry.value as String}:15',
         );
         if (prayerTime.isAfter(now)) {
+          /// Scheculed Notification Date Times
           final scheduledNotificationDateTime = prayerTime;
-          await flutterLocalNotificationsPlugin.zonedSchedule(
-            id,
-            title,
-            body,
-            payload: '$scheduledNotificationDateTime',
-            tz.TZDateTime.from(scheduledNotificationDateTime, tz.local),
-            const NotificationDetails(
-              iOS: DarwinNotificationDetails(),
-              android: AndroidNotificationDetails(
-                'reminder_channel',
-                'Reminder Channel',
-                tag: 'prayer-reminder',
-                importance: Importance.high,
-                priority: Priority.high,
-              ),
-            ),
-            uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
-            matchDateTimeComponents: DateTimeComponents.dateAndTime,
-            androidScheduleMode: AndroidScheduleMode.exact,
-          );
+
+          /// Set Zoned Schedule
+          await _setZonedSchedule(id, title, body, scheduledNotificationDateTime);
 
           /// Increment the id for each prayer time
           id++;
         }
       });
 
-      /// Reset id to 0
+      /// Reset id to 0 at the end
       id = 0;
     }
+
+    /// Log notification details
+    await NotificationLogger.logNotificationDetails();
+  }
+
+  /// --------------------------------------------------------------------------
+  /// Schedule Notification for Prayer Times on Background
+  /// Fetch periodically prayer times and schedule notifications
+  Future<void> scheduleNotificationForPrayerTimesOnBackground({
+    required bool isNotificationOpen,
+  }) async {
+    if (isNotificationOpen) {
+      /// Schedule notification for prayer times
+      await scheduleNotificationForPrayerTimes(
+        title: 'Namaz Vakti',
+        body: 'Namaz Vakti geldi. Haydi namaza!',
+      );
+    }
+  }
+
+  /// --------------------------------------------------------------------------
+  /// Set zonedSchedule for Notification
+  Future<void> _setZonedSchedule(
+    int id,
+    String title,
+    String body,
+    DateTime scheduledNotificationDateTime,
+  ) async {
+    await _flutterLocalNotificationsPlugin.zonedSchedule(
+      id,
+      title,
+      body,
+      payload: '$scheduledNotificationDateTime',
+      tz.TZDateTime.from(scheduledNotificationDateTime, tz.local),
+      const NotificationDetails(
+        iOS: DarwinNotificationDetails(),
+        android: AndroidNotificationDetails(
+          'reminder_channel',
+          'Reminder Channel',
+          tag: 'prayer-reminder',
+          importance: Importance.high,
+          priority: Priority.high,
+        ),
+      ),
+      uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
+      matchDateTimeComponents: DateTimeComponents.dateAndTime,
+      androidScheduleMode: AndroidScheduleMode.exact,
+    );
   }
 
   /// --------------------------------------------------------------------------
@@ -113,14 +158,14 @@ class LocalNotificationService {
     try {
       // Android
       if (Platform.isAndroid) {
-        final androidImplementation = flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>();
+        final androidImplementation = _flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>();
         final areNotificationsEnabled = await androidImplementation?.areNotificationsEnabled() ?? false;
         return areNotificationsEnabled;
       }
 
       // iOS
       if (Platform.isIOS) {
-        final iosPlugin = flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>();
+        final iosPlugin = _flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>();
         final areNotificationsEnabled = await iosPlugin?.checkPermissions();
         return areNotificationsEnabled?.isEnabled ?? false;
       }
@@ -135,7 +180,7 @@ class LocalNotificationService {
   /// --------------------------------------------------------------------------
   /// Cancel All Notifications
   Future<void> cancelPrayerTimeNotification() async {
-    await flutterLocalNotificationsPlugin.cancel(
+    await _flutterLocalNotificationsPlugin.cancel(
       0,
       tag: 'prayer-reminder',
     );

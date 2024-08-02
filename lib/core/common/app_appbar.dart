@@ -2,7 +2,7 @@ import 'package:dart_vader/dart_vader.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:internship_project/core/constants/app_constants.dart';
+import '../constants/app_constants.dart';
 
 /// Appbar for the main view
 class Appbarforapp extends StatefulWidget implements PreferredSizeWidget {

@@ -1,5 +1,5 @@
-import 'package:internship_project/core/exception/exception_message.dart';
-import 'package:internship_project/core/exception/exception_type.dart';
+import 'exception_message.dart';
+import 'exception_type.dart';
 
 /// ExceptionUtil class is responsible for getting exception message.
 class ExceptionUtil {

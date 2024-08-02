@@ -1,6 +1,6 @@
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:internship_project/core/exception/exception_message.dart';
+import '../../core/exception/exception_message.dart';
 
 /// App permission manager
 class PermissionManager {

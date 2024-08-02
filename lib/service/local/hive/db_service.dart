@@ -1,10 +1,7 @@
-import 'package:dio/dio.dart';
-import 'package:either_dart/src/either.dart';
 import 'package:hive/hive.dart';
-import 'package:internship_project/core/base/resource.dart';
-import 'package:internship_project/core/exception/exception_message.dart';
-import 'package:internship_project/core/exception/exception_type.dart';
-import 'package:internship_project/service/local/hive/db_service_interface.dart';
+import '../../../core/base/resource.dart';
+import '../../../core/exception/exception_type.dart';
+import 'db_service_interface.dart';
 
 /// Abstraction of local database service
 class LocalDatabaseService extends ILocalDatabaseService {
@@ -61,6 +58,62 @@ class LocalDatabaseService extends ILocalDatabaseService {
       return const SuccessState('Başarıyla kaydedildi');
     } catch (e) {
       return const ErrorState(ExceptionType.errorOccured);
+    }
+  }
+
+  /// Check if onboard is done
+  Future<bool> isOnboardDone() async {
+    final isOnboardDone = await get<bool?>(
+      dbName: 'onboardService',
+      key: 'isOnboardDone',
+    );
+
+    /// If onboard is not done
+    /// Or there is an error from db
+    /// Return false
+    if (isOnboardDone is ErrorState<bool?>) {
+      return false;
+    } else {
+      return isOnboardDone.data ?? false;
+    }
+  }
+
+  /// Set first time dhikr list
+  Future<void> setFirstTimeDhikr() async {
+    await set<List<String>>(
+      dbName: 'databaseService',
+      key: 'dhikrList',
+      value: [
+        'Subhanallah',
+        'Elhamdulillah',
+        'Allahu ekber',
+        'La ilahe illallah',
+      ],
+    );
+  }
+
+  /// Set notification disable for first time
+  /// Notifications of the application will only be active if the user opens it
+  /// from the settings screen.
+  Future<void> setNotificationDisableForFirstTime() async {
+    final isNotificationOpen = await get<bool>(
+      dbName: 'notificationDatabase',
+      key: 'isNotificationOpen',
+    );
+    if (isNotificationOpen is SuccessState<bool>) {
+      if (isNotificationOpen.data == null) {
+        await set<bool>(
+          dbName: 'notificationDatabase',
+          key: 'isNotificationOpen',
+          value: false,
+        );
+      }
+    } else {
+      await set<bool>(
+        dbName: 'notificationDatabase',
+        key: 'isNotificationOpen',
+        value: false,
+      );
     }
   }
 }

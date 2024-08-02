@@ -1,14 +1,14 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:internship_project/core/base/resource.dart';
-import 'package:internship_project/model/ayah.dart';
-import 'package:internship_project/model/god_names.dart';
-import 'package:internship_project/model/times_response.dart';
-import 'package:internship_project/service/local/god_names/god_names_service.dart';
-import 'package:internship_project/service/remote/ayah/ayah_service.dart';
-import 'package:internship_project/service/remote/location/location_service.dart';
-import 'package:internship_project/service/remote/prayer_times/prayer_times_service.dart';
+import '../../../core/base/resource.dart';
+import '../../../model/ayah.dart';
+import '../../../model/god_names.dart';
+import '../../../model/times_response.dart';
+import '../../../service/local/god_names/god_names_service.dart';
+import '../../../service/remote/ayah/ayah_service.dart';
+import '../../../service/remote/location/location_service.dart';
+import '../../../service/remote/prayer_times/prayer_times_service.dart';
 import 'package:stacked/stacked.dart';
 
 ///

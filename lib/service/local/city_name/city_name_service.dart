@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:internship_project/core/base/resource.dart';
-import 'package:internship_project/core/exception/exception_type.dart';
-import 'package:internship_project/model/city.dart';
+import '../../../core/base/resource.dart';
+import '../../../core/exception/exception_type.dart';
+import '../../../model/city.dart';
 
 /// Service for fetching city names from json file
 class CityNameService {
