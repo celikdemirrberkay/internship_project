@@ -3,17 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../../core/base/resource.dart';
-import '../../../core/common/app_horizontal_divider.dart';
-import '../../../core/common/app_textfield.dart';
-import '../../../core/common/exception_widget.dart';
-import '../../../core/common/loading_widget.dart';
-import '../../../core/config/dependency_injection/dependency_container.dart';
-import '../../../core/exception/exception_util.dart';
-import '../../../core/theme/app_theme.dart';
-import '../view_model/settings_view_model.dart';
-import '../../../model/city.dart';
-import '../../../service/remote/location/location_service.dart';
+import 'package:internship_project/core/base/resource.dart';
+import 'package:internship_project/core/common/app_horizontal_divider.dart';
+import 'package:internship_project/core/common/app_textfield.dart';
+import 'package:internship_project/core/common/exception_widget.dart';
+import 'package:internship_project/core/common/loading_widget.dart';
+import 'package:internship_project/core/config/dependency_injection/dependency_container.dart';
+import 'package:internship_project/core/exception/exception_util.dart';
+import 'package:internship_project/core/theme/app_theme.dart';
+import 'package:internship_project/feature/settings/view_model/settings_view_model.dart';
+import 'package:internship_project/model/city.dart';
+import 'package:internship_project/service/remote/location/location_service.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:stacked/stacked.dart';
 
@@ -188,7 +188,7 @@ class _SettingsViewState extends State<SettingsView> {
               color: context.themeData.colorScheme.onSecondary,
             ),
           ),
-          onChanged: (_) => viewModel.updateTheme(),
+          onChanged: (_) async => viewModel.updateTheme(),
         ),
       );
 

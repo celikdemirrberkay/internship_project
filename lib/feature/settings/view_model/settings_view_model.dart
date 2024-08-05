@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:internship_project/core/theme/app_theme.dart';
 import '../../../core/base/resource.dart';
 import '../../../core/exception/exception_type.dart';
 import '../../../core/exception/exception_util.dart';
@@ -19,6 +20,7 @@ class SettingsViewModel extends BaseViewModel {
     this.localDatabaseService,
   ) {
     fetchNotificationStatus();
+    setThemeSwitchStatusOnInit();
   }
 
   /// CityNameService instance
@@ -45,8 +47,34 @@ class SettingsViewModel extends BaseViewModel {
 
   /// --------------------------------------------------------------------------
   /// Update theme
-  void updateTheme() {
-    _isDarkMode = !_isDarkMode;
+  Future<void> updateTheme() async {
+    if (AppTheme.themePreference.value == AppTheme.lightTheme) {
+      AppTheme.themePreference.value = AppTheme.darkTheme;
+      _isDarkMode = true;
+    } else {
+      AppTheme.themePreference.value = AppTheme.lightTheme;
+      _isDarkMode = false;
+    }
+    await localDatabaseService.set<bool>(
+      dbName: 'themeDatabase',
+      key: 'isDarkTheme',
+      value: _isDarkMode,
+    );
+    notifyListeners();
+  }
+
+  /// --------------------------------------------------------------------------
+  /// Set theme switch according to the theme
+  Future<void> setThemeSwitchStatusOnInit() async {
+    final isDarkTheme = await localDatabaseService.get<bool>(
+      dbName: 'themeDatabase',
+      key: 'isDarkTheme',
+    );
+    if (isDarkTheme is SuccessState<bool>) {
+      _isDarkMode = isDarkTheme.data ?? false;
+    } else {
+      _isDarkMode = false;
+    }
     notifyListeners();
   }
 

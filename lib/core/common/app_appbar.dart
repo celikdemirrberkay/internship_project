@@ -2,6 +2,7 @@ import 'package:dart_vader/dart_vader.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:internship_project/core/theme/app_theme.dart';
 import '../constants/app_constants.dart';
 
 /// Appbar for the main view

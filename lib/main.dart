@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'core/init/app_initializer.dart';
-import 'core/router/app_router.dart';
-import 'core/theme/app_theme.dart';
+import 'package:internship_project/core/init/app_initializer.dart';
+import 'package:internship_project/core/router/app_router.dart';
+import 'package:internship_project/core/theme/app_theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,11 +22,14 @@ class PrayerTime extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     /// MaterialApp
-    return MaterialApp.router(
-      routerConfig: AppRouter.router(),
-      debugShowCheckedModeBanner: false,
-      title: 'Internship Project',
-      theme: AppTheme.lightTheme,
+    return ValueListenableBuilder(
+      valueListenable: AppTheme.themePreference,
+      builder: (context, value, child) => MaterialApp.router(
+        routerConfig: AppRouter.router(),
+        debugShowCheckedModeBanner: false,
+        title: 'Internship Project',
+        theme: value,
+      ),
     );
   }
 }

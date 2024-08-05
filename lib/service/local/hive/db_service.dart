@@ -1,7 +1,7 @@
 import 'package:hive/hive.dart';
-import '../../../core/base/resource.dart';
-import '../../../core/exception/exception_type.dart';
-import 'db_service_interface.dart';
+import 'package:internship_project/core/base/resource.dart';
+import 'package:internship_project/core/exception/exception_type.dart';
+import 'package:internship_project/service/local/hive/db_service_interface.dart';
 
 /// Abstraction of local database service
 class LocalDatabaseService extends ILocalDatabaseService {
@@ -114,6 +114,21 @@ class LocalDatabaseService extends ILocalDatabaseService {
         key: 'isNotificationOpen',
         value: false,
       );
+    }
+  }
+
+  /// Get theme preferences as boolean
+  /// If there is no theme preference, return false
+  /// If theme preference is true , its dark theme else light theme
+  Future<bool> getThemePreferences() async {
+    final isDarkTheme = await get<bool>(
+      dbName: 'themeDatabase',
+      key: 'isDarkTheme',
+    );
+    if (isDarkTheme is SuccessState<bool>) {
+      return isDarkTheme.data ?? false;
+    } else {
+      return false;
     }
   }
 }
