@@ -2,16 +2,16 @@ import 'package:dart_vader/dart_vader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../../core/base/resource.dart';
-import '../../../core/common/app_horizontal_divider.dart';
-import '../../../core/common/exception_widget.dart';
-import '../../../core/config/dependency_injection/dependency_container.dart';
-import '../../../core/exception/exception_util.dart';
-import '../../../core/theme/app_theme.dart';
-import '../view_model/prayer_times_viewmodel.dart';
-import '../../../model/ayah.dart';
-import '../../../model/times_response.dart';
-import '../../../service/remote/location/location_service.dart';
+import 'package:internship_project/core/base/resource.dart';
+import 'package:internship_project/core/common/app_horizontal_divider.dart';
+import 'package:internship_project/core/common/exception_widget.dart';
+import 'package:internship_project/core/config/dependency_injection/dependency_container.dart';
+import 'package:internship_project/core/exception/exception_util.dart';
+import 'package:internship_project/core/theme/app_theme.dart';
+import 'package:internship_project/feature/prayer_times/view_model/prayer_times_viewmodel.dart';
+import 'package:internship_project/model/ayah.dart';
+import 'package:internship_project/model/times_response.dart';
+import 'package:internship_project/service/remote/location/location_service.dart';
 import 'package:lottie/lottie.dart';
 import 'package:one_clock/one_clock.dart';
 import 'package:shimmer/shimmer.dart';
@@ -509,8 +509,8 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
       ),
       boxShadow: [
         BoxShadow(
-          color: context.themeData.colorScheme.primaryContainer,
-          blurRadius: 1,
+          color: context.themeData.colorScheme.primary,
+          blurRadius: 5,
         ),
       ],
     );

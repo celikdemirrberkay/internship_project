@@ -23,10 +23,13 @@ class BackgroundService {
       iosConfiguration: IosConfiguration(
         onBackground: _iosBackground,
         onForeground: _onStart,
+        autoStart: true,
       ),
       androidConfiguration: AndroidConfiguration(
         onStart: _onStart,
-        isForegroundMode: false,
+        isForegroundMode: true,
+        autoStart: true,
+        autoStartOnBoot: true,
         foregroundServiceNotificationId: 90,
         initialNotificationContent: 'Namaz vakitleri bildirimleri açık',
         initialNotificationTitle: 'Namaz Vakti',

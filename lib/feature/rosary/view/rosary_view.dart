@@ -140,7 +140,6 @@ class _RosaryViewState extends State<RosaryView> {
         Expanded(
           child: Container(
             decoration: BoxDecoration(
-              color: context.themeData.primaryColor,
               shape: BoxShape.circle,
               gradient: _rosaryCountUpButtonGradient(),
               boxShadow: _boxShadow(),
@@ -173,8 +172,8 @@ class _RosaryViewState extends State<RosaryView> {
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
       colors: [
-        context.themeData.primaryColor,
-        context.themeData.primaryColor.withOpacity(0.7),
+        context.themeData.colorScheme.primary,
+        context.themeData.colorScheme.primary.withOpacity(0.7),
       ],
     );
   }
