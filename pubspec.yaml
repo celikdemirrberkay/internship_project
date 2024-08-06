@@ -76,6 +76,7 @@ dependencies:
   google_nav_bar: ^5.0.6
   line_icons: ^2.0.3
   shimmer: ^3.0.0
+  home_widget: ^0.6.0
 
 dev_dependencies:
   flutter_test:
