@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-
+    <!-- Permissions -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
@@ -11,13 +11,8 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <!--
- Required to query activities that can process text, see:
-         https://developer.android.com/training/package-visibility?hl=en and
-         https://developer.android.com/reference/android/content/Intent#ACTION_PROCESS_TEXT.
-
-         In particular, this is used by the Flutter engine in io.flutter.plugin.text.ProcessTextPlugin.
-    -->
+    <!-- Permissions -->
+    <!-- Home Widget Queries -->
     <queries>
         <intent>
             <action android:name="android.intent.action.PROCESS_TEXT" />
@@ -25,12 +20,14 @@
             <data android:mimeType="text/plain" />
         </intent>
     </queries>
-
+    <!-- Home Widget Queries -->
+    <!-- Application -->
     <application
         android:name="${applicationName}"
         android:enableOnBackInvokedCallback="true"
         android:icon="@mipmap/ic_launcher"
         android:label="internship_project">
+        <!-- Home Widget Reciever -->
         <receiver
             android:name=".HomeWidget"
             android:exported="false">
@@ -42,6 +39,8 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/home_widget_info" />
         </receiver>
+        <!-- Home Widget Reciever -->
+        <!-- Notification Reciever -->
         <receiver
             android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver"
             android:exported="false" />
@@ -55,10 +54,18 @@
                 <action android:name="com.htc.intent.action.QUICKBOOT_POWERON" />
             </intent-filter>
         </receiver>
+        <!-- Notification Reciever -->
+        <!-- Background Service Reciever -->
         <receiver
             android:name="com.dexterous.flutterlocalnotifications.ActionBroadcastReceiver"
             android:exported="false" />
-
+        <!-- Background Service Reciever -->
+        <service
+            android:name=".BackgroundService"
+            android:foregroundServiceType="location"
+            android:exported="true" />
+        <!-- Background Service -->
+        <!-- Activity -->
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
@@ -67,13 +74,6 @@
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"
             android:windowSoftInputMode="adjustResize">
-
-            <!--
-                 Specifies an Android theme to apply to this Activity as soon as
-                 the Android process has started. This theme is visible to the user
-                 while the Flutter UI initializes. After that, this theme continues
-                 to determine the Window background behind the Flutter UI.
-            -->
             <meta-data
                 android:name="io.flutter.embedding.android.NormalTheme"
                 android:resource="@style/NormalTheme" />
@@ -84,7 +84,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <!-- Activity -->
+        <!-- Background Service -->
         <service
             android:name="id.flutter.flutter_background_service.BackgroundService"
             android:foregroundServiceType="dataSync"
@@ -93,13 +94,10 @@
                 <action android:name="com.example.internship_project.YourServiceAction" />
             </intent-filter>
         </service>
-        <!--
- Don't delete the meta-data below.
-             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
-        -->
+        <!-- Don't delete meta-data -->
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
-
+    <!-- Application -->
 </manifest>
