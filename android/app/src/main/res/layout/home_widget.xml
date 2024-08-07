@@ -1,19 +1,174 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/Widget.Android.AppWidget.Container"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    style="@style/Widget.Android.AppWidget.Container"
+    android:background="@drawable/rounded_corner"
     android:theme="@style/Theme.Android.AppWidgetContainer">
+    <!-- "Prayer Times" text -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Namaz Vakitleri"
+        style="@style/Theme.Android.AppWidgetContainer"
+        android:textAlignment="center"
+        android:textSize="36sp"
+        android:textColor="#FFFF"
+        android:padding="8dp"/>
+
+    <!-- Fajr row -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="İmsak : "
+            android:textColor="#FFFF"
+            style="@style/Theme.Android.AppWidgetContainer"
+            android:textSize="25sp"
+            android:padding="8dp"/>
+
+        <TextView
+            android:id="@+id/fajr_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/appwidget_text"
+            android:textColor="#FFFF"
+            style="@style/Theme.Android.AppWidgetContainer"
+            android:textSize="18sp"
+            android:padding="8dp"/>
+
+    </LinearLayout>
+    <!-- Fajr row -->
+
+    <!-- Sunrise row -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/headline_title"
-        style="@style/Widget.Android.AppWidget.InnerView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_margin="8dp"
-        android:contentDescription="@string/appwidget_text"
+        android:text="Sabah : "
+        android:textColor="#FFFF"
+        style="@style/Theme.Android.AppWidgetContainer"
+        android:textSize="25sp"
+        android:padding="8dp"/>
+
+    <TextView
+        android:id="@+id/sunrise_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="@string/appwidget_text"
-        android:textSize="24sp"
-        android:textStyle="bold|italic" />
-</RelativeLayout>
+        android:textColor="#FFFF"
+        style="@style/Theme.Android.AppWidgetContainer"
+        android:textSize="18sp"
+        android:padding="8dp"/>
+    </LinearLayout>
+    <!-- Sunrise row -->
+
+    <!-- Dhuhr row -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Öğle : "
+            android:textColor="#FFFF"
+            style="@style/Theme.Android.AppWidgetContainer"
+            android:textSize="25sp"
+            android:padding="8dp"/>
+
+        <TextView
+            android:id="@+id/dhuhr_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/appwidget_text"
+            android:textColor="#FFFF"
+            style="@style/Theme.Android.AppWidgetContainer"
+            android:textSize="18sp"
+            android:padding="8dp"/>
+    </LinearLayout>
+    <!-- Dhuhr row -->
+
+    <!-- Asr row -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="İkindi : "
+            android:textColor="#FFFF"
+            style="@style/Theme.Android.AppWidgetContainer"
+            android:textSize="25sp"
+            android:padding="8dp"/>
+
+        <TextView
+            android:id="@+id/asr_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/appwidget_text"
+            android:textColor="#FFFF"
+            style="@style/Theme.Android.AppWidgetContainer"
+            android:textSize="18sp"
+            android:padding="8dp"/>
+    </LinearLayout>
+    <!-- Asr row -->
+
+    <!-- Maghrib row -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Akşam : "
+            android:textColor="#FFFF"
+            style="@style/Theme.Android.AppWidgetContainer"
+            android:textSize="25sp"
+            android:padding="8dp"/>
+
+        <TextView
+            android:id="@+id/maghrib_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/appwidget_text"
+            android:textColor="#FFFF"
+            style="@style/Theme.Android.AppWidgetContainer"
+            android:textSize="18sp"
+            android:padding="8dp"/>
+    </LinearLayout>
+    <!-- Maghrib row -->
+
+    <!-- Isha row -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Yatsı : "
+            android:textColor="#FFFF"
+            style="@style/Theme.Android.AppWidgetContainer"
+            android:textSize="25sp"
+            android:padding="8dp"/>
+
+        <TextView
+            android:id="@+id/isha_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/appwidget_text"
+            android:textColor="#FFFF"
+            style="@style/Theme.Android.AppWidgetContainer"
+            android:textSize="18sp"
+            android:padding="8dp"/>
+    </LinearLayout>
+    <!-- Isha row -->
+
+</LinearLayout>
