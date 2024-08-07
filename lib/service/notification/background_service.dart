@@ -43,9 +43,6 @@ class BackgroundService {
   static Future<void> _onStart(ServiceInstance service) async {
     DartPluginRegistrant.ensureInitialized();
 
-    // Call startForeground with a notification
-    service.invoke('foregroundServiceStarted');
-
     if (service is AndroidServiceInstance) {
       service.on('setAsForeground').listen((event) {
         service.setAsForegroundService();
@@ -55,6 +52,9 @@ class BackgroundService {
         service.setAsBackgroundService();
       });
     }
+
+    /// Call startForeground with a notification
+    service.invoke('foregroundServiceStarted');
 
     /// Listen for stopService event
     service.on('stopService').listen((event) {

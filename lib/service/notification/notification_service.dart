@@ -62,7 +62,7 @@ class LocalNotificationService {
     tz.initializeTimeZones();
 
     /// Get prayer times for schedule notifications as Map<String,dynamic>
-    final prayerResponse = await _prayerTimesService.getPrayerTimesForScheduleNotifications(
+    final prayerResponse = await _prayerTimesService.getPrayerTimesAsMap(
       LocationService.cityName.value,
       LocationService.countryName.value,
     );

@@ -11,10 +11,24 @@
         android:layout_height="wrap_content"
         android:text="Namaz Vakitleri"
         style="@style/Theme.Android.AppWidgetContainer"
-        android:textAlignment="center"
-        android:textSize="36sp"
-        android:textColor="#FFFF"
-        android:padding="8dp"/>
+        android:textAlignment="textStart"
+        android:textSize="22sp"
+        android:fontFamily="@font/roboto"
+        android:textColor="#26c687"
+        android:padding="5dp"/>
+
+    <!-- "Prayer Times" text -->
+    <TextView
+        android:id="@+id/location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/appwidget_text"
+        style="@style/Theme.Android.AppWidgetContainer"
+        android:textAlignment="textStart"
+        android:textSize="12sp"
+        android:fontFamily="@font/roboto"
+        android:paddingLeft="5dp"
+        android:textColor="#26c687" />
 
     <!-- Fajr row -->
     <LinearLayout
@@ -25,20 +39,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="İmsak : "
-            android:textColor="#FFFF"
+            android:textColor="#000000"
+            android:fontFamily="@font/roboto"
             style="@style/Theme.Android.AppWidgetContainer"
-            android:textSize="25sp"
-            android:padding="8dp"/>
+            android:textSize="19sp"
+            android:padding="5dp"/>
 
         <TextView
             android:id="@+id/fajr_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/appwidget_text"
-            android:textColor="#FFFF"
+            android:textColor="#000000"
             style="@style/Theme.Android.AppWidgetContainer"
-            android:textSize="18sp"
-            android:padding="8dp"/>
+            android:textSize="19sp"
+            android:padding="5dp"/>
 
     </LinearLayout>
     <!-- Fajr row -->
@@ -52,20 +67,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sabah : "
-        android:textColor="#FFFF"
+        android:fontFamily="@font/roboto"
+        android:textColor="#000000"
         style="@style/Theme.Android.AppWidgetContainer"
-        android:textSize="25sp"
-        android:padding="8dp"/>
+        android:textSize="19sp"
+        android:padding="5dp"/>
 
     <TextView
         android:id="@+id/sunrise_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/appwidget_text"
-        android:textColor="#FFFF"
+        android:textColor="#000000"
         style="@style/Theme.Android.AppWidgetContainer"
-        android:textSize="18sp"
-        android:padding="8dp"/>
+        android:textSize="19sp"
+        android:padding="5dp"/>
     </LinearLayout>
     <!-- Sunrise row -->
 
@@ -75,23 +91,24 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Öğle : "
-            android:textColor="#FFFF"
             style="@style/Theme.Android.AppWidgetContainer"
-            android:textSize="25sp"
-            android:padding="8dp"/>
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/roboto"
+            android:padding="5dp"
+            android:text="Öğle : "
+            android:textColor="#000000"
+            android:textSize="19sp" />
 
         <TextView
             android:id="@+id/dhuhr_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/appwidget_text"
-            android:textColor="#FFFF"
+            android:textColor="#000000"
             style="@style/Theme.Android.AppWidgetContainer"
-            android:textSize="18sp"
-            android:padding="8dp"/>
+            android:textSize="19sp"
+            android:padding="5dp"/>
     </LinearLayout>
     <!-- Dhuhr row -->
 
@@ -104,20 +121,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="İkindi : "
-            android:textColor="#FFFF"
+            android:textColor="#000000"
+            android:fontFamily="@font/roboto"
             style="@style/Theme.Android.AppWidgetContainer"
-            android:textSize="25sp"
-            android:padding="8dp"/>
+            android:textSize="19sp"
+            android:padding="5dp"/>
 
         <TextView
             android:id="@+id/asr_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/appwidget_text"
-            android:textColor="#FFFF"
+            android:textColor="#000000"
             style="@style/Theme.Android.AppWidgetContainer"
-            android:textSize="18sp"
-            android:padding="8dp"/>
+            android:textSize="19sp"
+            android:padding="5dp"/>
     </LinearLayout>
     <!-- Asr row -->
 
@@ -129,20 +147,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Akşam : "
-            android:textColor="#FFFF"
+            android:textColor="#000000"
+            android:fontFamily="@font/roboto"
             style="@style/Theme.Android.AppWidgetContainer"
-            android:textSize="25sp"
-            android:padding="8dp"/>
+            android:textSize="19sp"
+            android:padding="5dp"/>
 
         <TextView
             android:id="@+id/maghrib_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/appwidget_text"
-            android:textColor="#FFFF"
+            android:textColor="#000000"
             style="@style/Theme.Android.AppWidgetContainer"
-            android:textSize="18sp"
-            android:padding="8dp"/>
+            android:textSize="19sp"
+            android:padding="5dp"/>
     </LinearLayout>
     <!-- Maghrib row -->
 
@@ -154,20 +173,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Yatsı : "
-            android:textColor="#FFFF"
+            android:textColor="#000000"
+            android:fontFamily="@font/roboto"
             style="@style/Theme.Android.AppWidgetContainer"
-            android:textSize="25sp"
-            android:padding="8dp"/>
+            android:textSize="19sp"
+            android:padding="5dp"/>
 
         <TextView
             android:id="@+id/isha_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/appwidget_text"
-            android:textColor="#FFFF"
+            android:textColor="#000000"
             style="@style/Theme.Android.AppWidgetContainer"
-            android:textSize="18sp"
-            android:padding="8dp"/>
+            android:textSize="19sp"
+            android:padding="5dp"/>
     </LinearLayout>
     <!-- Isha row -->
 
