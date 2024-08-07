@@ -7,7 +7,7 @@
     android:theme="@style/Theme.Android.AppWidgetContainer">
     <!-- "Prayer Times" text -->
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Namaz Vakitleri"
         style="@style/Theme.Android.AppWidgetContainer"
@@ -15,20 +15,23 @@
         android:textSize="22sp"
         android:fontFamily="@font/roboto"
         android:textColor="#26c687"
-        android:padding="5dp"/>
-
+        android:paddingTop="2dp"
+        android:paddingStart="5dp"/>
     <!-- "Prayer Times" text -->
+
+
     <TextView
         android:id="@+id/location"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/appwidget_text"
         style="@style/Theme.Android.AppWidgetContainer"
-        android:textAlignment="textStart"
-        android:textSize="12sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:fontFamily="@font/roboto"
-        android:paddingLeft="5dp"
-        android:textColor="#26c687" />
+        android:paddingStart="5dp"
+        android:paddingBottom="10dp"
+        android:text="@string/appwidget_text"
+        android:textAlignment="textStart"
+        android:textColor="#FF1E5023"
+        android:textSize="12sp" />
 
     <!-- Fajr row -->
     <LinearLayout
@@ -42,7 +45,7 @@
             android:textColor="#000000"
             android:fontFamily="@font/roboto"
             style="@style/Theme.Android.AppWidgetContainer"
-            android:textSize="19sp"
+            android:textSize="14sp"
             android:padding="5dp"/>
 
         <TextView
@@ -52,7 +55,7 @@
             android:text="@string/appwidget_text"
             android:textColor="#000000"
             style="@style/Theme.Android.AppWidgetContainer"
-            android:textSize="19sp"
+            android:textSize="14sp"
             android:padding="5dp"/>
 
     </LinearLayout>
@@ -70,7 +73,7 @@
         android:fontFamily="@font/roboto"
         android:textColor="#000000"
         style="@style/Theme.Android.AppWidgetContainer"
-        android:textSize="19sp"
+        android:textSize="14sp"
         android:padding="5dp"/>
 
     <TextView
@@ -80,7 +83,7 @@
         android:text="@string/appwidget_text"
         android:textColor="#000000"
         style="@style/Theme.Android.AppWidgetContainer"
-        android:textSize="19sp"
+        android:textSize="14sp"
         android:padding="5dp"/>
     </LinearLayout>
     <!-- Sunrise row -->
@@ -98,7 +101,7 @@
             android:padding="5dp"
             android:text="Öğle : "
             android:textColor="#000000"
-            android:textSize="19sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/dhuhr_time"
@@ -107,7 +110,7 @@
             android:text="@string/appwidget_text"
             android:textColor="#000000"
             style="@style/Theme.Android.AppWidgetContainer"
-            android:textSize="19sp"
+            android:textSize="14sp"
             android:padding="5dp"/>
     </LinearLayout>
     <!-- Dhuhr row -->
@@ -124,7 +127,7 @@
             android:textColor="#000000"
             android:fontFamily="@font/roboto"
             style="@style/Theme.Android.AppWidgetContainer"
-            android:textSize="19sp"
+            android:textSize="14sp"
             android:padding="5dp"/>
 
         <TextView
@@ -134,7 +137,7 @@
             android:text="@string/appwidget_text"
             android:textColor="#000000"
             style="@style/Theme.Android.AppWidgetContainer"
-            android:textSize="19sp"
+            android:textSize="14sp"
             android:padding="5dp"/>
     </LinearLayout>
     <!-- Asr row -->
@@ -150,7 +153,7 @@
             android:textColor="#000000"
             android:fontFamily="@font/roboto"
             style="@style/Theme.Android.AppWidgetContainer"
-            android:textSize="19sp"
+            android:textSize="14sp"
             android:padding="5dp"/>
 
         <TextView
@@ -160,7 +163,7 @@
             android:text="@string/appwidget_text"
             android:textColor="#000000"
             style="@style/Theme.Android.AppWidgetContainer"
-            android:textSize="19sp"
+            android:textSize="14sp"
             android:padding="5dp"/>
     </LinearLayout>
     <!-- Maghrib row -->
@@ -176,7 +179,7 @@
             android:textColor="#000000"
             android:fontFamily="@font/roboto"
             style="@style/Theme.Android.AppWidgetContainer"
-            android:textSize="19sp"
+            android:textSize="14sp"
             android:padding="5dp"/>
 
         <TextView
@@ -186,7 +189,7 @@
             android:text="@string/appwidget_text"
             android:textColor="#000000"
             style="@style/Theme.Android.AppWidgetContainer"
-            android:textSize="19sp"
+            android:textSize="14sp"
             android:padding="5dp"/>
     </LinearLayout>
     <!-- Isha row -->
