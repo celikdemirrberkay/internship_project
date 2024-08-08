@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:home_widget/home_widget.dart';
 import 'package:internship_project/core/base/resource.dart';
 import 'package:internship_project/core/config/dependency_injection/dependency_container.dart';
@@ -7,6 +9,15 @@ import 'package:internship_project/service/remote/prayer_times/prayer_times_serv
 /// HomeWidgetManager is a class that manages all the
 /// widgets that are used in the home screen.
 class HomeWidgetManager {
+  /// Set appGroupId for iOS
+  static Future<void> setAppGroupIdForIOS() async {
+    if (Platform.isIOS) {
+      await HomeWidget.setAppGroupId(_PathForHomeWidget.appGroupId.value);
+    } else {
+      return;
+    }
+  }
+
   /// Update the home widget for Android
   static Future<void> fetchPrayerTimesAndUpdateAndroidWidget() async {
     /// Fetch prayer times
@@ -34,7 +45,20 @@ class HomeWidgetManager {
 
     /// Update the home widget for Android
     await HomeWidget.updateWidget(
-      androidName: 'HomeWidget',
+      androidName: _PathForHomeWidget.androidName.value,
+      iOSName: _PathForHomeWidget.iOSWidgetName.value,
     );
   }
+}
+
+enum _PathForHomeWidget {
+  androidName('HomeWidget'),
+
+  iOSWidgetName('home_widget'),
+
+  appGroupId('group.home_widget_flutter');
+
+  const _PathForHomeWidget(this.value);
+
+  final String value;
 }

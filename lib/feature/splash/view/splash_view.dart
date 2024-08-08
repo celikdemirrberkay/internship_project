@@ -45,8 +45,9 @@ class _SplashViewState extends State<SplashView> {
     /// Set notifications on opening if it is enabled
     await _viewModel.setNotificationsOnOpening();
 
-    /// Update the home widget for Android
-    // await HomeWidgetManager.fetchPrayerTimesAndUpdateAndroidWidget();
+    /// Update the home widget for Android and set appGroupId for iOS
+    await HomeWidgetManager.setAppGroupIdForIOS();
+    await HomeWidgetManager.fetchPrayerTimesAndUpdateAndroidWidget();
 
     // Check if the widget is still mounted before navigating
     if (!mounted) return;
