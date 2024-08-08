@@ -12,7 +12,7 @@ class HomeWidgetManager {
   /// Set appGroupId for iOS
   static Future<void> setAppGroupIdForIOS() async {
     if (Platform.isIOS) {
-      await HomeWidget.setAppGroupId(_PathForHomeWidget.appGroupId.value);
+      await HomeWidget.setAppGroupId(_HomeWidgetValues.appGroupId.value);
     } else {
       return;
     }
@@ -45,20 +45,21 @@ class HomeWidgetManager {
 
     /// Update the home widget for Android
     await HomeWidget.updateWidget(
-      androidName: _PathForHomeWidget.androidName.value,
-      iOSName: _PathForHomeWidget.iOSWidgetName.value,
+      androidName: _HomeWidgetValues.androidName.value,
+      iOSName: _HomeWidgetValues.iOSWidgetName.value,
     );
   }
 }
 
-enum _PathForHomeWidget {
+/// HomeWidgetValues is an enum class that holds the values of the strings.
+enum _HomeWidgetValues {
   androidName('HomeWidget'),
 
   iOSWidgetName('home_widget'),
 
   appGroupId('group.home_widget_flutter');
 
-  const _PathForHomeWidget(this.value);
+  const _HomeWidgetValues(this.value);
 
   final String value;
 }

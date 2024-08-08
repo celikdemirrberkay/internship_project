@@ -66,16 +66,65 @@ struct home_widgetEntryView : View {
     var entry: Provider.Entry
 
     var body: some View {
-        VStack {
+        VStack(alignment: .leading, spacing: 10) {
             Text("Namaz Vakitleri")
+                .font(.headline)
+                .fontWeight(.bold)
+            
             Text("\(entry.location)")
-            Text("İmsak : \(entry.fajr)")
-            Text("Sabah : \(entry.sunrise)")
-            Text("Öğle : \(entry.dhuhr)")
-            Text("İkindi : \(entry.asr)")
-            Text("Akşam : \(entry.maghrib)")
-            Text("Yatsı : \(entry.isha)")
+                .font(.subheadline)
+                .foregroundColor(.gray)
+            
+            VStack(alignment: .leading, spacing: 5) {
+                HStack {
+                    Text("İmsak:")
+                        .fontWeight(.semibold)
+                    Spacer()
+                    Text("\(entry.fajr)")
+                }
+                HStack {
+                    Text("Sabah:")
+                        .fontWeight(.semibold)
+                    Spacer()
+                    Text("\(entry.sunrise)")
+                }
+                HStack {
+                    Text("Öğle:")
+                        .fontWeight(.semibold)
+                    Spacer()
+                    Text("\(entry.dhuhr)")
+                }
+                HStack {
+                    Text("İkindi:")
+                        .fontWeight(.semibold)
+                    Spacer()
+                    Text("\(entry.asr)")
+                }
+                HStack {
+                    Text("Akşam:")
+                        .fontWeight(.semibold)
+                    Spacer()
+                    Text("\(entry.maghrib)")
+                }
+                HStack {
+                    Text("Yatsı:")
+                        .fontWeight(.semibold)
+                    Spacer()
+                    Text("\(entry.isha)")
+                }
+            }
         }
+        .padding(16)
+        .background(Color.white.opacity(0.9))
+        .cornerRadius(12)
+        .shadow(radius: 10)
+        .overlay(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(
+                    Color(hex: 0xFF26c687),
+                    lineWidth: 4
+                )
+    )
     }
 }
 
@@ -88,6 +137,16 @@ struct home_widget: Widget {
         }
         .configurationDisplayName("Namaz Vakti")
         .description("Namaz Vakitleri")
+    }
+}
+
+/// Extension for hex color
+extension Color {
+    init(hex: Int, opacity: Double = 1.0) {
+        let red = Double((hex >> 16) & 0xFF) / 255.0
+        let green = Double((hex >> 8) & 0xFF) / 255.0
+        let blue = Double(hex & 0xFF) / 255.0
+        self.init(red: red, green: green, blue: blue, opacity: opacity)
     }
 }
 
