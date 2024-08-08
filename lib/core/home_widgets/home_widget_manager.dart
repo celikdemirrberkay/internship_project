@@ -33,6 +33,8 @@ class HomeWidgetManager {
     await HomeWidget.saveWidgetData('Location', LocationService.cityName.value);
 
     /// Update the home widget for Android
-    await HomeWidget.updateWidget(androidName: 'HomeWidget');
+    await HomeWidget.updateWidget(
+      androidName: 'HomeWidget',
+    );
   }
 }

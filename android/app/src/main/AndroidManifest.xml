@@ -59,11 +59,6 @@
             android:name="com.dexterous.flutterlocalnotifications.ActionBroadcastReceiver"
             android:exported="false" />
         <!-- Background Service Reciever -->
-        <service
-            android:name=".BackgroundService"
-            android:foregroundServiceType="location"
-            android:exported="true" />
-        <!-- Background Service -->
         <!-- Activity -->
         <activity
             android:name=".MainActivity"
@@ -88,12 +83,14 @@
         <service
             android:name="id.flutter.flutter_background_service.BackgroundService"
             android:exported="true"
+            android:enabled="true"
             android:foregroundServiceType="dataSync"
-            android:permission="android.permission.FOREGROUND_SERVICE"> <!-- Replace with the appropriate type -->
+            android:permission="android.permission.FOREGROUND_SERVICE">
             <intent-filter>
-                <action android:name="com.example.internship_project.YourServiceAction" />
+                <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </service>
+        <!-- Background Service -->
         <!-- Don't delete meta-data -->
         <meta-data
             android:name="flutterEmbedding"
