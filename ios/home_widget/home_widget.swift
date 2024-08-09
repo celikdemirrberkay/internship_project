@@ -88,17 +88,20 @@ struct FirstPrayerTimesHStack : View{
     var entry: Provider.Entry
     var body : some View {
         HStack{
-            Text("İmsak : \(entry.fajr)")
+            Text("İmsak: \(entry.fajr)")
                 .fontWeight(.light)
                 .foregroundColor(.white)
+                .scaledToFit()
             Spacer()
-            Text("Sabah : \(entry.sunrise)")
+            Text("Sabah: \(entry.sunrise)")
                 .fontWeight(.light)
                 .foregroundColor(.white)
+                .scaledToFit()
             Spacer()
-            Text("Öğle : \(entry.dhuhr)")
+            Text("Öğle: \(entry.dhuhr)")
                 .fontWeight(.light)
                 .foregroundColor(.white)
+                .scaledToFit()
 
         }
     }
@@ -109,18 +112,20 @@ struct LastPrayerTimesHStack : View {
     var entry: Provider.Entry
     var body : some View {
         HStack{
-            Text("İkindi : \(entry.asr)")
+            Text("İkindi: \(entry.asr)")
                 .fontWeight(.light)
                 .foregroundColor(.white)
+                .scaledToFit()
             Spacer()
-            Text("Akşam : \(entry.maghrib)")
+            Text("Akşam: \(entry.maghrib)")
                 .fontWeight(.light)
                 .foregroundColor(.white)
+                .scaledToFit()
             Spacer()
-            Text("Yatsı : \(entry.isha)")
+            Text("Yatsı: \(entry.isha)")
                 .fontWeight(.light)
                 .foregroundColor(.white)
-
+                .scaledToFit()
         }
     }
 }
@@ -160,7 +165,7 @@ struct home_widget: Widget {
         }
         .configurationDisplayName("Namaz Vakti")
         .description("Namaz Vakitleri")
-        .supportedFamilies([.systemMedium])
+        .supportedFamilies([.systemMedium,.systemLarge])
     }
 }
 
@@ -174,10 +179,11 @@ extension Color {
     }
 }
 
+
 struct home_widget_Previews: PreviewProvider{
     static var previews: some View{
         home_widgetEntryView(entry: SimpleEntry(
-            date: Date(), fajr: "15.00", sunrise: "15.00", dhuhr: "15.00", asr: "15.00", maghrib: "15.00", isha: "15.00", location: "İstanbul"
+            date: Date(), fajr: "15:00", sunrise: "15:00", dhuhr: "15:00", asr: "15:00", maghrib: "15:00", isha: "15:00", location: "İstanbul"
         )
         )
         .previewContext(WidgetPreviewContext(family: .systemMedium))
