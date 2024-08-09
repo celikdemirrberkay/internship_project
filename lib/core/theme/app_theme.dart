@@ -16,7 +16,7 @@ class AppTheme {
   static ThemeData darkTheme = ThemeData(
     colorScheme: _darkColorScheme,
     useMaterial3: true,
-    scaffoldBackgroundColor: Color.fromARGB(255, 201, 201, 201),
+    scaffoldBackgroundColor: const Color.fromARGB(255, 201, 201, 201),
     inputDecorationTheme: const InputDecorationTheme(
       counterStyle: TextStyle(color: Colors.black),
     ),
@@ -38,15 +38,15 @@ class AppTheme {
 
   /// Dark color scheme
   static ColorScheme get _darkColorScheme => ColorScheme(
-        primary: const Color(0XFF26c687), // Aynı rengi kullanabilirsiniz veya daha koyu bir ton
-        secondary: const Color.fromARGB(255, 30, 80, 35), // Daha koyu bir yeşil tonu
-        surface: const Color.fromARGB(255, 40, 40, 40), // Koyu gri bir arka plan
-        error: Colors.red.shade400, // Koyu kırmızı bir ton
-        onPrimary: const Color.fromARGB(255, 232, 232, 232), // Primary için koyu bir yazı rengi
-        onSecondary: Colors.black, // Secondary için açık bir yazı rengi
-        onSurface: Colors.grey.shade500, // Daha koyu bir gri tonu
-        onError: Colors.white, // Hata rengi üzerindeki yazı için beyaz
-        primaryContainer: Colors.purple.shade700, // Daha koyu mor bir ton
+        primary: const Color(0XFF26c687),
+        secondary: const Color.fromARGB(255, 30, 80, 35),
+        surface: const Color.fromARGB(255, 40, 40, 40),
+        error: Colors.red.shade400,
+        onPrimary: const Color.fromARGB(255, 232, 232, 232),
+        onSecondary: Colors.black,
+        onSurface: Colors.grey.shade500,
+        onError: Colors.white,
+        primaryContainer: Colors.purple.shade700,
         brightness: Brightness.dark,
       );
 

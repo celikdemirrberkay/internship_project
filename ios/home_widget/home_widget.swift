@@ -64,67 +64,90 @@ struct SimpleEntry: TimelineEntry {
 
 struct home_widgetEntryView : View {
     var entry: Provider.Entry
-
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Text("Namaz Vakitleri")
-                .font(.headline)
-                .fontWeight(.bold)
-            
-            Text("\(entry.location)")
-                .font(.subheadline)
-                .foregroundColor(.gray)
-            
-            VStack(alignment: .leading, spacing: 5) {
-                HStack {
-                    Text("İmsak:")
-                        .fontWeight(.semibold)
-                    Spacer()
-                    Text("\(entry.fajr)")
-                }
-                HStack {
-                    Text("Sabah:")
-                        .fontWeight(.semibold)
-                    Spacer()
-                    Text("\(entry.sunrise)")
-                }
-                HStack {
-                    Text("Öğle:")
-                        .fontWeight(.semibold)
-                    Spacer()
-                    Text("\(entry.dhuhr)")
-                }
-                HStack {
-                    Text("İkindi:")
-                        .fontWeight(.semibold)
-                    Spacer()
-                    Text("\(entry.asr)")
-                }
-                HStack {
-                    Text("Akşam:")
-                        .fontWeight(.semibold)
-                    Spacer()
-                    Text("\(entry.maghrib)")
-                }
-                HStack {
-                    Text("Yatsı:")
-                        .fontWeight(.semibold)
-                    Spacer()
-                    Text("\(entry.isha)")
-                }
+        HStack {
+            VStack(alignment: .leading) {
+                PrayerTimesText()
+                LocationHStack(entry: entry)
+                FirstPrayerTimesHStack(entry: entry)
+                Spacer()
+                LastPrayerTimesHStack(entry: entry)
+                Spacer()
             }
+            Spacer()
         }
-        .padding(16)
-        .background(Color.white.opacity(0.9))
-        .cornerRadius(12)
-        .shadow(radius: 10)
-        .overlay(
-            RoundedRectangle(cornerRadius: 12)
-                .stroke(
-                    Color(hex: 0xFF26c687),
-                    lineWidth: 4
-                )
-    )
+        .containerBackground(
+            .gray.gradient,
+            for: .widget
+        )
+   }
+}
+
+/// First three prayer times (Fajr, Sunrise, Dhuhr)
+struct FirstPrayerTimesHStack : View{
+    var entry: Provider.Entry
+    var body : some View {
+        HStack{
+            Text("İmsak : \(entry.fajr)")
+                .fontWeight(.light)
+                .foregroundColor(.white)
+            Spacer()
+            Text("Sabah : \(entry.sunrise)")
+                .fontWeight(.light)
+                .foregroundColor(.white)
+            Spacer()
+            Text("Öğle : \(entry.dhuhr)")
+                .fontWeight(.light)
+                .foregroundColor(.white)
+
+        }
+    }
+}
+
+/// Last three prayer times (Asr, Maghrib, Isha)
+struct LastPrayerTimesHStack : View {
+    var entry: Provider.Entry
+    var body : some View {
+        HStack{
+            Text("İkindi : \(entry.asr)")
+                .fontWeight(.light)
+                .foregroundColor(.white)
+            Spacer()
+            Text("Akşam : \(entry.maghrib)")
+                .fontWeight(.light)
+                .foregroundColor(.white)
+            Spacer()
+            Text("Yatsı : \(entry.isha)")
+                .fontWeight(.light)
+                .foregroundColor(.white)
+
+        }
+    }
+}
+
+/// Prayer Times "Namaz Vakitleri" Text
+struct PrayerTimesText : View {
+    var body: some View{
+        Text("Namaz Vakitleri")
+            .font(.title3)
+            .foregroundColor(.white)
+            .fontWeight(.bold)
+    }
+}
+
+/// Location Text
+struct LocationHStack : View {
+    var entry: Provider.Entry
+    var body: some View{
+        HStack{
+            Image(systemName: "mappin")
+                .foregroundColor(.white)
+            Text("\(entry.location)")
+                .font(.title3)
+                .foregroundColor(.white)
+                .fontWeight(.light)
+        }
+        Spacer()
     }
 }
 
@@ -137,6 +160,7 @@ struct home_widget: Widget {
         }
         .configurationDisplayName("Namaz Vakti")
         .description("Namaz Vakitleri")
+        .supportedFamilies([.systemMedium])
     }
 }
 
@@ -147,6 +171,16 @@ extension Color {
         let green = Double((hex >> 8) & 0xFF) / 255.0
         let blue = Double(hex & 0xFF) / 255.0
         self.init(red: red, green: green, blue: blue, opacity: opacity)
+    }
+}
+
+struct home_widget_Previews: PreviewProvider{
+    static var previews: some View{
+        home_widgetEntryView(entry: SimpleEntry(
+            date: Date(), fajr: "15.00", sunrise: "15.00", dhuhr: "15.00", asr: "15.00", maghrib: "15.00", isha: "15.00", location: "İstanbul"
+        )
+        )
+        .previewContext(WidgetPreviewContext(family: .systemMedium))
     }
 }
 
