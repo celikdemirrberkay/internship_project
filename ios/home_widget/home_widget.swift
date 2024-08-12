@@ -66,7 +66,7 @@ struct home_widgetEntryView : View {
     var entry: Provider.Entry
     var body: some View {
         HStack {
-            VStack(alignment: .leading) {
+            VStack() {
                 PrayerTimesText()
                 LocationHStack(entry: entry)
                 FirstPrayerTimesHStack(entry: entry)
@@ -76,6 +76,7 @@ struct home_widgetEntryView : View {
             }
             Spacer()
         }
+        .frame(width: .infinity,height: .infinity)
         .containerBackground(
             .gray.gradient,
             for: .widget
@@ -91,19 +92,22 @@ struct FirstPrayerTimesHStack : View{
             Text("İmsak: \(entry.fajr)")
                 .fontWeight(.light)
                 .foregroundColor(.white)
-                .scaledToFit()
+                .aspectRatio(contentMode: .fit)
+                .minimumScaleFactor(0.6)
             Spacer()
             Text("Sabah: \(entry.sunrise)")
                 .fontWeight(.light)
                 .foregroundColor(.white)
-                .scaledToFit()
+                .aspectRatio(contentMode: .fit)
+                .minimumScaleFactor(0.6)
             Spacer()
             Text("Öğle: \(entry.dhuhr)")
                 .fontWeight(.light)
                 .foregroundColor(.white)
-                .scaledToFit()
-
+                .aspectRatio(contentMode: .fit)
+                .minimumScaleFactor(0.6)
         }
+        
     }
 }
 
@@ -115,17 +119,17 @@ struct LastPrayerTimesHStack : View {
             Text("İkindi: \(entry.asr)")
                 .fontWeight(.light)
                 .foregroundColor(.white)
-                .scaledToFit()
+                .minimumScaleFactor(0.6)
             Spacer()
             Text("Akşam: \(entry.maghrib)")
                 .fontWeight(.light)
                 .foregroundColor(.white)
-                .scaledToFit()
+                .minimumScaleFactor(0.6)
             Spacer()
             Text("Yatsı: \(entry.isha)")
                 .fontWeight(.light)
                 .foregroundColor(.white)
-                .scaledToFit()
+                .minimumScaleFactor(0.6)
         }
     }
 }
@@ -165,7 +169,7 @@ struct home_widget: Widget {
         }
         .configurationDisplayName("Namaz Vakti")
         .description("Namaz Vakitleri")
-        .supportedFamilies([.systemMedium,.systemLarge])
+        .supportedFamilies([.systemMedium])
     }
 }
 
