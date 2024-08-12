@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
-import '../../../core/base/resource.dart';
-import '../../../core/config/env_variables/development_env.dart';
-import '../../../core/exception/exception_type.dart';
-import '../../../model/times_response.dart';
-import 'prayer_times_interface.dart';
+import 'package:internship_project/core/base/resource.dart';
+import 'package:internship_project/core/config/env_variables/development_env.dart';
+import 'package:internship_project/core/exception/exception_type.dart';
+import 'package:internship_project/model/times_response.dart';
+import 'package:internship_project/service/remote/prayer_times/prayer_times_interface.dart';
 import 'package:intl/intl.dart';
 
 /// The service where we fetch prayer times
@@ -49,7 +49,7 @@ class PrayerTimesService extends IPrayerTimesService {
 
   /// --------------------------------------------------------------------------
   /// Get prayer times for schedule notifications
-  Future<Resource<Map<String, dynamic>>> getPrayerTimesForScheduleNotifications(
+  Future<Resource<Map<String, dynamic>>> getPrayerTimesAsMap(
     String city,
     String country,
   ) async {
