@@ -78,7 +78,7 @@ struct home_widgetEntryView : View {
         }
         .frame(width: .infinity,height: .infinity)
         .containerBackground(
-            .gray.gradient,
+            Color(hex: 0xFF26c687).gradient,
             for: .widget
         )
    }
