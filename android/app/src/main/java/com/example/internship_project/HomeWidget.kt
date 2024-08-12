@@ -28,6 +28,9 @@ class HomeWidget : AppWidgetProvider() {
             val maghrib = widgetData.getString("Maghrib","-")
             val isha = widgetData.getString("Isha","-")
             val location = widgetData.getString("Location","-")
+            val remainingTimeHours = widgetData.getString("RemainingTimeHours","-")
+            val remainingTimeMinutes = widgetData.getString("RemainingTimeMinutes","-")
+            val remainingTimeSeconds = widgetData.getString("RemainingTimeSeconds","-")
 
             // Setting data to the widgets
             views.setTextViewText(R.id.fajr_time, fajr)
@@ -37,6 +40,9 @@ class HomeWidget : AppWidgetProvider() {
             views.setTextViewText(R.id.maghrib_time, maghrib)
             views.setTextViewText(R.id.isha_time, isha)
             views.setTextViewText(R.id.location, location)
+            views.setTextViewText(R.id.remaining_time_hours, remainingTimeHours)
+            views.setTextViewText(R.id.remaining_time_minutes, remainingTimeMinutes)
+            views.setTextViewText(R.id.remaining_time_seconds, remainingTimeSeconds)
 
             appWidgetManager.updateAppWidget(appWidgetId,views)
 

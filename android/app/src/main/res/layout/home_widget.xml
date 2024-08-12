@@ -193,5 +193,76 @@
             android:padding="5dp"/>
     </LinearLayout>
     <!-- Isha row -->
+    <!-- Remaining Times row -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Namaza -> "
+            android:textColor="#000000"
+            android:fontFamily="@font/roboto"
+            style="@style/Theme.Android.AppWidgetContainer"
+            android:textSize="14sp"
+            android:padding="5dp"/>
+
+        <TextView
+            android:id="@+id/remaining_time_hours"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/appwidget_text"
+            android:textColor="#000000"
+            style="@style/Theme.Android.AppWidgetContainer"
+            android:textSize="20sp"
+            android:padding="5dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Saat"
+            android:autoSizeTextType="uniform"
+            android:autoSizeMinTextSize="12sp"
+            android:textColor="#000000"
+            style="@style/Theme.Android.AppWidgetContainer"
+            android:textSize="14sp"/>
+        <TextView
+            android:id="@+id/remaining_time_minutes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/appwidget_text"
+            android:textColor="#000000"
+            style="@style/Theme.Android.AppWidgetContainer"
+            android:textSize="20sp"
+            android:padding="5dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dakika"
+            android:textColor="#000000"
+            android:autoSizeTextType="uniform"
+            android:autoSizeMinTextSize="12sp"
+            style="@style/Theme.Android.AppWidgetContainer"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/remaining_time_seconds"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/appwidget_text"
+            android:textColor="#000000"
+            style="@style/Theme.Android.AppWidgetContainer"
+            android:textSize="20sp"
+            android:padding="5dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Saniye"
+            android:autoSizeTextType="uniform"
+            android:autoSizeMinTextSize="12sp"
+            android:textColor="#000000"
+            style="@style/Theme.Android.AppWidgetContainer"
+            android:textSize="14sp"/>
+    </LinearLayout>
+    <!-- Remaining Times row -->
 
 </LinearLayout>
