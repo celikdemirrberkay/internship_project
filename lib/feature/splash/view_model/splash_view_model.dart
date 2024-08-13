@@ -35,8 +35,16 @@ class SplashViewModel extends BaseViewModel {
         msg: ExceptionMessage.accessDeniedForeverForLocation.message,
       );
     } else {
-      LocationService.countryName.value = country.data == '' ? 'Turkey' : country.data!;
-      LocationService.cityName.value = city.data == '' ? 'İstanbul' : city.data!;
+      final isManuelSelected = await locator<LocalDatabaseService>().get<bool>(
+        dbName: 'localDatabase',
+        key: 'isManuelSelected',
+      );
+      if (isManuelSelected.data != null && isManuelSelected.data! == true) {
+        return;
+      } else {
+        LocationService.countryName.value = country.data == '' ? 'Turkey' : country.data!;
+        LocationService.cityName.value = city.data == '' ? 'İstanbul' : city.data!;
+      }
     }
   }
 

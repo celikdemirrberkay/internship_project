@@ -141,7 +141,6 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
 
   /// Prayer times container builder
   Widget _prayerTimesContainerBuilder() {
-    print(LocationService.cityName.value);
     return ViewModelBuilder.reactive(
       viewModelBuilder: () => PrayerTimesViewmodel(
         locator(),

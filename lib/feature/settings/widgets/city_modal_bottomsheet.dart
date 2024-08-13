@@ -111,11 +111,20 @@ class __CityModalBottomSheetState extends State<_CityModalBottomSheet> {
             ),
           ),
         ),
-        onTap: () {
+        onTap: () async {
+          /// Set manuel city selection as true
+          await locator<LocalDatabaseService>().set<bool>(
+            dbName: 'localDatabase',
+            key: 'isManuelSelected',
+            value: true,
+          );
           LocationService.cityName.value = searchableCityList[index].name;
-          Fluttertoast.showToast(
+          await Fluttertoast.showToast(
             msg: 'Namaz vakitleri ${searchableCityList[index].name} şehrine göre ayarlandı',
           );
+          if (!mounted) {
+            return;
+          }
           context.pop();
         },
       ),
