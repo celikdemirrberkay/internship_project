@@ -37,7 +37,7 @@ class HomeWidgetManager {
 
   /// --------------------------------------------------------------------------
   /// Update the home widget for Android
-  static Future<void> fetchPrayerTimesAndUpdateAndroidWidget() async {
+  static Future<void> fetchPrayerTimesAndUpdateHomeWidget() async {
     /// Fetch prayer times
     final prayerTimes = await locator<PrayerTimesService>().getPrayerTimesAsMap(
       LocationService.cityName.value,
@@ -68,35 +68,57 @@ class HomeWidgetManager {
   /// --------------------------------------------------------------------------
   /// Check nearest time and start countdown
   Future<void> startCountdownOnWidgetForPrayer() async {
+    /// Fetch prayer times as DateTime
     final prayerTimesAsDateTime = await locator<PrayerTimesService>().getPrayerTimesAsDateTime(
       LocationService.cityName.value,
       LocationService.countryName.value,
     );
-
     if (prayerTimesAsDateTime is ErrorState) {
       return;
-    } else {
+    }
+    if (prayerTimesAsDateTime is SuccessState) {
+      /// Filter the next prayer time
       final nextPrayerTime = findNextPrayerTime(prayerTimesAsDateTime.data!);
+
+      /// If the next prayer time is not null, start the countdown
       if (nextPrayerTime != null) {
-        Timer.periodic(const Duration(seconds: 1), (timer) async {
-          final remainingTime = nextPrayerTime.difference(DateTime.now());
-          if (remainingTime.isNegative) {
-            timer.cancel();
-            await startCountdownOnWidgetForPrayer();
-          } else {
-            String twoDigits(int n) => n.toString().padLeft(2, '0');
-            final hours = twoDigits(remainingTime.inHours);
-            final minutes = twoDigits(remainingTime.inMinutes.remainder(60));
-            final seconds = twoDigits(remainingTime.inSeconds.remainder(60));
-            await saveWidgetData('RemainingTimeHours', hours);
-            await saveWidgetData('RemainingTimeMinutes', minutes);
-            await saveWidgetData('RemainingTimeSeconds', seconds);
-            await updateHomeWidget();
-          }
-        });
+        Timer.periodic(
+          const Duration(seconds: 1),
+          (timer) async {
+            /// Calculate the remaining time
+            final remainingTime = nextPrayerTime.difference(DateTime.now());
+            if (remainingTime.isNegative) {
+              /// If the remaining time is negative, cancel the timer
+              /// and start the countdown again
+              timer.cancel();
+              await startCountdownOnWidgetForPrayer();
+            } else {
+              /// Save the remaining time to the home widget
+              await saveWidgetData(
+                'RemainingTimeHours',
+                twoDigits(remainingTime.inHours),
+              );
+              await saveWidgetData(
+                'RemainingTimeMinutes',
+                twoDigits(remainingTime.inMinutes.remainder(60)),
+              );
+              await saveWidgetData(
+                'RemainingTimeSeconds',
+                twoDigits(remainingTime.inSeconds.remainder(60)),
+              );
+
+              /// Update the home widget
+              await updateHomeWidget();
+            }
+          },
+        );
       }
     }
   }
+
+  /// --------------------------------------------------------------------------
+  /// Switch date times to hour format
+  String twoDigits(int n) => n.toString().padLeft(2, '0');
 
   /// --------------------------------------------------------------------------
   /// Finding first prayer time after now

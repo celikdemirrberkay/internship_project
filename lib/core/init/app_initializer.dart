@@ -14,9 +14,6 @@ class AppInitializer {
     /// Setting up dependencies
     await setupDependencies();
 
-    /// set Dhikr List for first time
-    await _setFirstTimeDhikr();
-
     /// Set notification disable for first time
     await _setNotificationDisableForFirstTime();
 
@@ -32,11 +29,6 @@ class AppInitializer {
   /// from the settings screen.
   static Future<void> _setNotificationDisableForFirstTime() async {
     await locator<LocalDatabaseService>().setNotificationDisableForFirstTime();
-  }
-
-  /// Set Dhikr List for first time
-  static Future<void> _setFirstTimeDhikr() async {
-    await locator<LocalDatabaseService>().setFirstTimeDhikr();
   }
 
   /// Set theme on first time

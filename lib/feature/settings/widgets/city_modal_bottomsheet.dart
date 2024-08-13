@@ -64,7 +64,6 @@ class __CityModalBottomSheetState extends State<_CityModalBottomSheet> {
           context.spacerWithFlex(flex: 5),
         ],
       ),
-      fireOnViewModelReadyOnce: true,
       onViewModelReady: (viewModel) async {
         await viewModel.getCityNames(context);
         searchableCityList = viewModel.cityNames.data ?? [];
