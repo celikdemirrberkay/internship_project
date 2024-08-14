@@ -83,7 +83,6 @@ class PrayerTimesViewmodel extends BaseViewModel {
   }) async {
     final response = await _prayerTimesService.getPrayerTimes(city, country);
     _prayerTimesData = response;
-    print(city);
     notifyListeners();
   }
 

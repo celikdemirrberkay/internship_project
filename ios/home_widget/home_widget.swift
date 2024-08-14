@@ -29,7 +29,6 @@ struct Provider: TimelineProvider {
     
     func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> Void) {
         let data = UserDefaults.init(suiteName: widgetGroupId)
-        let fileName = data?.string(forKey: "filename") ?? "-"
         let entry = SimpleEntry(
             date: Date(),
             fajr: data?.string(forKey: "Fajr") ?? "-",
@@ -43,8 +42,9 @@ struct Provider: TimelineProvider {
             remainingTimeMinutes: data?.string(forKey: "RemainingTimeMinutes") ?? "-",
             remainingTimeSeconds: data?.string(forKey: "RemainingTimeSeconds") ?? "-"
         )
-        
         completion(entry)
+    
+
     }
     
     func getTimeline(in context: Context, completion: @escaping (Timeline<SimpleEntry>) -> Void) {
