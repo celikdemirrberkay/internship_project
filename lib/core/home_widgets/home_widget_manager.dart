@@ -73,9 +73,13 @@ class HomeWidgetManager {
       LocationService.cityName.value,
       LocationService.countryName.value,
     );
+
+    /// If there is an error, return
     if (prayerTimesAsDateTime is ErrorState) {
       return;
     }
+
+    /// If success state start timer for countdown
     if (prayerTimesAsDateTime is SuccessState) {
       /// Filter the next prayer time
       final nextPrayerTime = findNextPrayerTime(prayerTimesAsDateTime.data!);
@@ -111,7 +115,9 @@ class HomeWidgetManager {
               await updateHomeWidget();
             }
 
-            /// Listen to the city name changes and cancel the timer
+            /// Listen to the city name changes
+            /// and cancel the timer if don't cancel the timer it conflict with
+            /// the new timer
             LocationService.cityName.addListener(() {
               timer.cancel();
             });
