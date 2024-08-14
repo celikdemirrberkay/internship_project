@@ -122,9 +122,7 @@ class __CityModalBottomSheetState extends State<_CityModalBottomSheet> {
           await Fluttertoast.showToast(
             msg: 'Namaz vakitleri ${searchableCityList[index].name} şehrine göre ayarlandı',
           );
-          if (!mounted) {
-            return;
-          }
+          if (!mounted) return;
           context.pop();
         },
       ),

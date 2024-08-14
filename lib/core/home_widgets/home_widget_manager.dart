@@ -110,6 +110,11 @@ class HomeWidgetManager {
               /// Update the home widget
               await updateHomeWidget();
             }
+
+            /// Listen to the city name changes and cancel the timer
+            LocationService.cityName.addListener(() {
+              timer.cancel();
+            });
           },
         );
       }
