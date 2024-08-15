@@ -6,6 +6,7 @@ import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:internship_project/core/config/dependency_injection/dependency_container.dart';
+import 'package:internship_project/core/constants/local_database_constants.dart';
 import 'package:internship_project/service/local/hive/db_service.dart';
 import 'package:internship_project/service/notification/notification_service.dart';
 import 'package:internship_project/service/remote/prayer_times/prayer_times_service.dart';
@@ -92,8 +93,8 @@ class BackgroundService {
     );
 
     final isNotifOpen = await localDatabaseService.get<bool>(
-      dbName: 'notificationDatabase',
-      key: 'isNotificationOpen',
+      dbName: LocalDatabaseNames.notificationDB.value,
+      key: LocalDatabaseKeys.isNotificationOpen.value,
     );
 
     await notificationService.scheduleNotificationForPrayerTimesOnBackground(

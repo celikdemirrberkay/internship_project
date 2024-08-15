@@ -98,21 +98,21 @@ class LocalDatabaseService extends ILocalDatabaseService {
   /// from the settings screen.
   Future<void> setNotificationDisableForFirstTime() async {
     final isNotificationOpen = await get<bool>(
-      dbName: 'notificationDatabase',
-      key: 'isNotificationOpen',
+      dbName: LocalDatabaseNames.notificationDB.value,
+      key: LocalDatabaseKeys.isNotificationOpen.value,
     );
     if (isNotificationOpen is SuccessState<bool>) {
       if (isNotificationOpen.data == null) {
         await set<bool>(
-          dbName: 'notificationDatabase',
-          key: 'isNotificationOpen',
+          dbName: LocalDatabaseNames.notificationDB.value,
+          key: LocalDatabaseKeys.isNotificationOpen.value,
           value: false,
         );
       }
     } else {
       await set<bool>(
-        dbName: 'notificationDatabase',
-        key: 'isNotificationOpen',
+        dbName: LocalDatabaseNames.notificationDB.value,
+        key: LocalDatabaseKeys.isNotificationOpen.value,
         value: false,
       );
     }
@@ -123,8 +123,8 @@ class LocalDatabaseService extends ILocalDatabaseService {
   /// If theme preference is true , its dark theme else light theme
   Future<bool> getThemePreferences() async {
     final isDarkTheme = await get<bool>(
-      dbName: 'themeDatabase',
-      key: 'isDarkTheme',
+      dbName: LocalDatabaseNames.themeDB.value,
+      key: LocalDatabaseKeys.isDarkTheme.value,
     );
     if (isDarkTheme is SuccessState<bool>) {
       return isDarkTheme.data ?? false;
