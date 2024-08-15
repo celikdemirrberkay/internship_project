@@ -56,13 +56,18 @@ class PrayerTimesService extends IPrayerTimesService {
 
   /// --------------------------------------------------------------------------
   /// Get prayer times for schedule notifications
+  @override
   Future<Resource<Map<String, dynamic>>> getPrayerTimesAsMap(
     String city,
     String country,
   ) async {
     /// Getting current date
     final now = DateTime.now();
-    final formattedDate = DateFormat('dd-MM-yyyy').format(now);
+
+    /// Formatting date for API request
+    final formattedDate = DateFormat(
+      PrayerTimesServiceConstants.ddMMYYFormat.value,
+    ).format(now);
 
     /// Try fetch data from api
     try {
@@ -71,7 +76,7 @@ class PrayerTimesService extends IPrayerTimesService {
         '${DevEnv.baseURL}/timingsByCity/$formattedDate?city=${city.toLowerCase()}&country=${country.toLowerCase()}&method=3',
       );
 
-      if (response.data != null) {
+      if (response.data != null && response.data!.isNotEmpty) {
         return SuccessState(response.data!);
       } else {
         return const ErrorState(ExceptionType.noData);
@@ -87,13 +92,18 @@ class PrayerTimesService extends IPrayerTimesService {
 
   /// --------------------------------------------------------------------------
   /// Get prayer times as DateTimes for home widget
+  @override
   Future<Resource<List<DateTime>>> getPrayerTimesAsDateTime(
     String city,
     String country,
   ) async {
     /// Getting current date
     final now = DateTime.now();
-    final formattedDate = DateFormat('dd-MM-yyyy').format(now);
+
+    /// Formatting date for API request
+    final formattedDate = DateFormat(
+      PrayerTimesServiceConstants.ddMMYYFormat.value,
+    ).format(now);
 
     /// Try fetch data from api
     try {
@@ -102,7 +112,7 @@ class PrayerTimesService extends IPrayerTimesService {
         '${DevEnv.baseURL}/timingsByCity/$formattedDate?city=${city.toLowerCase()}&country=${country.toLowerCase()}&method=3',
       );
 
-      if (response.data != null) {
+      if (response.data != null && response.data!.isNotEmpty) {
         final prayerTimes = response.data!['data']['timings'] as Map<String, dynamic>;
         final now = DateTime.now();
         final dateTimesMap = Map<String, DateTime>.fromIterable(
@@ -113,8 +123,7 @@ class PrayerTimesService extends IPrayerTimesService {
             final hour = int.parse(parts[0]);
             final minute = int.parse(parts[1]);
 
-            // Midnight için bir gün öncesini kullanabiliriz
-            if (key == "Midnight" && hour < 6) {
+            if (key == 'Midnight' && hour < 6) {
               return DateTime(
                 now.year,
                 now.month,
@@ -133,6 +142,8 @@ class PrayerTimesService extends IPrayerTimesService {
             );
           },
         );
+
+        /// Returning the list of date times as SuccessState
         return SuccessState(dateTimesMap.values.toList());
       } else {
         return const ErrorState(ExceptionType.noData);

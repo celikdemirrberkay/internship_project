@@ -38,8 +38,8 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
     if (state == AppLifecycleState.detached) {
       /// Set the isManuelSelected value to false
       await locator<LocalDatabaseService>().set<bool>(
-        dbName: DatabaseNames.localDatabase.value,
-        key: LocalDatabaseConstants.isManuelSelected.value,
+        dbName: LocalDatabaseNames.isManuelSelectedDB.value,
+        key: LocalDatabaseKeys.isManuelSelected.value,
         value: false,
       );
     }

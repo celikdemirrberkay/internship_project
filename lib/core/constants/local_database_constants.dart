@@ -1,24 +1,30 @@
 /// ----------------------------------------------------------------------------
-///  Local database name constants
-/// Like localDatabase,
-enum LocalDatabaseConstants {
-  /// isManuelSelected key name
-  isManuelSelected('isManuelSelected');
+///  Database name constants
+/// Like localDatabase ..
+enum LocalDatabaseNames {
+  /// Dhikr list database name
+  rosaryDB('rosaryDB'),
 
-  const LocalDatabaseConstants(this.value);
+  /// Local database name
+  isManuelSelectedDB('isManuelSelectedDB');
+
+  const LocalDatabaseNames(this.value);
 
   /// Name parameter
   final String value;
 }
 
 /// ----------------------------------------------------------------------------
-///  Database name constants
-/// Like localDatabase ..
-enum DatabaseNames {
-  /// Local database name
-  localDatabase('localDatabase');
+///  Local database name constants
+/// Like localDatabase,
+enum LocalDatabaseKeys {
+  /// Dhikr list key name
+  dhikrList('dhikrList'),
 
-  const DatabaseNames(this.value);
+  /// isManuelSelected key name
+  isManuelSelected('isManuelSelected');
+
+  const LocalDatabaseKeys(this.value);
 
   /// Name parameter
   final String value;

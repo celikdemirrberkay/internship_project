@@ -5,6 +5,6 @@ enum PrayerTimesServiceConstants {
 
   const PrayerTimesServiceConstants(this.value);
 
-  /// Name parameter
+  /// Value parameter
   final String value;
 }

@@ -42,25 +42,8 @@ class _CustomBottomSheetState extends State<_CustomBottomSheet> {
         Expanded(flex: 15, child: _textFieldOfBottomSheet()),
         context.spacerWithFlex(flex: 5),
         Expanded(flex: 8, child: _addButton()),
-        context.spacerWithFlex(flex: 5),
-        Expanded(flex: 8, child: _textButtonForCancel()),
-        context.spacerWithFlex(flex: 40),
+        context.spacerWithFlex(flex: 53),
       ];
-
-  /// Cancel button of bottom sheet
-  Widget _textButtonForCancel() => TextButton(
-        child: FittedBox(
-          child: Text(
-            'İptal',
-            style: GoogleFonts.roboto(
-              textStyle: context.appTextTheme.bodyLarge,
-              color: context.themeData.colorScheme.primary,
-              fontWeight: context.fontWeights.fw500,
-            ),
-          ),
-        ),
-        onPressed: () => context.pop(),
-      );
 
   /// Add button of bottom sheet
   Widget _addButton() {

@@ -1,5 +1,6 @@
 import 'package:hive/hive.dart';
 import 'package:internship_project/core/base/resource.dart';
+import 'package:internship_project/core/constants/local_database_constants.dart';
 import 'package:internship_project/core/exception/exception_type.dart';
 import 'package:internship_project/service/local/hive/db_service_interface.dart';
 
@@ -81,8 +82,8 @@ class LocalDatabaseService extends ILocalDatabaseService {
   /// Set first time dhikr list
   Future<void> setFirstTimeDhikr() async {
     await set<List<String>>(
-      dbName: 'databaseService',
-      key: 'dhikrList',
+      dbName: LocalDatabaseNames.rosaryDB.value,
+      key: LocalDatabaseKeys.dhikrList.value,
       value: [
         'Subhanallah',
         'Elhamdulillah',

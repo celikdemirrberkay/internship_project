@@ -114,8 +114,8 @@ class __CityModalBottomSheetState extends State<_CityModalBottomSheet> {
         onTap: () async {
           /// Set manuel city selection as true
           await locator<LocalDatabaseService>().set<bool>(
-            dbName: 'localDatabase',
-            key: 'isManuelSelected',
+            dbName: LocalDatabaseNames.isManuelSelectedDB.value,
+            key: LocalDatabaseKeys.isManuelSelected.value,
             value: true,
           );
           LocationService.cityName.value = searchableCityList[index].name;
