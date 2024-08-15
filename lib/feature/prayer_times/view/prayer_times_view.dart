@@ -141,28 +141,24 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
 
   /// Prayer times container builder
   Widget _prayerTimesContainerBuilder() {
-    return ValueListenableBuilder(
-      valueListenable: LocationService.cityName,
-      builder: (context, cityName, child) => ViewModelBuilder.reactive(
-        viewModelBuilder: () => PrayerTimesViewmodel(
-          locator(),
-          locator(),
-          locator(),
-          context,
-        ),
-        disposeViewModel: false,
-        builder: (context, viewModel, child) => switch (viewModel.prayerTimesData) {
-          SuccessState() => _prayerTimesContainer(viewModel.prayerTimesData.data!),
-          ErrorState() => _errorWidget(ExceptionUtil.getExceptionMessage(viewModel.prayerTimesData.exceptionType!)),
-          LoadingState() => _shimmerLoadingContainer(),
-        },
-        onViewModelReady: (viewModel) async {
-          await viewModel.getPrayerTimes(
-            city: cityName,
-            country: 'turkey',
-          );
-        },
+    return ViewModelBuilder.reactive(
+      viewModelBuilder: () => PrayerTimesViewmodel(
+        locator(),
+        locator(),
+        locator(),
+        context,
       ),
+      builder: (context, viewModel, child) => switch (viewModel.prayerTimesData) {
+        SuccessState() => _prayerTimesContainer(viewModel.prayerTimesData.data!),
+        ErrorState() => _errorWidget(ExceptionUtil.getExceptionMessage(viewModel.prayerTimesData.exceptionType!)),
+        LoadingState() => _shimmerLoadingContainer(),
+      },
+      onViewModelReady: (viewModel) async {
+        await viewModel.getPrayerTimes(
+          city: LocationService.cityName.value,
+          country: LocationService.countryName.value,
+        );
+      },
     );
   }
 

@@ -20,13 +20,15 @@ struct Provider: TimelineProvider {
             asr: "-",
             maghrib: "-",
             isha: "-",
-            location: "-"
+            location: "-",
+            remainingTimeHours: "-", 
+            remainingTimeMinutes: "-",
+            remainingTimeSeconds: "-"
         )
     }
     
     func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> Void) {
         let data = UserDefaults.init(suiteName: widgetGroupId)
-        let fileName = data?.string(forKey: "filename") ?? "-"
         let entry = SimpleEntry(
             date: Date(),
             fajr: data?.string(forKey: "Fajr") ?? "-",
@@ -35,10 +37,14 @@ struct Provider: TimelineProvider {
             asr: data?.string(forKey: "Asr") ?? "-",
             maghrib: data?.string(forKey: "Maghrib") ?? "-",
             isha: data?.string(forKey: "Isha") ?? "-",
-            location: data?.string(forKey: "Location") ?? "-"
+            location: data?.string(forKey: "Location") ?? "-",
+            remainingTimeHours: data?.string(forKey: "RemainingTimeHours") ?? "-",
+            remainingTimeMinutes: data?.string(forKey: "RemainingTimeMinutes") ?? "-",
+            remainingTimeSeconds: data?.string(forKey: "RemainingTimeSeconds") ?? "-"
         )
-        
         completion(entry)
+    
+
     }
     
     func getTimeline(in context: Context, completion: @escaping (Timeline<SimpleEntry>) -> Void) {
@@ -59,22 +65,26 @@ struct SimpleEntry: TimelineEntry {
     let maghrib : String
     let isha : String
     let location : String
-
+    let remainingTimeHours: String
+    let remainingTimeMinutes: String
+    let remainingTimeSeconds: String
 }
 
 struct home_widgetEntryView : View {
     var entry: Provider.Entry
     var body: some View {
         HStack {
-            VStack() {
+            VStack(alignment: .leading) {
                 PrayerTimesText()
                 LocationHStack(entry: entry)
+                Spacer()
                 FirstPrayerTimesHStack(entry: entry)
                 Spacer()
                 LastPrayerTimesHStack(entry: entry)
                 Spacer()
+                RemainingTimesText(entry: entry)
             }
-            Spacer()
+           
         }
         .frame(width: .infinity,height: .infinity)
         .containerBackground(
@@ -144,6 +154,44 @@ struct PrayerTimesText : View {
     }
 }
 
+/// Remaining Times Text
+struct RemainingTimesText : View {
+    var entry: Provider.Entry
+    var body: some View{
+        HStack{
+            Text("Namaza ->")
+                .font(.title3)
+                .foregroundColor(.white)
+                .fontWeight(.bold)
+                .minimumScaleFactor(0.5)
+            Text("\(entry.remainingTimeHours)")
+                .font(.title3)
+                .foregroundColor(.white)
+                .fontWeight(.bold)
+                .minimumScaleFactor(0.5)
+            Text("Saat")
+                .foregroundColor(.white)
+                .minimumScaleFactor(0.5)
+            Text("\(entry.remainingTimeMinutes)")
+                .font(.title3)
+                .foregroundColor(.white)
+                .fontWeight(.bold)
+                .minimumScaleFactor(0.5)
+            Text("Dakika")
+                .foregroundColor(.white)
+                .minimumScaleFactor(0.5)
+            Text("\(entry.remainingTimeSeconds)")
+                .font(.title3)
+                .foregroundColor(.white)
+                .fontWeight(.bold)
+                .minimumScaleFactor(0.5)
+            Text("Saniye")
+                .foregroundColor(.white)
+                .minimumScaleFactor(0.5)
+        }
+    }
+}
+
 /// Location Text
 struct LocationHStack : View {
     var entry: Provider.Entry
@@ -156,7 +204,6 @@ struct LocationHStack : View {
                 .foregroundColor(.white)
                 .fontWeight(.light)
         }
-        Spacer()
     }
 }
 
@@ -187,8 +234,18 @@ extension Color {
 struct home_widget_Previews: PreviewProvider{
     static var previews: some View{
         home_widgetEntryView(entry: SimpleEntry(
-            date: Date(), fajr: "15:00", sunrise: "15:00", dhuhr: "15:00", asr: "15:00", maghrib: "15:00", isha: "15:00", location: "İstanbul"
-        )
+            date: Date(), 
+            fajr: "15:00",
+            sunrise: "15:00",
+            dhuhr: "15:00",
+            asr: "15:00",
+            maghrib: "15:00",
+            isha: "15:00",
+            location: "İstanbul",
+            remainingTimeHours: "01",
+            remainingTimeMinutes: "25",
+            remainingTimeSeconds: "53"
+            )
         )
         .previewContext(WidgetPreviewContext(family: .systemMedium))
     }
