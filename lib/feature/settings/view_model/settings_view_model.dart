@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:internship_project/core/base/resource.dart';
 import 'package:internship_project/core/constants/local_database_constants.dart';
+import 'package:internship_project/core/constants/service_constant.dart';
 import 'package:internship_project/core/exception/exception_type.dart';
 import 'package:internship_project/core/exception/exception_util.dart';
 import 'package:internship_project/core/theme/app_theme.dart';
@@ -128,8 +129,8 @@ class SettingsViewModel extends BaseViewModel {
   Future<void> _turnSwitchOnSetNotificationIfPermissionAccess(bool value) async {
     /// Schedule notification for prayer times
     await localNotificationService.scheduleNotificationForPrayerTimes(
-      title: 'Namaz Vakti',
-      body: 'Namaz Vakti geldi. Haydi namaza!',
+      title: LocalNotificationServiceConstants.title.value,
+      body: LocalNotificationServiceConstants.body.value,
     );
 
     final setNotifTrueResponse = await localDatabaseService.set<bool>(

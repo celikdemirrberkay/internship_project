@@ -8,6 +8,9 @@ enum LocalDatabaseNames {
   /// Notification database name
   notificationDB('notificationDB'),
 
+  /// Onboard database name
+  onboardDB('onboardDB'),
+
   /// Theme database name
   themeDB('themeDB'),
 
@@ -29,6 +32,9 @@ enum LocalDatabaseKeys {
 
   /// Theme key name
   isDarkTheme('isDarkTheme'),
+
+  /// isOnboardDone key name
+  isOnboardDone('isOnboardDone'),
 
   /// isNotificationOpen key name
   isNotificationOpen('isNotificationOpen'),

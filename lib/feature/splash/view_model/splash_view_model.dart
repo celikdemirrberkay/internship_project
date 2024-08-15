@@ -2,6 +2,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:internship_project/core/base/resource.dart';
 import 'package:internship_project/core/config/dependency_injection/dependency_container.dart';
 import 'package:internship_project/core/constants/local_database_constants.dart';
+import 'package:internship_project/core/constants/service_constant.dart';
 import 'package:internship_project/core/exception/exception_util.dart';
 import 'package:internship_project/core/home_widgets/home_widget_manager.dart';
 import 'package:internship_project/service/local/hive/db_service.dart';
@@ -62,14 +63,14 @@ class SplashViewModel extends BaseViewModel {
   /// Set notifications on opening
   Future<void> setNotificationsOnOpening() async {
     final isNotifOpen = await locator<LocalDatabaseService>().get<bool>(
-      dbName: 'notificationDatabase',
-      key: 'isNotificationOpen',
+      dbName: LocalDatabaseNames.notificationDB.value,
+      key: LocalDatabaseKeys.isNotificationOpen.value,
     );
     if (isNotifOpen is SuccessState<bool>) {
       if (isNotifOpen.data!) {
         await locator<LocalNotificationService>().scheduleNotificationForPrayerTimes(
-          title: 'Namaz Vakti',
-          body: 'Namaz Vakti geldi. Haydi namaza!',
+          title: LocalNotificationServiceConstants.title.value,
+          body: LocalNotificationServiceConstants.body.value,
         );
       }
     }

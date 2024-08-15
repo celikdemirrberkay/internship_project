@@ -65,16 +65,18 @@ class LocalDatabaseService extends ILocalDatabaseService {
   /// Check if onboard is done
   Future<bool> isOnboardDone() async {
     final isOnboardDone = await get<bool?>(
-      dbName: 'onboardService',
-      key: 'isOnboardDone',
+      dbName: LocalDatabaseNames.onboardDB.value,
+      key: LocalDatabaseKeys.isOnboardDone.value,
     );
 
     /// If onboard is not done
-    /// Or there is an error from db
-    /// Return false
+
     if (isOnboardDone is ErrorState<bool?>) {
+      /// Return false
       return false;
     } else {
+      /// Or there is an error from db
+      /// Return false
       return isOnboardDone.data ?? false;
     }
   }

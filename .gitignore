@@ -47,4 +47,4 @@ app.*.map.json
 
 assets/env/.dev.env
 
-lib/core/canvas/
+lib/core/canvas
