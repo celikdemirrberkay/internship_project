@@ -25,8 +25,12 @@ class PrayerTime extends StatelessWidget {
   Widget build(BuildContext context) {
     /// MaterialApp
     return ValueListenableBuilder(
+      /// Listen city name to
+      /// reconfigure the application according to new city information
       valueListenable: LocationService.cityName,
       builder: (context, value, child) => ValueListenableBuilder(
+        /// Listen theme preference to
+        /// reconfigure the application according to new theme preference
         valueListenable: AppTheme.themePreference,
         builder: (context, value, child) => MaterialApp.router(
           routerConfig: AppRouter.router(),

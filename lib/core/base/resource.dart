@@ -1,4 +1,4 @@
-import '../exception/exception_type.dart';
+import 'package:internship_project/core/exception/exception_type.dart';
 
 /// Resource class is a generic class that holds data and exception type.
 sealed class Resource<T> {

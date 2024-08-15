@@ -1,14 +1,14 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import '../../../core/base/resource.dart';
-import '../../../model/ayah.dart';
-import '../../../model/god_names.dart';
-import '../../../model/times_response.dart';
-import '../../../service/local/god_names/god_names_service.dart';
-import '../../../service/remote/ayah/ayah_service.dart';
-import '../../../service/remote/location/location_service.dart';
-import '../../../service/remote/prayer_times/prayer_times_service.dart';
+import 'package:internship_project/core/base/resource.dart';
+import 'package:internship_project/model/ayah.dart';
+import 'package:internship_project/model/god_names.dart';
+import 'package:internship_project/model/times_response.dart';
+import 'package:internship_project/service/local/god_names/god_names_service.dart';
+import 'package:internship_project/service/remote/ayah/ayah_service.dart';
+import 'package:internship_project/service/remote/location/location_service.dart';
+import 'package:internship_project/service/remote/prayer_times/prayer_times_service.dart';
 import 'package:stacked/stacked.dart';
 
 ///
@@ -20,13 +20,15 @@ class PrayerTimesViewmodel extends BaseViewModel {
     this._ayahService,
     this._context,
   ) {
+    /// Getting random ayah on initialization of prayer times viewmodel
     getSpecificAyah();
+
+    /// Getting random god name on initialization of prayer times viewmodel
     randomGodNameAndMeaning(_context);
 
     /// Fetching data from the API's beginning
     /// First, we get the city name then the country name
     /// Then we fetch the prayer times with country and city name we got
-
     getPrayerTimes(
       city: LocationService.cityName.value,
       country: LocationService.countryName.value,
