@@ -26,7 +26,7 @@
         android:name="${applicationName}"
         android:enableOnBackInvokedCallback="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="internship_project">
+        android:label="Namaz Vakti">
         <!-- Home Widget Reciever -->
         <receiver
             android:name=".HomeWidget"

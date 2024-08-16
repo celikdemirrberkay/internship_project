@@ -70,7 +70,7 @@ class _QiblahCompassViewState extends State<QiblahCompassView> with SingleTicker
                   final qiblahDirection = snapshot.data;
                   animation = Tween(
                     begin: begin,
-                    end: qiblahDirection!.qiblah * (pi / 180) * -1,
+                    end: (qiblahDirection!.qiblah) * (pi / 180) * -1,
                   ).animate(_animationController!);
                   begin = qiblahDirection.qiblah * (pi / 180) * -1;
                   _animationController!.forward(from: 0);
@@ -145,12 +145,11 @@ class _QiblahCompassViewState extends State<QiblahCompassView> with SingleTicker
       child: AnimatedBuilder(
         animation: animation!,
         builder: (context, child) => Transform.rotate(
-          angle: animation!.value,
+          angle: animation!.value + 57.6,
           child: Stack(
             alignment: Alignment.center,
             children: [
-              SvgPicture.asset('assets/svg/compass.svg'),
-              SvgPicture.asset('assets/svg/needle.svg'),
+              SvgPicture.asset('assets/svg/qiblah_compass.svg'),
             ],
           ),
         ),

@@ -34,7 +34,6 @@ dependencies:
 
   # Core (Http Requests, Local Storage, Notifications etc.)
   dio: ^5.5.0+1
-  isar_flutter_libs: ^4.0.0-dev.13
   path_provider: ^2.1.0
   intl: ^0.19.0
   stacked: ^3.4.3
@@ -92,6 +91,12 @@ dev_dependencies:
   build_runner: ^2.4.11
   envied_generator: ^0.5.3
 
+  # App Icon
+  flutter_launcher_icons: ^0.13.1
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/app_icon.png"
   # Test
   mockito: ^5.4.4
 
