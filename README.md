@@ -25,6 +25,31 @@ The foldering of the project is as follows ->
  - Model
  - Service
 
+ ## Service Structure
+Null management in projects has always been a challenge for me. For this reason, I managed null in the service layer of the project. I completely eliminated the responsibility of null to the view and view-model. Thanks to the Resource class, I return exception type in case of error or null data. In this way, operations on the view and view-model side become much easier. I share the resource class below.
+
+```dart
+sealed class Resource<T> {
+  const Resource({this.data, this.exceptionType});
+
+  final T? data;
+
+  final ExceptionTypes? exceptionType;
+}
+
+class SuccessState<T> extends Resource<T> {
+  const SuccessState(T data) : super(data: data);
+}
+
+class ErrorState<T> extends Resource<T> {
+  const ErrorState(ExceptionTypes type, [T? data]) : super(data: data, exceptionType: type);
+}
+
+class LoadingState<T> extends Resource<T> {
+  const LoadingState() : super();
+}
+```
+
 ## Screenshots
 
 <img width="200" alt="1" src="https://github.com/user-attachments/assets/c148c448-c547-4f18-a649-6171868d6b6a">
