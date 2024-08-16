@@ -72,11 +72,11 @@ class LocalNotificationService {
     if (prayerResponse is SuccessState<Map<String, dynamic>>) {
       final prayerTimesWithDuplicates = prayerResponse.data!['data']['timings'] as Map<String, dynamic>;
       final prayerTimesWithoutDuplicates = prayerTimesWithDuplicates
-        ..remove('Sunset')
-        ..remove('Imsak')
-        ..remove('Midnight')
-        ..remove('Lastthird')
-        ..remove('Firstthird');
+        ..remove(LocalNotificationServiceConstants.sunset.value)
+        ..remove(LocalNotificationServiceConstants.imsak.value)
+        ..remove(LocalNotificationServiceConstants.midnight.value)
+        ..remove(LocalNotificationServiceConstants.lastthird.value)
+        ..remove(LocalNotificationServiceConstants.firstthird.value);
 
       var id = 0;
 

@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:home_widget/home_widget.dart';
 import 'package:internship_project/core/base/resource.dart';
 import 'package:internship_project/core/config/dependency_injection/dependency_container.dart';
+import 'package:internship_project/core/constants/service_constant.dart';
 import 'package:internship_project/service/remote/location/location_service.dart';
 import 'package:internship_project/service/remote/prayer_times/prayer_times_service.dart';
 
@@ -14,7 +15,7 @@ class HomeWidgetManager {
   /// Set appGroupId for iOS
   static Future<void> setAppGroupIdForIOS() async {
     if (Platform.isIOS) {
-      await HomeWidget.setAppGroupId(_HomeWidgetValues.appGroupId.value);
+      await HomeWidget.setAppGroupId(HomeWidgetConstants.appGroupId.value);
     } else {
       return;
     }
@@ -24,8 +25,8 @@ class HomeWidgetManager {
   /// Update the home widget
   static Future<void> updateHomeWidget() async {
     await HomeWidget.updateWidget(
-      androidName: _HomeWidgetValues.androidName.value,
-      iOSName: _HomeWidgetValues.iOSWidgetName.value,
+      androidName: HomeWidgetConstants.androidName.value,
+      iOSName: HomeWidgetConstants.iOSWidgetName.value,
     );
   }
 
@@ -53,13 +54,34 @@ class HomeWidgetManager {
     final prayerTimesMap = prayerTimes.data!['data']['timings'] as Map<String, dynamic>;
 
     /// Save prayer times and location to the home widget
-    await saveWidgetData('Fajr', prayerTimesMap['Fajr']);
-    await saveWidgetData('Sunrise', prayerTimesMap['Sunrise']);
-    await saveWidgetData('Dhuhr', prayerTimesMap['Dhuhr']);
-    await saveWidgetData('Asr', prayerTimesMap['Asr']);
-    await saveWidgetData('Maghrib', prayerTimesMap['Maghrib']);
-    await saveWidgetData('Isha', prayerTimesMap['Isha']);
-    await saveWidgetData('Location', LocationService.cityName.value);
+    await saveWidgetData(
+      HomeWidgetConstants.fajr.value,
+      prayerTimesMap[HomeWidgetConstants.fajr.value],
+    );
+    await saveWidgetData(
+      HomeWidgetConstants.sunrise.value,
+      prayerTimesMap[HomeWidgetConstants.sunrise.value],
+    );
+    await saveWidgetData(
+      HomeWidgetConstants.dhuhr.value,
+      prayerTimesMap[HomeWidgetConstants.dhuhr.value],
+    );
+    await saveWidgetData(
+      HomeWidgetConstants.asr.value,
+      prayerTimesMap[HomeWidgetConstants.asr.value],
+    );
+    await saveWidgetData(
+      HomeWidgetConstants.maghrib.value,
+      prayerTimesMap[HomeWidgetConstants.maghrib.value],
+    );
+    await saveWidgetData(
+      HomeWidgetConstants.isha.value,
+      prayerTimesMap[HomeWidgetConstants.isha.value],
+    );
+    await saveWidgetData(
+      HomeWidgetConstants.location.value,
+      LocationService.cityName.value,
+    );
 
     /// Update the home widget for Android
     await updateHomeWidget();
@@ -99,15 +121,15 @@ class HomeWidgetManager {
             } else {
               /// Save the remaining time to the home widget
               await saveWidgetData(
-                'RemainingTimeHours',
+                HomeWidgetConstants.remainingTimeHours.value,
                 twoDigits(remainingTime.inHours),
               );
               await saveWidgetData(
-                'RemainingTimeMinutes',
+                HomeWidgetConstants.remainingTimeMinutes.value,
                 twoDigits(remainingTime.inMinutes.remainder(60)),
               );
               await saveWidgetData(
-                'RemainingTimeSeconds',
+                HomeWidgetConstants.remainingTimeSeconds.value,
                 twoDigits(remainingTime.inSeconds.remainder(60)),
               );
 
@@ -142,17 +164,4 @@ class HomeWidgetManager {
           (a, b) => a.isBefore(b) ? a : b,
         );
   }
-}
-
-/// HomeWidgetValues is an enum class that holds the values of the strings.
-enum _HomeWidgetValues {
-  androidName('HomeWidget'),
-
-  iOSWidgetName('home_widget'),
-
-  appGroupId('group.home_widget_flutter');
-
-  const _HomeWidgetValues(this.value);
-
-  final String value;
 }
