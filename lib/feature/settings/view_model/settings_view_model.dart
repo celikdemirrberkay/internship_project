@@ -142,7 +142,7 @@ class SettingsViewModel extends BaseViewModel {
     if (setNotifTrueResponse is SuccessState<String>) {
       _isNotificationOpen = const SuccessState(true);
     } else {
-      _isNotificationOpen = const ErrorState(ExceptionType.errorOccured);
+      _isNotificationOpen = const ErrorState(ExceptionTypes.errorOccured);
     }
   }
 
@@ -151,8 +151,8 @@ class SettingsViewModel extends BaseViewModel {
   Future<void> _turnSwitchOnShowToastWhenNotificationIsNotGranted() async {
     _isNotificationOpen = const SuccessState(false);
     await Fluttertoast.showToast(
-      msg: ExceptionUtil.getExceptionMessage(
-        ExceptionType.accessDeniedForNotification,
+      msg: ExceptionMessager.getExceptionMessage(
+        ExceptionTypes.accessDeniedForNotification,
       ),
       toastLength: Toast.LENGTH_LONG,
     );
@@ -176,7 +176,7 @@ class SettingsViewModel extends BaseViewModel {
     if (setNotifFalseResponse is SuccessState<String>) {
       _isNotificationOpen = const SuccessState(false);
     } else {
-      _isNotificationOpen = const ErrorState(ExceptionType.errorOccured);
+      _isNotificationOpen = const ErrorState(ExceptionTypes.errorOccured);
     }
   }
 

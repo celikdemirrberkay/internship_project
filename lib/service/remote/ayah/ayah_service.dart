@@ -28,12 +28,12 @@ class AyahService extends IAyahServiceInterface {
 
         return SuccessState(Ayah.fromJson(responseOnlyData));
       } else {
-        return const ErrorState(ExceptionType.noData);
+        return const ErrorState(ExceptionTypes.noData);
       }
     } on DioException catch (_) {
-      return const ErrorState(ExceptionType.errorOccured);
+      return const ErrorState(ExceptionTypes.errorOccured);
     } catch (e) {
-      return const ErrorState(ExceptionType.errorOccured);
+      return const ErrorState(ExceptionTypes.errorOccured);
     }
   }
 }

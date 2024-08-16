@@ -78,7 +78,7 @@ class RosaryViewModel extends BaseViewModel {
     } else {
       /// Show error toast message if db get operation failed
       await Fluttertoast.showToast(
-        msg: ExceptionUtil.getExceptionMessage(dbList.exceptionType!),
+        msg: ExceptionMessager.getExceptionMessage(dbList.exceptionType!),
       );
     }
   }
@@ -99,7 +99,7 @@ class RosaryViewModel extends BaseViewModel {
     } else {
       /// If db get operation failed return empty list
       /// and show error toast message
-      await Fluttertoast.showToast(msg: ExceptionMessage.errorOccured.message);
+      await Fluttertoast.showToast(msg: ExceptionStrings.errorOccured.message);
       return [];
     }
   }

@@ -75,7 +75,7 @@ class __CityModalBottomSheetState extends State<_CityModalBottomSheet> {
   Widget _cityListBuilder() => ViewModelBuilder.reactive(
         viewModelBuilder: () => SettingsViewModel(locator(), locator(), locator()),
         builder: (context, viewModel, child) => switch (viewModel.cityNames) {
-          ErrorState<List<City>>() => ExceptionWidget(message: ExceptionUtil.getExceptionMessage(viewModel.cityNames.exceptionType!)),
+          ErrorState<List<City>>() => ExceptionWidget(message: ExceptionMessager.getExceptionMessage(viewModel.cityNames.exceptionType!)),
           LoadingState<List<City>>() => const LoadingWidget(),
           SuccessState<List<City>>() => _cityListView(),
         },

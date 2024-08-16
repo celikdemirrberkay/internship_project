@@ -1,3 +1,4 @@
+/// ----------------------------------------------------------------------------
 /// Prayer times service constants
 enum PrayerTimesServiceConstants {
   /// isManuelSelected key name
@@ -9,6 +10,7 @@ enum PrayerTimesServiceConstants {
   final String value;
 }
 
+/// ----------------------------------------------------------------------------
 /// Local notification service constants
 enum LocalNotificationServiceConstants {
   /// Notification body
@@ -38,6 +40,7 @@ enum LocalNotificationServiceConstants {
   final String value;
 }
 
+/// ----------------------------------------------------------------------------
 /// HomeWidgetValues is an enum class that holds the values of the strings.
 enum HomeWidgetConstants {
   /// Fajr key name
@@ -81,5 +84,6 @@ enum HomeWidgetConstants {
 
   const HomeWidgetConstants(this.value);
 
+  /// Value parameter
   final String value;
 }

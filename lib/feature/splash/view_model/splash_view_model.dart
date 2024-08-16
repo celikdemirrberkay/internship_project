@@ -5,6 +5,7 @@ import 'package:internship_project/core/constants/local_database_constants.dart'
 import 'package:internship_project/core/constants/service_constant.dart';
 import 'package:internship_project/core/exception/exception_util.dart';
 import 'package:internship_project/core/home_widgets/home_widget_manager.dart';
+import 'package:internship_project/service/local/dhikr/dhikr_service.dart';
 import 'package:internship_project/service/local/hive/db_service.dart';
 import 'package:internship_project/service/notification/notification_service.dart';
 import 'package:internship_project/service/permission/permission_manager.dart';
@@ -36,7 +37,7 @@ class SplashViewModel extends BaseViewModel {
     /// If there is an error, show a toast message
     if (city is ErrorState<String> || country is ErrorState<String>) {
       await Fluttertoast.showToast(
-        msg: ExceptionUtil.getExceptionMessage(city.exceptionType!),
+        msg: ExceptionMessager.getExceptionMessage(city.exceptionType!),
       );
     } else {
       /// Check if the user has selected the city and country manually
@@ -79,7 +80,7 @@ class SplashViewModel extends BaseViewModel {
   /// --------------------------------------------------------------------------
   /// Set Dhikr List for first time
   static Future<void> setFirstTimeDhikr() async {
-    await locator<LocalDatabaseService>().setFirstTimeDhikr();
+    await locator<DhikrService>().setFirstTimeDhikr();
   }
 
   /// --------------------------------------------------------------------------

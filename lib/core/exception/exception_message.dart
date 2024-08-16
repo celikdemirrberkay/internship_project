@@ -1,5 +1,5 @@
 /// Exception messages enum that holds exception messages.
-enum ExceptionMessage {
+enum ExceptionStrings {
   /// Error occurred
   errorOccured('Hata meydana geldi!'),
 
@@ -22,5 +22,5 @@ enum ExceptionMessage {
   final String message;
 
   ///
-  const ExceptionMessage(this.message);
+  const ExceptionStrings(this.message);
 }

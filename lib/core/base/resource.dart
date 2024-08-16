@@ -9,7 +9,7 @@ sealed class Resource<T> {
   final T? data;
 
   /// Exception type
-  final ExceptionType? exceptionType;
+  final ExceptionTypes? exceptionType;
 }
 
 /// Success state
@@ -21,7 +21,7 @@ class SuccessState<T> extends Resource<T> {
 /// Error state
 class ErrorState<T> extends Resource<T> {
   ///
-  const ErrorState(ExceptionType type, [T? data]) : super(data: data, exceptionType: type);
+  const ErrorState(ExceptionTypes type, [T? data]) : super(data: data, exceptionType: type);
 }
 
 /// Loading state

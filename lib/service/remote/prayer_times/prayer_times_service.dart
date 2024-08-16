@@ -43,14 +43,14 @@ class PrayerTimesService extends IPrayerTimesService {
         final responseAsApiResponse = PrayerApiResponse.fromJson(response.data!);
         return SuccessState(responseAsApiResponse.data!);
       } else {
-        return const ErrorState(ExceptionType.noData);
+        return const ErrorState(ExceptionTypes.noData);
       }
 
       /// Catching errors
     } on DioException catch (_) {
-      return const ErrorState(ExceptionType.errorOccured);
+      return const ErrorState(ExceptionTypes.errorOccured);
     } catch (_) {
-      return const ErrorState(ExceptionType.errorOccured);
+      return const ErrorState(ExceptionTypes.errorOccured);
     }
   }
 
@@ -79,14 +79,14 @@ class PrayerTimesService extends IPrayerTimesService {
       if (response.data != null && response.data!.isNotEmpty) {
         return SuccessState(response.data!);
       } else {
-        return const ErrorState(ExceptionType.noData);
+        return const ErrorState(ExceptionTypes.noData);
       }
 
       /// Catching errors
     } on DioException catch (_) {
-      return const ErrorState(ExceptionType.errorOccured);
+      return const ErrorState(ExceptionTypes.errorOccured);
     } catch (_) {
-      return const ErrorState(ExceptionType.errorOccured);
+      return const ErrorState(ExceptionTypes.errorOccured);
     }
   }
 
@@ -146,14 +146,14 @@ class PrayerTimesService extends IPrayerTimesService {
         /// Returning the list of date times as SuccessState
         return SuccessState(dateTimesMap.values.toList());
       } else {
-        return const ErrorState(ExceptionType.noData);
+        return const ErrorState(ExceptionTypes.noData);
       }
 
       /// Catching errors
     } on DioException catch (_) {
-      return const ErrorState(ExceptionType.errorOccured);
+      return const ErrorState(ExceptionTypes.errorOccured);
     } catch (_) {
-      return const ErrorState(ExceptionType.errorOccured);
+      return const ErrorState(ExceptionTypes.errorOccured);
     }
   }
 }

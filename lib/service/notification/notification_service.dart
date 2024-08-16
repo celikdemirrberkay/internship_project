@@ -2,7 +2,10 @@ import 'dart:io';
 
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:internship_project/core/base/resource.dart';
+import 'package:internship_project/core/config/dependency_injection/dependency_container.dart';
+import 'package:internship_project/core/constants/local_database_constants.dart';
 import 'package:internship_project/core/constants/service_constant.dart';
+import 'package:internship_project/service/local/hive/db_service.dart';
 import 'package:internship_project/service/notification/notification_logger.dart';
 import 'package:internship_project/service/remote/location/location_service.dart';
 import 'package:internship_project/service/remote/prayer_times/prayer_times_service.dart';
@@ -185,5 +188,30 @@ class LocalNotificationService {
       0,
       tag: 'prayer-reminder',
     );
+  }
+
+  /// Set notification disable for first time
+  /// Notifications of the application will only be active if the user opens it
+  /// from the settings screen.
+  Future<void> setNotificationDisableForFirstTime() async {
+    final isNotificationOpen = await locator<LocalDatabaseService>().get<bool>(
+      dbName: LocalDatabaseNames.notificationDB.value,
+      key: LocalDatabaseKeys.isNotificationOpen.value,
+    );
+    if (isNotificationOpen is SuccessState<bool>) {
+      if (isNotificationOpen.data == null) {
+        await locator<LocalDatabaseService>().set<bool>(
+          dbName: LocalDatabaseNames.notificationDB.value,
+          key: LocalDatabaseKeys.isNotificationOpen.value,
+          value: false,
+        );
+      }
+    } else {
+      await locator<LocalDatabaseService>().set<bool>(
+        dbName: LocalDatabaseNames.notificationDB.value,
+        key: LocalDatabaseKeys.isNotificationOpen.value,
+        value: false,
+      );
+    }
   }
 }

@@ -32,7 +32,9 @@ class _RosaryViewState extends State<RosaryView> {
           child: SizedBox(
             height: context.screenSizes.height,
             width: context.screenSizes.width,
-            child: Column(children: _columnChildren(viewModel)),
+            child: Column(
+              children: _columnChildren(viewModel),
+            ),
           ),
         ),
       ),

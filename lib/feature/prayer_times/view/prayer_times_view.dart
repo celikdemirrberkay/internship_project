@@ -204,9 +204,9 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
   }
 
   /// Error widget
-  Widget _errorWidget(ExceptionType exceptionType) {
+  Widget _errorWidget(ExceptionTypes exceptionType) {
     return ExceptionWidget(
-      message: ExceptionUtil.getExceptionMessage(exceptionType),
+      message: ExceptionMessager.getExceptionMessage(exceptionType),
     );
   }
 

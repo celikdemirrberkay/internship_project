@@ -1,5 +1,6 @@
 /// Exception type enum that holds exception type.
-enum ExceptionType {
+/// It is used to return errors in services.
+enum ExceptionTypes {
   /// Error occured
   errorOccured,
 

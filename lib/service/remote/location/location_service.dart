@@ -31,7 +31,7 @@ class LocationService extends ILocationService {
         return SuccessState(place.locality ?? 'istanbul');
       }
     } catch (_) {
-      return const ErrorState(ExceptionType.errorOccured);
+      return const ErrorState(ExceptionTypes.errorOccured);
     }
   }
 
@@ -54,7 +54,7 @@ class LocationService extends ILocationService {
         return SuccessState(place.country ?? 'Turkey');
       }
     } catch (_) {
-      return const ErrorState(ExceptionType.errorOccured);
+      return const ErrorState(ExceptionTypes.errorOccured);
     }
   }
 
@@ -67,7 +67,7 @@ class LocationService extends ILocationService {
       );
       return SuccessState(position);
     } catch (e) {
-      return const ErrorState(ExceptionType.errorOccured);
+      return const ErrorState(ExceptionTypes.errorOccured);
     }
   }
 }

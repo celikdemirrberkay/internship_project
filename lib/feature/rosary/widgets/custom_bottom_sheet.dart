@@ -36,6 +36,7 @@ class _CustomBottomSheetState extends State<_CustomBottomSheet> {
 
   /// Add button of bottom sheet
   List<Widget> _columnsChildren() => [
+        _closeContainer(),
         context.spacerWithFlex(flex: 6),
         Expanded(flex: 7, child: _title()),
         context.spacerWithFlex(flex: 3),
@@ -44,6 +45,26 @@ class _CustomBottomSheetState extends State<_CustomBottomSheet> {
         Expanded(flex: 8, child: _addButton()),
         context.spacerWithFlex(flex: 53),
       ];
+
+  /// Close container of bottom sheet
+  Widget _closeContainer() {
+    return Row(
+      children: [
+        context.spacerWithFlex(flex: 40),
+        Expanded(
+          flex: 20,
+          child: Container(
+            height: context.screenSizes.height * 0.007,
+            decoration: BoxDecoration(
+              color: Colors.grey,
+              borderRadius: context.circularBorderRadius(radius: 6),
+            ),
+          ),
+        ),
+        context.spacerWithFlex(flex: 40),
+      ],
+    );
+  }
 
   /// Add button of bottom sheet
   Widget _addButton() {
