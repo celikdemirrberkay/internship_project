@@ -1,10 +1,14 @@
 import 'dart:io';
 
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import '../../core/base/resource.dart';
-import 'notification_logger.dart';
-import '../remote/location/location_service.dart';
-import '../remote/prayer_times/prayer_times_service.dart';
+import 'package:internship_project/core/base/resource.dart';
+import 'package:internship_project/core/config/dependency_injection/dependency_container.dart';
+import 'package:internship_project/core/constants/local_database_constants.dart';
+import 'package:internship_project/core/constants/service_constant.dart';
+import 'package:internship_project/service/local/hive/db_service.dart';
+import 'package:internship_project/service/notification/notification_logger.dart';
+import 'package:internship_project/service/remote/location/location_service.dart';
+import 'package:internship_project/service/remote/prayer_times/prayer_times_service.dart';
 import 'package:intl/intl.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
@@ -33,7 +37,7 @@ class LocalNotificationService {
   /// Initialize the Notification Service
   Future<bool?> initNotifications() async {
     try {
-      const androidInitializationSettings = AndroidInitializationSettings("@mipmap/ic_launcher");
+      const androidInitializationSettings = AndroidInitializationSettings('@mipmap/ic_launcher');
       const iOSInitializationSettings = DarwinInitializationSettings();
 
       const initializationSettings = InitializationSettings(
@@ -71,21 +75,23 @@ class LocalNotificationService {
     if (prayerResponse is SuccessState<Map<String, dynamic>>) {
       final prayerTimesWithDuplicates = prayerResponse.data!['data']['timings'] as Map<String, dynamic>;
       final prayerTimesWithoutDuplicates = prayerTimesWithDuplicates
-        ..remove('Sunset')
-        ..remove('Imsak')
-        ..remove('Midnight')
-        ..remove('Lastthird')
-        ..remove('Firstthird');
+        ..remove(LocalNotificationServiceConstants.sunset.value)
+        ..remove(LocalNotificationServiceConstants.imsak.value)
+        ..remove(LocalNotificationServiceConstants.midnight.value)
+        ..remove(LocalNotificationServiceConstants.lastthird.value)
+        ..remove(LocalNotificationServiceConstants.firstthird.value);
 
       var id = 0;
 
-      /// For each prayer time, schedule the notification
+      /// -- For each prayer time, schedule the notification --
       await Future.forEach(prayerTimesWithoutDuplicates.entries, (entry) async {
         final now = DateTime.now();
 
         /// Each prayer time (Fajr, Dhuhr, Asr, Maghrib, Isha)
         final prayerTime = DateTime.parse(
-          '${DateFormat('yyyy-MM-dd').format(now)} ${entry.value as String}:15',
+          '${DateFormat(
+            PrayerTimesServiceConstants.yyyyMMddFormat.value,
+          ).format(now)} ${entry.value as String}:15',
         );
         if (prayerTime.isAfter(now)) {
           /// Scheculed Notification Date Times
@@ -116,8 +122,8 @@ class LocalNotificationService {
     if (isNotificationOpen) {
       /// Schedule notification for prayer times
       await scheduleNotificationForPrayerTimes(
-        title: 'Namaz Vakti',
-        body: 'Namaz Vakti geldi. Haydi namaza!',
+        title: LocalNotificationServiceConstants.title.value,
+        body: LocalNotificationServiceConstants.body.value,
       );
     }
   }
@@ -184,5 +190,30 @@ class LocalNotificationService {
       0,
       tag: 'prayer-reminder',
     );
+  }
+
+  /// Set notification disable for first time
+  /// Notifications of the application will only be active if the user opens it
+  /// from the settings screen.
+  Future<void> setNotificationDisableForFirstTime() async {
+    final isNotificationOpen = await locator<LocalDatabaseService>().get<bool>(
+      dbName: LocalDatabaseNames.notificationDB.value,
+      key: LocalDatabaseKeys.isNotificationOpen.value,
+    );
+    if (isNotificationOpen is SuccessState<bool>) {
+      if (isNotificationOpen.data == null) {
+        await locator<LocalDatabaseService>().set<bool>(
+          dbName: LocalDatabaseNames.notificationDB.value,
+          key: LocalDatabaseKeys.isNotificationOpen.value,
+          value: false,
+        );
+      }
+    } else {
+      await locator<LocalDatabaseService>().set<bool>(
+        dbName: LocalDatabaseNames.notificationDB.value,
+        key: LocalDatabaseKeys.isNotificationOpen.value,
+        value: false,
+      );
+    }
   }
 }

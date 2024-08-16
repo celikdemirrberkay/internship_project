@@ -18,20 +18,31 @@ class LocationService extends ILocationService {
   @override
   Future<Resource<String>> getCityName() async {
     try {
+      /// Get current position
       final position = await _getCurrentPosition();
-      if (position.runtimeType == ErrorState<Position>) {
+
+      /// Check if the position is an error
+      if (position is ErrorState<Position>) {
         return ErrorState(position.exceptionType!);
       } else {
+        /// Placemarks
         final placemarks = await placemarkFromCoordinates(
           position.data!.latitude,
           position.data!.longitude,
         );
 
         final place = placemarks[0];
+
+        /// If locality is empty, return 'istanbul'
+        if (place.locality!.isEmpty) {
+          return const SuccessState('istanbul');
+        }
+
+        /// Return locality city name
         return SuccessState(place.locality ?? 'istanbul');
       }
     } catch (_) {
-      return const ErrorState(ExceptionType.errorOccured);
+      return const ErrorState(ExceptionTypes.errorOccured);
     }
   }
 
@@ -51,10 +62,17 @@ class LocationService extends ILocationService {
 
         /// Place
         final place = placemarks[0];
+
+        /// If locality is empty, return 'Turkey'
+        if (place.locality!.isEmpty) {
+          return const SuccessState('Turkey');
+        }
+
+        /// Return country name
         return SuccessState(place.country ?? 'Turkey');
       }
     } catch (_) {
-      return const ErrorState(ExceptionType.errorOccured);
+      return const ErrorState(ExceptionTypes.errorOccured);
     }
   }
 
@@ -67,7 +85,7 @@ class LocationService extends ILocationService {
       );
       return SuccessState(position);
     } catch (e) {
-      return const ErrorState(ExceptionType.errorOccured);
+      return const ErrorState(ExceptionTypes.locationNotFound);
     }
   }
 }

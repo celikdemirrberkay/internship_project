@@ -1,8 +1,11 @@
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:internship_project/core/base/resource.dart';
 import 'package:internship_project/core/config/dependency_injection/dependency_container.dart';
-import 'package:internship_project/core/exception/exception_message.dart';
+import 'package:internship_project/core/constants/local_database_constants.dart';
+import 'package:internship_project/core/constants/service_constant.dart';
+import 'package:internship_project/core/exception/exception_util.dart';
 import 'package:internship_project/core/home_widgets/home_widget_manager.dart';
+import 'package:internship_project/service/local/dhikr/dhikr_service.dart';
 import 'package:internship_project/service/local/hive/db_service.dart';
 import 'package:internship_project/service/notification/notification_service.dart';
 import 'package:internship_project/service/permission/permission_manager.dart';
@@ -27,23 +30,32 @@ class SplashViewModel extends BaseViewModel {
   /// Set city and country name for prayer times request
   /// If there is no city or country name, set default values
   Future<void> setCityAndCountryName() async {
-    final city = await locationService.getCityName();
+    /// Get city and country name from location service
     final country = await locationService.getCountryName();
+    final city = await locationService.getCityName();
 
+    /// If there is an error, show a toast message
     if (city is ErrorState<String> || country is ErrorState<String>) {
       await Fluttertoast.showToast(
-        msg: ExceptionMessage.accessDeniedForeverForLocation.message,
+        msg: ExceptionMessager.getExceptionMessage(city.exceptionType!),
       );
     } else {
+      /// Check if the user has selected the city and country manually
       final isManuelSelected = await locator<LocalDatabaseService>().get<bool>(
-        dbName: 'localDatabase',
-        key: 'isManuelSelected',
+        dbName: LocalDatabaseNames.isManuelSelectedDB.value,
+        key: LocalDatabaseKeys.isManuelSelected.value,
       );
+
+      /// If the user has not selected the city and country manually,
+      /// set the default values
       if (isManuelSelected.data != null && isManuelSelected.data! == true) {
         return;
       } else {
-        LocationService.countryName.value = country.data == '' ? 'Turkey' : country.data!;
-        LocationService.cityName.value = city.data == '' ? 'İstanbul' : city.data!;
+        /// Else set the city and country name from the location service
+        /// If there is no city or country name, so there is empty string,
+        /// set default values
+        LocationService.countryName.value = country.data!;
+        LocationService.cityName.value = city.data!;
       }
     }
   }
@@ -52,14 +64,14 @@ class SplashViewModel extends BaseViewModel {
   /// Set notifications on opening
   Future<void> setNotificationsOnOpening() async {
     final isNotifOpen = await locator<LocalDatabaseService>().get<bool>(
-      dbName: 'notificationDatabase',
-      key: 'isNotificationOpen',
+      dbName: LocalDatabaseNames.notificationDB.value,
+      key: LocalDatabaseKeys.isNotificationOpen.value,
     );
     if (isNotifOpen is SuccessState<bool>) {
       if (isNotifOpen.data!) {
         await locator<LocalNotificationService>().scheduleNotificationForPrayerTimes(
-          title: 'Namaz Vakti',
-          body: 'Namaz Vakti geldi. Haydi namaza!',
+          title: LocalNotificationServiceConstants.title.value,
+          body: LocalNotificationServiceConstants.body.value,
         );
       }
     }
@@ -67,8 +79,8 @@ class SplashViewModel extends BaseViewModel {
 
   /// --------------------------------------------------------------------------
   /// Set Dhikr List for first time
-  static Future<void> _setFirstTimeDhikr() async {
-    await locator<LocalDatabaseService>().setFirstTimeDhikr();
+  static Future<void> setFirstTimeDhikr() async {
+    await locator<DhikrService>().setFirstTimeDhikr();
   }
 
   /// --------------------------------------------------------------------------
@@ -81,7 +93,7 @@ class SplashViewModel extends BaseViewModel {
     await setCityAndCountryName();
 
     /// Set Dhikr List for first time
-    await _setFirstTimeDhikr();
+    await setFirstTimeDhikr();
 
     /// Set notifications on opening if it is enabled
     await setNotificationsOnOpening();

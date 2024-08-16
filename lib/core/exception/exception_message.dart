@@ -1,5 +1,5 @@
 /// Exception messages enum that holds exception messages.
-enum ExceptionMessage {
+enum ExceptionStrings {
   /// Error occurred
   errorOccured('Hata meydana geldi!'),
 
@@ -8,6 +8,9 @@ enum ExceptionMessage {
 
   /// If data is null
   noData('Veri bulunamadı!'),
+
+  /// Location not found
+  locationNotFound('Konum bilgisi alınamadı. Varsayılan olarak İstanbul konumu kullanılacak'),
 
   /// Access denied for notification
   accessDeniedForNotification('Bildirim erişim izni verilmedi! Ayarlardan bildirim için izni vermelisiniz'),
@@ -22,5 +25,5 @@ enum ExceptionMessage {
   final String message;
 
   ///
-  const ExceptionMessage(this.message);
+  const ExceptionStrings(this.message);
 }

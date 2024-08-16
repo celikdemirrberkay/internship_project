@@ -6,11 +6,13 @@ import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:internship_project/core/config/dependency_injection/dependency_container.dart';
+import 'package:internship_project/core/constants/local_database_constants.dart';
 import 'package:internship_project/service/local/hive/db_service.dart';
 import 'package:internship_project/service/notification/notification_service.dart';
 import 'package:internship_project/service/remote/prayer_times/prayer_times_service.dart';
 
-/// WorkManager is a plugin that allows you to schedule background work on Android and iOS.
+/// WorkManager is a plugin that allows you to schedule
+/// background work on Android and iOS.
 class BackgroundService {
   /// Constructor
   BackgroundService();
@@ -44,20 +46,20 @@ class BackgroundService {
     DartPluginRegistrant.ensureInitialized();
 
     if (service is AndroidServiceInstance) {
-      service.on('setAsForeground').listen((event) {
+      service.on(_OnStartEvent.setAsForeground.name).listen((event) {
         service.setAsForegroundService();
       });
 
-      service.on('setAsBackground').listen((event) {
+      service.on(_OnStartEvent.setAsBackground.name).listen((event) {
         service.setAsBackgroundService();
       });
     }
 
     /// Call startForeground with a notification
-    service.invoke('foregroundServiceStarted');
+    service.invoke(_OnStartEvent.foregroundServiceStarted.name);
 
     /// Listen for stopService event
-    service.on('stopService').listen((event) {
+    service.on(_OnStartEvent.stopService.name).listen((event) {
       service.stopSelf();
     });
 
@@ -92,12 +94,27 @@ class BackgroundService {
     );
 
     final isNotifOpen = await localDatabaseService.get<bool>(
-      dbName: 'notificationDatabase',
-      key: 'isNotificationOpen',
+      dbName: LocalDatabaseNames.notificationDB.value,
+      key: LocalDatabaseKeys.isNotificationOpen.value,
     );
 
     await notificationService.scheduleNotificationForPrayerTimesOnBackground(
       isNotificationOpen: isNotifOpen.data ?? false,
     );
   }
+}
+
+/// Holds the events that will be triggered when the service starts.
+enum _OnStartEvent {
+  /// Set as foreground
+  setAsForeground,
+
+  /// Set as background
+  setAsBackground,
+
+  /// Stop service
+  stopService,
+
+  /// Foreground service started
+  foregroundServiceStarted,
 }

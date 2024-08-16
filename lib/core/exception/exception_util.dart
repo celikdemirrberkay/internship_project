@@ -1,23 +1,26 @@
-import 'exception_message.dart';
-import 'exception_type.dart';
+import 'package:internship_project/core/exception/exception_message.dart';
+import 'package:internship_project/core/exception/exception_type.dart';
 
 /// ExceptionUtil class is responsible for getting exception message.
-class ExceptionUtil {
+/// For Toast message, pass message according to error type
+class ExceptionMessager {
   /// Get exception message
-  static String getExceptionMessage(ExceptionType exceptionType) {
+  static String getExceptionMessage(ExceptionTypes exceptionType) {
     switch (exceptionType) {
-      case ExceptionType.errorOccured:
-        return ExceptionMessage.errorOccured.message;
-      case ExceptionType.noInternetConnection:
-        return ExceptionMessage.noInternetConnection.message;
-      case ExceptionType.noData:
-        return ExceptionMessage.noData.message;
-      case ExceptionType.accessDeniedForLocation:
-        return ExceptionMessage.accessDeniedForLocation.message;
-      case ExceptionType.accessDeniedForeverForLocation:
-        return ExceptionMessage.accessDeniedForeverForLocation.message;
-      case ExceptionType.accessDeniedForNotification:
-        return ExceptionMessage.accessDeniedForNotification.message;
+      case ExceptionTypes.errorOccured:
+        return ExceptionStrings.errorOccured.message;
+      case ExceptionTypes.noInternetConnection:
+        return ExceptionStrings.noInternetConnection.message;
+      case ExceptionTypes.noData:
+        return ExceptionStrings.noData.message;
+      case ExceptionTypes.accessDeniedForLocation:
+        return ExceptionStrings.accessDeniedForLocation.message;
+      case ExceptionTypes.accessDeniedForeverForLocation:
+        return ExceptionStrings.accessDeniedForeverForLocation.message;
+      case ExceptionTypes.accessDeniedForNotification:
+        return ExceptionStrings.accessDeniedForNotification.message;
+      case ExceptionTypes.locationNotFound:
+        return ExceptionStrings.locationNotFound.message;
     }
   }
 }

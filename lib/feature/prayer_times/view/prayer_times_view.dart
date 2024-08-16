@@ -6,6 +6,8 @@ import 'package:internship_project/core/base/resource.dart';
 import 'package:internship_project/core/common/app_horizontal_divider.dart';
 import 'package:internship_project/core/common/exception_widget.dart';
 import 'package:internship_project/core/config/dependency_injection/dependency_container.dart';
+import 'package:internship_project/core/constants/assets_constants.dart';
+import 'package:internship_project/core/exception/exception_type.dart';
 import 'package:internship_project/core/exception/exception_util.dart';
 import 'package:internship_project/core/theme/app_theme.dart';
 import 'package:internship_project/feature/prayer_times/view_model/prayer_times_viewmodel.dart';
@@ -27,11 +29,6 @@ class PrayerTimesView extends StatefulWidget {
 }
 
 class _PrayerTimesViewState extends State<PrayerTimesView> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,7 +58,7 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
 
   /// Lottie builder
   LottieBuilder _lottie() => LottieBuilder.asset(
-        'assets/lottie/prayer.json',
+        LottieConstants.prayerViewTopLottie.path,
       );
 
   /// God names container
@@ -74,7 +71,7 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
         ),
         builder: (context, viewModel, child) => switch (viewModel.godNames) {
           SuccessState() => _godNamesAndMeaningContainer(viewModel),
-          ErrorState() => _errorWidget(ExceptionUtil.getExceptionMessage(viewModel.godNames.exceptionType!)),
+          ErrorState() => _errorWidget(viewModel.godNames.exceptionType!),
           LoadingState() => _shimmerLoadingContainer(),
         },
       );
@@ -150,7 +147,7 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
       ),
       builder: (context, viewModel, child) => switch (viewModel.prayerTimesData) {
         SuccessState() => _prayerTimesContainer(viewModel.prayerTimesData.data!),
-        ErrorState() => _errorWidget(ExceptionUtil.getExceptionMessage(viewModel.prayerTimesData.exceptionType!)),
+        ErrorState() => _errorWidget(viewModel.prayerTimesData.exceptionType!),
         LoadingState() => _shimmerLoadingContainer(),
       },
       onViewModelReady: (viewModel) async {
@@ -200,15 +197,16 @@ class _PrayerTimesViewState extends State<PrayerTimesView> {
       ),
       builder: (context, viewModel, child) => switch (viewModel.ayah) {
         SuccessState() => _ayahTimesContainer(viewModel.ayah.data!),
-        ErrorState() => _errorWidget(ExceptionUtil.getExceptionMessage(viewModel.ayah.exceptionType!)),
+        ErrorState() => _errorWidget(viewModel.ayah.exceptionType!),
         LoadingState() => _shimmerLoadingContainer(),
       },
     );
   }
 
-  Widget _errorWidget(String message) {
+  /// Error widget
+  Widget _errorWidget(ExceptionTypes exceptionType) {
     return ExceptionWidget(
-      message: message,
+      message: ExceptionMessager.getExceptionMessage(exceptionType),
     );
   }
 

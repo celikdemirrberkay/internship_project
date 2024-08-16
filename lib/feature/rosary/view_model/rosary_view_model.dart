@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import '../../../core/base/resource.dart';
-import '../../../core/exception/exception_message.dart';
-import '../../../core/exception/exception_util.dart';
-import '../../../service/local/hive/db_service.dart';
+import 'package:internship_project/core/base/resource.dart';
+import 'package:internship_project/core/constants/local_database_constants.dart';
+import 'package:internship_project/core/exception/exception_message.dart';
+import 'package:internship_project/core/exception/exception_util.dart';
+import 'package:internship_project/service/local/hive/db_service.dart';
 import 'package:stacked/stacked.dart';
 
 /// Rosary page ViewModel
@@ -51,8 +52,8 @@ class RosaryViewModel extends BaseViewModel {
   Future<void> addDhikrToList(String value) async {
     /// Get dhikr list from local database
     final dbList = await db.get<List<String>>(
-      dbName: _LocalDbServiceEnum.databaseService.name,
-      key: _LocalDbServiceEnum.dhikrList.name,
+      dbName: LocalDatabaseNames.rosaryDB.value,
+      key: LocalDatabaseKeys.dhikrList.value,
     );
 
     /// If db get operation success
@@ -62,8 +63,8 @@ class RosaryViewModel extends BaseViewModel {
 
       /// Set new dhikr list to local database
       final response = await db.set(
-        dbName: _LocalDbServiceEnum.databaseService.name,
-        key: _LocalDbServiceEnum.dhikrList.name,
+        dbName: LocalDatabaseNames.rosaryDB.value,
+        key: LocalDatabaseKeys.dhikrList.value,
         value: dbList.data!,
       );
 
@@ -77,7 +78,7 @@ class RosaryViewModel extends BaseViewModel {
     } else {
       /// Show error toast message if db get operation failed
       await Fluttertoast.showToast(
-        msg: ExceptionUtil.getExceptionMessage(dbList.exceptionType!),
+        msg: ExceptionMessager.getExceptionMessage(dbList.exceptionType!),
       );
     }
   }
@@ -87,8 +88,8 @@ class RosaryViewModel extends BaseViewModel {
   Future<List<String>> getDhikrList() async {
     /// Get dhikr list from local database
     final dbList = await db.get<List<String>>(
-      dbName: _LocalDbServiceEnum.databaseService.name,
-      key: _LocalDbServiceEnum.dhikrList.name,
+      dbName: LocalDatabaseNames.rosaryDB.value,
+      key: LocalDatabaseKeys.dhikrList.value,
     );
 
     /// Return dhikr list
@@ -98,7 +99,7 @@ class RosaryViewModel extends BaseViewModel {
     } else {
       /// If db get operation failed return empty list
       /// and show error toast message
-      await Fluttertoast.showToast(msg: ExceptionMessage.errorOccured.message);
+      await Fluttertoast.showToast(msg: ExceptionStrings.errorOccured.message);
       return [];
     }
   }
@@ -108,8 +109,8 @@ class RosaryViewModel extends BaseViewModel {
   Future<void> removeDhikrFromList(String name) async {
     /// Get dhikr list from local database
     final dhikrList = await db.get<List<String>>(
-      dbName: _LocalDbServiceEnum.databaseService.name,
-      key: _LocalDbServiceEnum.dhikrList.name,
+      dbName: LocalDatabaseNames.rosaryDB.value,
+      key: LocalDatabaseKeys.dhikrList.value,
     );
 
     /// Remove dhikr from list
@@ -117,8 +118,8 @@ class RosaryViewModel extends BaseViewModel {
 
     /// Set new dhikr list to local database
     await db.set(
-      dbName: _LocalDbServiceEnum.databaseService.name,
-      key: _LocalDbServiceEnum.dhikrList.name,
+      dbName: LocalDatabaseNames.rosaryDB.value,
+      key: LocalDatabaseKeys.dhikrList.value,
       value: dhikrList.data,
     );
 
@@ -129,13 +130,4 @@ class RosaryViewModel extends BaseViewModel {
     /// Show success toast message
     await Fluttertoast.showToast(msg: 'Başarıyla silindi');
   }
-}
-
-/// Database service enum
-enum _LocalDbServiceEnum {
-  /// Database service
-  databaseService,
-
-  /// Dhikr
-  dhikrList,
 }

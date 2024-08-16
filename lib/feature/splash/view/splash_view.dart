@@ -7,7 +7,7 @@ import 'package:internship_project/core/common/loading_widget.dart';
 import 'package:internship_project/core/config/dependency_injection/dependency_container.dart';
 import 'package:internship_project/core/constants/app_constants.dart';
 import 'package:internship_project/feature/splash/view_model/splash_view_model.dart';
-import 'package:internship_project/service/local/hive/db_service.dart';
+import 'package:internship_project/service/local/onboard/onboard_service.dart';
 
 /// Splash View
 class SplashView extends StatefulWidget {
@@ -35,7 +35,7 @@ class _SplashViewState extends State<SplashView> {
     await viewModel.onInit();
 
     /// Check if onboard is done
-    final onboardSituation = await locator<LocalDatabaseService>().isOnboardDone();
+    final onboardSituation = await locator<OnboardService>().isOnboardDone();
 
     /// Check if the widget is still mounted before navigating
     if (!mounted) return;

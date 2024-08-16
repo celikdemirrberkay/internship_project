@@ -1,8 +1,9 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:internship_project/core/config/dependency_injection/dependency_container.dart';
 import 'package:internship_project/core/theme/app_theme.dart';
-import 'package:internship_project/service/local/hive/db_service.dart';
+import 'package:internship_project/service/local/theme/theme_service.dart';
 import 'package:internship_project/service/notification/background_service.dart';
+import 'package:internship_project/service/notification/notification_service.dart';
 
 /// AppInitializer is a class that initializes the app.
 class AppInitializer {
@@ -28,12 +29,12 @@ class AppInitializer {
   /// Notifications of the application will only be active if the user opens it
   /// from the settings screen.
   static Future<void> _setNotificationDisableForFirstTime() async {
-    await locator<LocalDatabaseService>().setNotificationDisableForFirstTime();
+    await locator<LocalNotificationService>().setNotificationDisableForFirstTime();
   }
 
   /// Set theme on first time
   static Future<void> setThemeOnFirstTime() async {
-    final isDarkTheme = await locator<LocalDatabaseService>().getThemePreferences();
+    final isDarkTheme = await locator<ThemeService>().getThemePreferences();
     if (isDarkTheme) {
       AppTheme.themePreference.value = AppTheme.darkTheme;
     } else {

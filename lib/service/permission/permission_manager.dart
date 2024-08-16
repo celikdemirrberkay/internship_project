@@ -1,6 +1,6 @@
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
-import '../../core/exception/exception_message.dart';
+import 'package:internship_project/core/exception/exception_message.dart';
 
 /// App permission manager
 class PermissionManager {
@@ -9,10 +9,10 @@ class PermissionManager {
     final permissionStatus = await Geolocator.checkPermission();
     switch (permissionStatus) {
       case LocationPermission.denied:
-        await Fluttertoast.showToast(msg: ExceptionMessage.accessDeniedForLocation.message);
+        await Fluttertoast.showToast(msg: ExceptionStrings.accessDeniedForLocation.message);
         return false;
       case LocationPermission.deniedForever:
-        await Fluttertoast.showToast(msg: ExceptionMessage.accessDeniedForLocation.message);
+        await Fluttertoast.showToast(msg: ExceptionStrings.accessDeniedForLocation.message);
         return false;
       case LocationPermission.whileInUse:
         return true;
@@ -28,10 +28,10 @@ class PermissionManager {
     final permissionStatus = await Geolocator.requestPermission();
     switch (permissionStatus) {
       case LocationPermission.denied:
-        await Fluttertoast.showToast(msg: ExceptionMessage.accessDeniedForLocation.message);
+        await Fluttertoast.showToast(msg: ExceptionStrings.accessDeniedForLocation.message);
         return false;
       case LocationPermission.deniedForever:
-        await Fluttertoast.showToast(msg: ExceptionMessage.accessDeniedForeverForLocation.message);
+        await Fluttertoast.showToast(msg: ExceptionStrings.accessDeniedForeverForLocation.message);
         return false;
       case LocationPermission.whileInUse:
         return true;

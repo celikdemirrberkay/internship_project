@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:internship_project/core/common/app_appbar.dart';
 import 'package:internship_project/core/common/app_navbar.dart';
 import 'package:internship_project/core/config/dependency_injection/dependency_container.dart';
+import 'package:internship_project/core/constants/local_database_constants.dart';
 import 'package:internship_project/core/router/app_router.dart';
 import 'package:internship_project/service/local/hive/db_service.dart';
 
@@ -37,8 +38,8 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
     if (state == AppLifecycleState.detached) {
       /// Set the isManuelSelected value to false
       await locator<LocalDatabaseService>().set<bool>(
-        dbName: 'localDatabase',
-        key: 'isManuelSelected',
+        dbName: LocalDatabaseNames.isManuelSelectedDB.value,
+        key: LocalDatabaseKeys.isManuelSelected.value,
         value: false,
       );
     }

@@ -36,31 +36,35 @@ class _CustomBottomSheetState extends State<_CustomBottomSheet> {
 
   /// Add button of bottom sheet
   List<Widget> _columnsChildren() => [
+        _closeContainer(),
         context.spacerWithFlex(flex: 6),
         Expanded(flex: 7, child: _title()),
         context.spacerWithFlex(flex: 3),
         Expanded(flex: 15, child: _textFieldOfBottomSheet()),
         context.spacerWithFlex(flex: 5),
         Expanded(flex: 8, child: _addButton()),
-        context.spacerWithFlex(flex: 5),
-        Expanded(flex: 8, child: _textButtonForCancel()),
-        context.spacerWithFlex(flex: 40),
+        context.spacerWithFlex(flex: 53),
       ];
 
-  /// Cancel button of bottom sheet
-  Widget _textButtonForCancel() => TextButton(
-        child: FittedBox(
-          child: Text(
-            'İptal',
-            style: GoogleFonts.roboto(
-              textStyle: context.appTextTheme.bodyLarge,
-              color: context.themeData.colorScheme.primary,
-              fontWeight: context.fontWeights.fw500,
+  /// Close container of bottom sheet
+  Widget _closeContainer() {
+    return Row(
+      children: [
+        context.spacerWithFlex(flex: 40),
+        Expanded(
+          flex: 20,
+          child: Container(
+            height: context.screenSizes.height * 0.007,
+            decoration: BoxDecoration(
+              color: Colors.grey,
+              borderRadius: context.circularBorderRadius(radius: 6),
             ),
           ),
         ),
-        onPressed: () => context.pop(),
-      );
+        context.spacerWithFlex(flex: 40),
+      ],
+    );
+  }
 
   /// Add button of bottom sheet
   Widget _addButton() {

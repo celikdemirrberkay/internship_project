@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:internship_project/core/base/resource.dart';
+import 'package:internship_project/core/constants/local_database_constants.dart';
+import 'package:internship_project/core/constants/service_constant.dart';
 import 'package:internship_project/core/exception/exception_type.dart';
 import 'package:internship_project/core/exception/exception_util.dart';
 import 'package:internship_project/core/theme/app_theme.dart';
@@ -33,7 +35,6 @@ class SettingsViewModel extends BaseViewModel {
 
   /// City name
   Resource<List<City>> _cityNames = const LoadingState();
-
   Resource<List<City>> get cityNames => _cityNames;
 
   /// Dark mode status
@@ -55,8 +56,8 @@ class SettingsViewModel extends BaseViewModel {
       _isDarkMode = false;
     }
     await localDatabaseService.set<bool>(
-      dbName: 'themeDatabase',
-      key: 'isDarkTheme',
+      dbName: LocalDatabaseNames.themeDB.value,
+      key: LocalDatabaseKeys.isDarkTheme.value,
       value: _isDarkMode,
     );
     notifyListeners();
@@ -66,8 +67,8 @@ class SettingsViewModel extends BaseViewModel {
   /// Set theme switch according to the theme
   Future<void> setThemeSwitchStatusOnInit() async {
     final isDarkTheme = await localDatabaseService.get<bool>(
-      dbName: 'themeDatabase',
-      key: 'isDarkTheme',
+      dbName: LocalDatabaseNames.themeDB.value,
+      key: LocalDatabaseKeys.isDarkTheme.value,
     );
     if (isDarkTheme is SuccessState<bool>) {
       _isDarkMode = isDarkTheme.data ?? false;
@@ -81,8 +82,8 @@ class SettingsViewModel extends BaseViewModel {
   /// Fetch notif status
   Future<void> fetchNotificationStatus() async {
     final notifStatus = await localDatabaseService.get<bool>(
-      dbName: 'notificationDatabase',
-      key: 'isNotificationOpen',
+      dbName: LocalDatabaseNames.notificationDB.value,
+      key: LocalDatabaseKeys.isNotificationOpen.value,
     );
     _isNotificationOpen = notifStatus;
     notifyListeners();
@@ -128,20 +129,20 @@ class SettingsViewModel extends BaseViewModel {
   Future<void> _turnSwitchOnSetNotificationIfPermissionAccess(bool value) async {
     /// Schedule notification for prayer times
     await localNotificationService.scheduleNotificationForPrayerTimes(
-      title: 'Namaz Vakti',
-      body: 'Namaz Vakti geldi. Haydi namaza!',
+      title: LocalNotificationServiceConstants.title.value,
+      body: LocalNotificationServiceConstants.body.value,
     );
 
     final setNotifTrueResponse = await localDatabaseService.set<bool>(
-      dbName: 'notificationDatabase',
-      key: 'isNotificationOpen',
+      dbName: LocalDatabaseNames.notificationDB.value,
+      key: LocalDatabaseKeys.isNotificationOpen.value,
       value: value,
     );
 
     if (setNotifTrueResponse is SuccessState<String>) {
       _isNotificationOpen = const SuccessState(true);
     } else {
-      _isNotificationOpen = const ErrorState(ExceptionType.errorOccured);
+      _isNotificationOpen = const ErrorState(ExceptionTypes.errorOccured);
     }
   }
 
@@ -150,8 +151,8 @@ class SettingsViewModel extends BaseViewModel {
   Future<void> _turnSwitchOnShowToastWhenNotificationIsNotGranted() async {
     _isNotificationOpen = const SuccessState(false);
     await Fluttertoast.showToast(
-      msg: ExceptionUtil.getExceptionMessage(
-        ExceptionType.accessDeniedForNotification,
+      msg: ExceptionMessager.getExceptionMessage(
+        ExceptionTypes.accessDeniedForNotification,
       ),
       toastLength: Toast.LENGTH_LONG,
     );
@@ -167,15 +168,15 @@ class SettingsViewModel extends BaseViewModel {
     await localNotificationService.cancelPrayerTimeNotification();
 
     final setNotifFalseResponse = await localDatabaseService.set<bool>(
-      dbName: 'notificationDatabase',
-      key: 'isNotificationOpen',
+      dbName: LocalDatabaseNames.notificationDB.value,
+      key: LocalDatabaseKeys.isNotificationOpen.value,
       value: value,
     );
 
     if (setNotifFalseResponse is SuccessState<String>) {
       _isNotificationOpen = const SuccessState(false);
     } else {
-      _isNotificationOpen = const ErrorState(ExceptionType.errorOccured);
+      _isNotificationOpen = const ErrorState(ExceptionTypes.errorOccured);
     }
   }
 

@@ -1,5 +1,6 @@
 import 'package:dart_vader/dart_vader.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:internship_project/core/common/app_elevated_button.dart';
@@ -31,7 +32,9 @@ class _RosaryViewState extends State<RosaryView> {
           child: SizedBox(
             height: context.screenSizes.height,
             width: context.screenSizes.width,
-            child: Column(children: _columnChildren(viewModel)),
+            child: Column(
+              children: _columnChildren(viewModel),
+            ),
           ),
         ),
       ),
@@ -111,6 +114,13 @@ class _RosaryViewState extends State<RosaryView> {
 
   /// On add pressed method for bottom sheet
   Future<void> _onAddPressedMethod(RosaryViewModel viewModel) async {
+    /// Check if dhikr input is empty and handle it
+    if (viewModel.dhikrInputController.text.isEmpty) {
+      await Fluttertoast.showToast(msg: 'Zikir alanı boş bırakılamaz');
+      return;
+    }
+
+    /// Add dhikr to list and clear the input controller
     await viewModel.addDhikrToList(viewModel.dhikrInputController.text);
     viewModel.dhikrInputController.clear();
     if (!mounted) return;

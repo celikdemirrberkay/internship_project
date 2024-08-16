@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../canvas/canvas_view.dart';
-import '../../feature/compass/view/qibla_compass_view.dart';
-import '../../feature/main_view.dart';
-import '../../feature/onboard/view/onboard_view.dart';
-import '../../feature/prayer_times/view/prayer_times_view.dart';
-import '../../feature/rosary/view/rosary_view.dart';
-import '../../feature/settings/view/settings_view.dart';
-import '../../feature/splash/view/splash_view.dart';
+import 'package:internship_project/core/canvas/canvas_view.dart';
+import 'package:internship_project/feature/compass/view/qibla_compass_view.dart';
+import 'package:internship_project/feature/main_view.dart';
+import 'package:internship_project/feature/onboard/view/onboard_view.dart';
+import 'package:internship_project/feature/prayer_times/view/prayer_times_view.dart';
+import 'package:internship_project/feature/rosary/view/rosary_view.dart';
+import 'package:internship_project/feature/settings/view/settings_view.dart';
+import 'package:internship_project/feature/splash/view/splash_view.dart';
 
 /// We edit the route logic in our application from here
 class AppRouter {
@@ -49,34 +49,52 @@ class AppRouter {
             name: 'settings',
             pageBuilder: (context, state) => CustomTransitionPage(
               child: const SettingsView(),
-              transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                const begin = Offset(1.0, 0.0);
-                const end = Offset.zero;
-                const curve = Curves.ease;
-
-                final tween = Tween(begin: begin, end: end);
-                final curvedAnimation = CurvedAnimation(
-                  parent: animation,
-                  curve: curve,
-                );
-
-                return SlideTransition(
-                  position: tween.animate(curvedAnimation),
-                  child: child,
-                );
-              },
+              transitionsBuilder: (context, animation, secondaryAnimation, child) => animationOnSettingsToMain(
+                animation,
+                child,
+              ),
             ),
           ),
         ],
       );
 
-  /// All views
+  /// --------------------------------------------------------------------------
+  /// Custom transition page
+  static Widget animationOnSettingsToMain(
+    Animation<double> animation,
+    Widget child,
+  ) {
+    /// Animation on settings to main
+    const begin = Offset(1.0, 0.0);
+    const end = Offset.zero;
+    const curve = Curves.ease;
+
+    final tween = Tween(begin: begin, end: end);
+    final curvedAnimation = CurvedAnimation(
+      parent: animation,
+      curve: curve,
+    );
+
+    return SlideTransition(
+      position: tween.animate(curvedAnimation),
+      child: child,
+    );
+  }
+
+  /// --------------------------------------------------------------------------
+  /// All views on the bottom navigation bar
   static List<Widget> allViewsForBottomNavBar = [
+    /// Prayer times view
     const PrayerTimesView(),
+
+    /// Rosary view
     const RosaryView(),
+
+    /// Qiblah compass view
     const QiblahCompassView(),
   ];
 
+  /// --------------------------------------------------------------------------
   /// Initial index for the bottom navigation bar
   static final ValueNotifier<int> initialIndex = ValueNotifier(0);
 }
