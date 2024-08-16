@@ -55,5 +55,6 @@ class LoadingState<T> extends Resource<T> {
 <img width="200" alt="1" src="https://github.com/user-attachments/assets/c148c448-c547-4f18-a649-6171868d6b6a">
 <img width="200" alt="2" src="https://github.com/user-attachments/assets/e219c28a-2b07-415e-aae7-d7e1274b1392">
 <img width="200" alt="3" src="https://github.com/user-attachments/assets/17fb4603-8551-4887-bb09-da63cc3247a4">
+<img width="200" alt="Screenshot 2024-08-16 at 14 40 06" src="https://github.com/user-attachments/assets/71641591-7967-4bd9-ba28-a33170512df4">
 
 
