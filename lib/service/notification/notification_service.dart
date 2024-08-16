@@ -37,7 +37,7 @@ class LocalNotificationService {
   /// Initialize the Notification Service
   Future<bool?> initNotifications() async {
     try {
-      const androidInitializationSettings = AndroidInitializationSettings("@mipmap/ic_launcher");
+      const androidInitializationSettings = AndroidInitializationSettings('@mipmap/ic_launcher');
       const iOSInitializationSettings = DarwinInitializationSettings();
 
       const initializationSettings = InitializationSettings(
@@ -83,13 +83,15 @@ class LocalNotificationService {
 
       var id = 0;
 
-      /// For each prayer time, schedule the notification
+      /// -- For each prayer time, schedule the notification --
       await Future.forEach(prayerTimesWithoutDuplicates.entries, (entry) async {
         final now = DateTime.now();
 
         /// Each prayer time (Fajr, Dhuhr, Asr, Maghrib, Isha)
         final prayerTime = DateTime.parse(
-          '${DateFormat('yyyy-MM-dd').format(now)} ${entry.value as String}:15',
+          '${DateFormat(
+            PrayerTimesServiceConstants.yyyyMMddFormat.value,
+          ).format(now)} ${entry.value as String}:15',
         );
         if (prayerTime.isAfter(now)) {
           /// Scheculed Notification Date Times

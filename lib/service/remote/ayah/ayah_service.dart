@@ -22,7 +22,7 @@ class AyahService extends IAyahServiceInterface {
       /// Fetch data from the API
       final response = await dio.get<Map<String, dynamic>?>('${DevEnv.baseURLQuran}/$randomAyahNumber');
 
-      if (response.data != null) {
+      if (response.data != null && response.data!.isNotEmpty) {
         /// Getting only ayah from the response
         final responseOnlyData = response.data!['data'] as Map<String, dynamic>;
 
@@ -32,7 +32,7 @@ class AyahService extends IAyahServiceInterface {
       }
     } on DioException catch (_) {
       return const ErrorState(ExceptionTypes.errorOccured);
-    } catch (e) {
+    } catch (_) {
       return const ErrorState(ExceptionTypes.errorOccured);
     }
   }

@@ -54,8 +54,8 @@ class SplashViewModel extends BaseViewModel {
         /// Else set the city and country name from the location service
         /// If there is no city or country name, so there is empty string,
         /// set default values
-        LocationService.countryName.value = country.data == '' ? 'Turkey' : country.data!;
-        LocationService.cityName.value = city.data == '' ? 'İstanbul' : city.data!;
+        LocationService.countryName.value = country.data!;
+        LocationService.cityName.value = city.data!;
       }
     }
   }

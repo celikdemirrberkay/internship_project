@@ -13,6 +13,9 @@ enum ExceptionTypes {
   /// Access denied for location
   accessDeniedForLocation,
 
+  /// Location not found
+  locationNotFound,
+
   /// Access denied forever for location
   accessDeniedForeverForLocation,
 

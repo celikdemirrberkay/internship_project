@@ -19,6 +19,8 @@ class ExceptionMessager {
         return ExceptionStrings.accessDeniedForeverForLocation.message;
       case ExceptionTypes.accessDeniedForNotification:
         return ExceptionStrings.accessDeniedForNotification.message;
+      case ExceptionTypes.locationNotFound:
+        return ExceptionStrings.locationNotFound.message;
     }
   }
 }

@@ -1,7 +1,10 @@
 /// ----------------------------------------------------------------------------
 /// Prayer times service constants
 enum PrayerTimesServiceConstants {
-  /// isManuelSelected key name
+  /// yyyyMMdd Format key name
+  yyyyMMddFormat('yyyy-MM-dd'),
+
+  /// ddMMYY Format key name
   ddMMYYFormat('dd-MM-yyyy');
 
   const PrayerTimesServiceConstants(this.value);

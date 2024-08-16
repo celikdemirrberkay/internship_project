@@ -9,6 +9,9 @@ enum ExceptionStrings {
   /// If data is null
   noData('Veri bulunamadı!'),
 
+  /// Location not found
+  locationNotFound('Konum bilgisi alınamadı. Varsayılan olarak İstanbul konumu kullanılacak'),
+
   /// Access denied for notification
   accessDeniedForNotification('Bildirim erişim izni verilmedi! Ayarlardan bildirim için izni vermelisiniz'),
 

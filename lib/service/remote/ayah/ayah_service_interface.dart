@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import '../../../core/base/resource.dart';
-import '../../../model/ayah.dart';
+import 'package:internship_project/core/base/resource.dart';
+import 'package:internship_project/model/ayah.dart';
 
 /// Ayah service interface
 abstract class IAyahServiceInterface {
