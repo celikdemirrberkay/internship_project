@@ -36,6 +36,9 @@ enum LocalDatabaseKeys {
   /// isOnboardDone key name
   isOnboardDone('isOnboardDone'),
 
+  /// isTimeRemaining key name
+  isTimeRemaining('isTimeRemaining'),
+
   /// isNotificationOpen key name
   isNotificationOpen('isNotificationOpen'),
 

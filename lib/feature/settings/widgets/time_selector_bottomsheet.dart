@@ -10,6 +10,7 @@ class _TimeSelectorBottomsheet extends StatefulWidget {
 
 class _TimeSelectorBottomsheetState extends State<_TimeSelectorBottomsheet> {
   int pickerValue = 0;
+  int remainingTime = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,7 @@ class _TimeSelectorBottomsheetState extends State<_TimeSelectorBottomsheet> {
             height: 7,
             decoration: BoxDecoration(
               color: context.themeData.colorScheme.onSurface,
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: context.circularBorderRadius(radius: 10),
             ),
           ),
           Expanded(
@@ -51,7 +52,47 @@ class _TimeSelectorBottomsheetState extends State<_TimeSelectorBottomsheet> {
   Widget _pickerSetButton(BuildContext context) {
     return FittedBox(
       child: TextButton(
-        onPressed: () {},
+        onPressed: () async {
+          switch (pickerValue) {
+            case 0:
+              await locator<LocalDatabaseService>().set<int>(
+                dbName: LocalDatabaseNames.notificationDB.value,
+                key: LocalDatabaseKeys.isTimeRemaining.value,
+                value: 5,
+              );
+              remainingTime = 5;
+            case 1:
+              await locator<LocalDatabaseService>().set<int>(
+                dbName: LocalDatabaseNames.notificationDB.value,
+                key: LocalDatabaseKeys.isTimeRemaining.value,
+                value: 10,
+              );
+              remainingTime = 10;
+
+            case 2:
+              await locator<LocalDatabaseService>().set<int>(
+                dbName: LocalDatabaseNames.notificationDB.value,
+                key: LocalDatabaseKeys.isTimeRemaining.value,
+                value: 15,
+              );
+              remainingTime = 15;
+
+            case 3:
+              await locator<LocalDatabaseService>().set<int>(
+                dbName: LocalDatabaseNames.notificationDB.value,
+                key: LocalDatabaseKeys.isTimeRemaining.value,
+                value: 0,
+              );
+              remainingTime = 0;
+          }
+          if (remainingTime == 0) {
+            await Fluttertoast.showToast(msg: 'Bildirim namaz vaktinde gönderilecek');
+          } else {
+            await Fluttertoast.showToast(msg: 'Bildirim namaza $remainingTime dk. kalınca gönderilecek');
+          }
+          if (!mounted) return;
+          context.pop();
+        },
         child: FittedBox(
           child: Text(
             'Kur',
