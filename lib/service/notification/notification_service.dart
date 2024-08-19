@@ -114,6 +114,77 @@ class LocalNotificationService {
   }
 
   /// --------------------------------------------------------------------------
+  /// Schedule Notification for Prayer Times
+  /// Like the previous method, but this time it will be scheduled for the
+  /// remaining minutes as user select
+  Future<void> scheduleNotificationForPrayerTimesMinutesRemaining({
+    required String title,
+    required String body,
+    required int minutesRemaining,
+  }) async {
+    // Initialize the time zone database
+    tz.initializeTimeZones();
+
+    /// Get prayer times for schedule notifications as Map<String,dynamic>
+    final prayerResponse = await _prayerTimesService.getPrayerTimesAsMap(
+      LocationService.cityName.value,
+      LocationService.countryName.value,
+    );
+
+    /// If the response is success, schedule the notifications
+    if (prayerResponse is SuccessState<Map<String, dynamic>>) {
+      final prayerTimesWithDuplicates = prayerResponse.data!['data']['timings'] as Map<String, dynamic>;
+      final prayerTimesWithoutDuplicates = prayerTimesWithDuplicates
+        ..remove(LocalNotificationServiceConstants.sunset.value)
+        ..remove(LocalNotificationServiceConstants.imsak.value)
+        ..remove(LocalNotificationServiceConstants.midnight.value)
+        ..remove(LocalNotificationServiceConstants.lastthird.value)
+        ..remove(LocalNotificationServiceConstants.firstthird.value);
+
+      var id = 0;
+
+      /// -- For each prayer time, schedule the notification --
+      await Future.forEach(prayerTimesWithoutDuplicates.entries, (entry) async {
+        final now = DateTime.now();
+        // Split the time into hour and minute
+        final parts = (entry.value as String).split(':');
+        final hour = int.parse(parts[0]);
+        final minute = int.parse(parts[1]);
+
+        // Create date time and subtract the remaining minutes
+        final dateTime = DateTime(0, 0, 0, hour, minute);
+        final updatedTime = dateTime.subtract(Duration(minutes: minutesRemaining));
+
+        // Return the String type
+        final formattedTime = "${updatedTime.hour.toString().padLeft(2, '0')}:${updatedTime.minute.toString().padLeft(2, '0')}";
+
+        /// Each prayer time (Fajr, Dhuhr, Asr, Maghrib, Isha)
+        final prayerTime = DateTime.parse(
+          '${DateFormat(
+            PrayerTimesServiceConstants.yyyyMMddFormat.value,
+          ).format(now)} $formattedTime:15',
+        );
+        if (prayerTime.isAfter(now)) {
+          /// Scheculed Notification Date Times
+          final scheduledNotificationDateTime = prayerTime;
+
+          /// Set Zoned Schedule
+          await _setZonedSchedule(id, title, body, scheduledNotificationDateTime);
+
+          /// Increment the id for each prayer time
+          id++;
+        }
+      });
+
+      /// Reset id to 0 at the end
+      id = 0;
+    }
+
+    /// Log notification details
+    await NotificationLogger.logNotificationDetails();
+  }
+
+  /// --------------------------------------------------------------------------
   /// Schedule Notification for Prayer Times on Background
   /// Fetch periodically prayer times and schedule notifications
   Future<void> scheduleNotificationForPrayerTimesOnBackground({
@@ -124,6 +195,22 @@ class LocalNotificationService {
       await scheduleNotificationForPrayerTimes(
         title: LocalNotificationServiceConstants.title.value,
         body: LocalNotificationServiceConstants.body.value,
+      );
+    }
+  }
+
+  /// --------------------------------------------------------------------------
+  /// Schedule Notification for Prayer Times with remaining time on Background
+  Future<void> scheduleNotificationForPrayerTimesMinutesRemainingOnBackground({
+    required bool isNotificationOpen,
+    required int minutesRemaining,
+  }) async {
+    /// Schedule notification for prayer times
+    if (isNotificationOpen) {
+      await scheduleNotificationForPrayerTimesMinutesRemaining(
+        title: LocalNotificationServiceConstants.titleOfTimeRemaining.value,
+        body: '$minutesRemaining ${LocalNotificationServiceConstants.bodyOfTimeRemaining.value}',
+        minutesRemaining: minutesRemaining,
       );
     }
   }
@@ -184,14 +271,6 @@ class LocalNotificationService {
   }
 
   /// --------------------------------------------------------------------------
-  /// Cancel All Notifications
-  Future<void> cancelPrayerTimeNotification() async {
-    await _flutterLocalNotificationsPlugin.cancel(
-      0,
-      tag: 'prayer-reminder',
-    );
-  }
-
   /// Set notification disable for first time
   /// Notifications of the application will only be active if the user opens it
   /// from the settings screen.
@@ -215,5 +294,11 @@ class LocalNotificationService {
         value: false,
       );
     }
+  }
+
+  /// --------------------------------------------------------------------------
+  /// Cancel All Notifications
+  Future<void> cancelAllNotifications() async {
+    await _flutterLocalNotificationsPlugin.cancelAll();
   }
 }

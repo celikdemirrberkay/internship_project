@@ -69,6 +69,11 @@ class SplashViewModel extends BaseViewModel {
     );
     if (isNotifOpen is SuccessState<bool>) {
       if (isNotifOpen.data!) {
+        /// If notifications are enabled, cancel all notifications because city
+        /// and country name may be changed
+        await locator<LocalNotificationService>().cancelAllNotifications();
+
+        /// Schedule notification for prayer times
         await locator<LocalNotificationService>().scheduleNotificationForPrayerTimes(
           title: LocalNotificationServiceConstants.title.value,
           body: LocalNotificationServiceConstants.body.value,

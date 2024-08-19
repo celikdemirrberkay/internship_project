@@ -16,9 +16,6 @@ enum PrayerTimesServiceConstants {
 /// ----------------------------------------------------------------------------
 /// Local notification service constants
 enum LocalNotificationServiceConstants {
-  /// Notification body
-  body('Namaz Vakti'),
-
   /// Sunset key name
   sunset('Sunset'),
 
@@ -33,6 +30,15 @@ enum LocalNotificationServiceConstants {
 
   /// Firstthird key name
   firstthird('Firstthird'),
+
+  /// Notification title of time remaining
+  titleOfTimeRemaining('Namaz Vaktine Kalan Süre'),
+
+  /// Notification body of time remaining
+  bodyOfTimeRemaining('Dakika'),
+
+  /// Notification body
+  body('Namaz Vakti'),
 
   /// Notification title
   title('Namaz Vakti geldi. Haydi namaza!');

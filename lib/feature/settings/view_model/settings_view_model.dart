@@ -107,7 +107,7 @@ class SettingsViewModel extends BaseViewModel {
       if (hasPermission) {
         await _turnSwitchOnSetNotificationIfPermissionAccess(value);
       } else {
-        await _turnSwitchOnShowToastWhenNotificationIsNotGranted();
+        await _keepSwitchOffShowToastWhenNotificationIsNotGranted();
       }
     }
 
@@ -148,7 +148,7 @@ class SettingsViewModel extends BaseViewModel {
 
   /// --------------------------------------------------------------------------
   /// If notification is not granted, show a toast message
-  Future<void> _turnSwitchOnShowToastWhenNotificationIsNotGranted() async {
+  Future<void> _keepSwitchOffShowToastWhenNotificationIsNotGranted() async {
     _isNotificationOpen = const SuccessState(false);
     await Fluttertoast.showToast(
       msg: ExceptionMessager.getExceptionMessage(
@@ -165,7 +165,7 @@ class SettingsViewModel extends BaseViewModel {
     notifyListeners();
 
     /// Cancel all notifications
-    await localNotificationService.cancelPrayerTimeNotification();
+    await localNotificationService.cancelAllNotifications();
 
     final setNotifFalseResponse = await localDatabaseService.set<bool>(
       dbName: LocalDatabaseNames.notificationDB.value,
