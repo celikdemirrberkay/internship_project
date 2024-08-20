@@ -191,10 +191,16 @@ class SettingsViewModel extends BaseViewModel {
     notifyListeners();
   }
 
+  /// --------------------------------------------------------------------------
   /// Pick button onpressed
   Future<void> pickButtonOnPressed(int pickerValue) async {
+    /// Cancel all notifications at the beginning
     await localNotificationService.cancelAllNotifications();
+
+    /// Set remaining time according to the picker value
     var remainingTime = 0;
+
+    /// Picker value is 5 minutes before the prayer time logic
     if (pickerValue == 0) {
       await localDatabaseService.set<int>(
         dbName: LocalDatabaseNames.remainingTimeDB.value,
@@ -208,6 +214,8 @@ class SettingsViewModel extends BaseViewModel {
         title: LocalNotificationServiceConstants.titleOfTimeRemaining.value,
         minutesRemaining: 5,
       );
+
+      /// Picker value is 10 minutes before the prayer time logic
     } else if (pickerValue == 1) {
       await localDatabaseService.set<int>(
         dbName: LocalDatabaseNames.remainingTimeDB.value,
@@ -220,6 +228,8 @@ class SettingsViewModel extends BaseViewModel {
         title: LocalNotificationServiceConstants.titleOfTimeRemaining.value,
         minutesRemaining: 10,
       );
+
+      /// Picker value is 15 minutes before the prayer time logic
     } else if (pickerValue == 2) {
       await localDatabaseService.set<int>(
         dbName: LocalDatabaseNames.remainingTimeDB.value,
@@ -232,6 +242,8 @@ class SettingsViewModel extends BaseViewModel {
         title: LocalNotificationServiceConstants.titleOfTimeRemaining.value,
         minutesRemaining: 15,
       );
+
+      /// Picker value is 0 minutes before the prayer time logic
     } else {
       await localDatabaseService.set<int>(
         dbName: LocalDatabaseNames.remainingTimeDB.value,

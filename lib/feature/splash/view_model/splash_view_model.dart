@@ -63,6 +63,11 @@ class SplashViewModel extends BaseViewModel {
   /// --------------------------------------------------------------------------
   /// Set notifications on opening
   Future<void> setNotificationsOnOpening() async {
+    /// If notifications are enabled, cancel all notifications because city
+    /// and country name may be changed
+    await locator<LocalNotificationService>().cancelAllNotifications();
+
+    ///
     final isNotifOpen = await locator<LocalDatabaseService>().get<bool>(
       dbName: LocalDatabaseNames.notificationDB.value,
       key: LocalDatabaseKeys.isNotificationOpen.value,
@@ -70,10 +75,6 @@ class SplashViewModel extends BaseViewModel {
 
     if (isNotifOpen is SuccessState<bool>) {
       if (isNotifOpen.data!) {
-        /// If notifications are enabled, cancel all notifications because city
-        /// and country name may be changed
-        await locator<LocalNotificationService>().cancelAllNotifications();
-
         /// If remaining time active for notifications, schedule notification
         /// for prayer times minutes remaining
         final remainingTime = await locator<LocalDatabaseService>().get<int>(
@@ -89,9 +90,9 @@ class SplashViewModel extends BaseViewModel {
             title: LocalNotificationServiceConstants.titleOfTimeRemaining.value,
             body: '${remainingTime.data} ${LocalNotificationServiceConstants.bodyOfTimeRemaining.value}',
           );
-          return;
         } else {
           /// Schedule notification for prayer times
+          ///
           await locator<LocalNotificationService>().scheduleNotificationForPrayerTimes(
             title: LocalNotificationServiceConstants.title.value,
             body: LocalNotificationServiceConstants.body.value,
