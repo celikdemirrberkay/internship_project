@@ -9,8 +9,8 @@ class _TimeSelectorBottomsheet extends StatefulWidget {
 }
 
 class _TimeSelectorBottomsheetState extends State<_TimeSelectorBottomsheet> {
+  /// Picker value
   int pickerValue = 0;
-  int remainingTime = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -19,89 +19,84 @@ class _TimeSelectorBottomsheetState extends State<_TimeSelectorBottomsheet> {
       width: double.infinity,
       child: Column(
         children: [
-          Container(
-            width: context.screenSizes.dynamicWidth(0.2),
-            height: 7,
-            decoration: BoxDecoration(
-              color: context.themeData.colorScheme.onSurface,
-              borderRadius: context.circularBorderRadius(radius: 10),
-            ),
-          ),
-          Expanded(
-            flex: 50,
-            child: CupertinoPicker(
-              itemExtent: context.screenSizes.dynamicHeight(0.06),
-              scrollController: FixedExtentScrollController(),
-              onSelectedItemChanged: (value) => pickerValue = value,
-              children: [
-                _pickerSpecialText('Her Namaz Vaktinden 5 Dakika Önce'),
-                _pickerSpecialText('Her Namaz Vaktinden 10 Dakika Önce'),
-                _pickerSpecialText('Her Namaz Vaktinden 15 Dakika Önce'),
-                _pickerSpecialText('Her Namaz Vaktinden Önce Bildirim Gönderme'),
-              ],
-            ),
-          ),
-          Expanded(flex: 20, child: _pickerSetButton(context)),
+          _closeBar(),
+          context.spacerWithFlex(flex: 10),
+          Expanded(flex: 10, child: _pickNotifTimeText()),
+          Expanded(flex: 55, child: _cupertinoPicker()),
+          Expanded(flex: 20, child: _pickerSetButton()),
           context.spacerWithFlex(flex: 40),
         ],
       ),
     );
   }
 
-  /// Picker set button
-  Widget _pickerSetButton(BuildContext context) {
-    return FittedBox(
-      child: TextButton(
-        onPressed: () async {
-          switch (pickerValue) {
-            case 0:
-              await locator<LocalDatabaseService>().set<int>(
-                dbName: LocalDatabaseNames.notificationDB.value,
-                key: LocalDatabaseKeys.isTimeRemaining.value,
-                value: 5,
-              );
-              remainingTime = 5;
-            case 1:
-              await locator<LocalDatabaseService>().set<int>(
-                dbName: LocalDatabaseNames.notificationDB.value,
-                key: LocalDatabaseKeys.isTimeRemaining.value,
-                value: 10,
-              );
-              remainingTime = 10;
+  /// Close bar
+  Widget _closeBar() {
+    return Container(
+      width: context.screenSizes.dynamicWidth(0.2),
+      height: 7,
+      decoration: BoxDecoration(
+        color: context.themeData.colorScheme.onSurface,
+        borderRadius: context.circularBorderRadius(radius: 10),
+      ),
+    );
+  }
 
-            case 2:
-              await locator<LocalDatabaseService>().set<int>(
-                dbName: LocalDatabaseNames.notificationDB.value,
-                key: LocalDatabaseKeys.isTimeRemaining.value,
-                value: 15,
-              );
-              remainingTime = 15;
-
-            case 3:
-              await locator<LocalDatabaseService>().set<int>(
-                dbName: LocalDatabaseNames.notificationDB.value,
-                key: LocalDatabaseKeys.isTimeRemaining.value,
-                value: 0,
-              );
-              remainingTime = 0;
-          }
-          if (remainingTime == 0) {
-            await Fluttertoast.showToast(msg: 'Bildirim namaz vaktinde gönderilecek');
-          } else {
-            await Fluttertoast.showToast(msg: 'Bildirim namaza $remainingTime dk. kalınca gönderilecek');
-          }
-          if (!mounted) return;
-          context.pop();
+  Widget _cupertinoPicker() {
+    return ViewModelBuilder.reactive(
+      viewModelBuilder: () => SettingsViewModel(locator(), locator(), locator()),
+      builder: (context, viewModel, child) => CupertinoPicker(
+        itemExtent: context.screenSizes.dynamicHeight(0.06),
+        scrollController: FixedExtentScrollController(),
+        onSelectedItemChanged: (value) async {
+          pickerValue = value;
         },
-        child: FittedBox(
-          child: Text(
-            'Kur',
-            style: GoogleFonts.roboto(
-              textStyle: context.appTextTheme.bodyLarge?.copyWith(
-                color: context.themeData.colorScheme.primary,
+        children: [
+          _pickerSpecialText('Her Namaz Vaktinden 5 Dakika Önce'),
+          _pickerSpecialText('Her Namaz Vaktinden 10 Dakika Önce'),
+          _pickerSpecialText('Her Namaz Vaktinden 15 Dakika Önce'),
+          _pickerSpecialText('Sadece Namaz Vaktinde'),
+        ],
+      ),
+    );
+  }
+
+  /// Picker text
+  Widget _pickNotifTimeText() {
+    return FittedBox(
+      alignment: AlignmentDirectional.bottomCenter,
+      child: Text(
+        'Bildirim Zamanı Seç',
+        style: GoogleFonts.roboto(
+          textStyle: context.appTextTheme.bodyLarge?.copyWith(
+            color: context.themeData.colorScheme.primary,
+            fontWeight: context.fontWeights.fw300,
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// Picker set button
+  Widget _pickerSetButton() {
+    return ViewModelBuilder.reactive(
+      viewModelBuilder: () => SettingsViewModel(locator(), locator(), locator()),
+      builder: (context, viewModel, child) => FittedBox(
+        child: TextButton(
+          child: FittedBox(
+            child: Text(
+              'Kur',
+              style: GoogleFonts.roboto(
+                textStyle: context.appTextTheme.bodyLarge?.copyWith(
+                  color: context.themeData.colorScheme.primary,
+                ),
               ),
             ),
           ),
+          onPressed: () async {
+            await viewModel.pickButtonOnPressed(pickerValue);
+            context.pop();
+          },
         ),
       ),
     );

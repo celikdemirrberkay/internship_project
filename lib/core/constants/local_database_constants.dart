@@ -5,6 +5,9 @@ enum LocalDatabaseNames {
   /// Dhikr list database name
   rosaryDB('rosaryDB'),
 
+  /// Remaining time database name
+  remainingTimeDB('remainingTimeDB'),
+
   /// Notification database name
   notificationDB('notificationDB'),
 
@@ -37,7 +40,7 @@ enum LocalDatabaseKeys {
   isOnboardDone('isOnboardDone'),
 
   /// isTimeRemaining key name
-  isTimeRemaining('isTimeRemaining'),
+  isTimeRemainingActive('isTimeRemainingActive'),
 
   /// isNotificationOpen key name
   isNotificationOpen('isNotificationOpen'),

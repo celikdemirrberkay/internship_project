@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:internship_project/core/base/resource.dart';
 import 'package:internship_project/core/config/dependency_injection/dependency_container.dart';
 import 'package:internship_project/core/constants/local_database_constants.dart';
 import 'package:internship_project/service/local/hive/db_service.dart';
@@ -98,9 +99,22 @@ class BackgroundService {
       key: LocalDatabaseKeys.isNotificationOpen.value,
     );
 
-    await notificationService.scheduleNotificationForPrayerTimesOnBackground(
-      isNotificationOpen: isNotifOpen.data ?? false,
+    final remainingTime = await localDatabaseService.get<int>(
+      dbName: LocalDatabaseNames.remainingTimeDB.value,
+      key: LocalDatabaseKeys.isTimeRemainingActive.value,
     );
+
+    if (remainingTime is SuccessState<bool> && remainingTime.data != 0) {
+      await notificationService.scheduleNotificationForPrayerTimesMinutesRemainingOnBackground(
+        isNotificationOpen: isNotifOpen.data ?? false,
+        minutesRemaining: remainingTime.data ?? 0,
+      );
+      return;
+    } else {
+      await notificationService.scheduleNotificationForPrayerTimesOnBackground(
+        isNotificationOpen: isNotifOpen.data ?? false,
+      );
+    }
   }
 }
 
