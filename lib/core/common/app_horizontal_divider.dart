@@ -18,7 +18,7 @@ class _HorizontalAppDividerState extends State<HorizontalAppDivider> {
   @override
   Widget build(BuildContext context) {
     return Divider(
-      color: widget.dividerColor == null ? context.themeData.colorScheme.primary : widget.dividerColor,
+      color: widget.dividerColor ?? context.themeData.colorScheme.primary,
     );
   }
 }

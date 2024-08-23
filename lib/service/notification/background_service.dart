@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:internship_project/core/base/resource.dart';
 import 'package:internship_project/core/config/dependency_injection/dependency_container.dart';
 import 'package:internship_project/core/constants/local_database_constants.dart';
 import 'package:internship_project/service/local/hive/db_service.dart';
@@ -46,21 +47,21 @@ class BackgroundService {
     DartPluginRegistrant.ensureInitialized();
 
     if (service is AndroidServiceInstance) {
-      service.on(_OnStartEvent.setAsForeground.name).listen((event) {
-        service.setAsForegroundService();
+      service.on('setAsForeground').listen((event) async {
+        await service.setAsForegroundService();
       });
 
-      service.on(_OnStartEvent.setAsBackground.name).listen((event) {
-        service.setAsBackgroundService();
+      service.on('setAsBackground').listen((event) async {
+        await service.setAsBackgroundService();
       });
     }
 
     /// Call startForeground with a notification
-    service.invoke(_OnStartEvent.foregroundServiceStarted.name);
+    service.invoke('foregroundServiceStarted');
 
     /// Listen for stopService event
-    service.on(_OnStartEvent.stopService.name).listen((event) {
-      service.stopSelf();
+    service.on('stopService').listen((event) async {
+      await service.stopSelf();
     });
 
     /// Check and show notification every 5 hours
@@ -98,23 +99,21 @@ class BackgroundService {
       key: LocalDatabaseKeys.isNotificationOpen.value,
     );
 
-    await notificationService.scheduleNotificationForPrayerTimesOnBackground(
-      isNotificationOpen: isNotifOpen.data ?? false,
+    final remainingTime = await localDatabaseService.get<int>(
+      dbName: LocalDatabaseNames.remainingTimeDB.value,
+      key: LocalDatabaseKeys.isTimeRemainingActive.value,
     );
+
+    if (remainingTime is SuccessState<bool> && remainingTime.data != 0) {
+      await notificationService.scheduleNotificationForPrayerTimesMinutesRemainingOnBackground(
+        isNotificationOpen: isNotifOpen.data ?? false,
+        minutesRemaining: remainingTime.data ?? 0,
+      );
+      return;
+    } else {
+      await notificationService.scheduleNotificationForPrayerTimesOnBackground(
+        isNotificationOpen: isNotifOpen.data ?? false,
+      );
+    }
   }
-}
-
-/// Holds the events that will be triggered when the service starts.
-enum _OnStartEvent {
-  /// Set as foreground
-  setAsForeground,
-
-  /// Set as background
-  setAsBackground,
-
-  /// Stop service
-  stopService,
-
-  /// Foreground service started
-  foregroundServiceStarted,
 }

@@ -1,13 +1,8 @@
-import 'dart:math';
 import 'package:dart_vader/dart_vader.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_qiblah/flutter_qiblah.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:piri_qiblah/piri_qiblah.dart';
 import '../../../core/common/app_elevated_button.dart';
-import '../../../core/common/exception_widget.dart';
-import '../../../core/common/loading_widget.dart';
-import '../../../core/exception/exception_message.dart';
 import 'package:lottie/lottie.dart';
 
 part '../widget/stepper_for_qibla.dart';
@@ -49,52 +44,19 @@ class _QiblahCompassViewState extends State<QiblahCompassView> with SingleTicker
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        body: StreamBuilder(
-          stream: FlutterQiblah.qiblahStream,
-          builder: (context, snapshot) {
-            switch (snapshot.connectionState) {
-              case ConnectionState.none:
-                return ExceptionWidget(
-                  message: ExceptionStrings.errorOccured.message,
-                );
-              case ConnectionState.waiting:
-                return const Center(child: LoadingWidget());
-              case ConnectionState.active:
-              case ConnectionState.done:
-                if (snapshot.hasError || snapshot.data == null) {
-                  return ExceptionWidget(
-                    message: ExceptionStrings.errorOccured.message,
-                  );
-                } else {
-                  final qiblahDirection = snapshot.data;
-                  animation = Tween(
-                    begin: begin,
-                    end: (qiblahDirection!.qiblah) * (pi / 180) * -1,
-                  ).animate(_animationController!);
-                  begin = qiblahDirection.qiblah * (pi / 180) * -1;
-                  _animationController!.forward(from: 0);
-
-                  return _compassWidget(qiblahDirection);
-                }
-            }
-          },
-        ),
-      ),
+      child: Scaffold(body: _compassWidget()),
     );
   }
 
-  Widget _compassWidget(QiblahDirection qiblahDirection) {
+  Widget _compassWidget() {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           context.spacerWithFlex(flex: 15),
           Expanded(flex: 6, child: _findQiblahText()),
-          context.spacerWithFlex(flex: 15),
-          Expanded(flex: 8, child: _qiblahDirectionText(qiblahDirection)),
-          context.spacerWithFlex(flex: 5),
-          Expanded(flex: 50, child: _qiblahSvg()),
+          context.spacerWithFlex(flex: 20),
+          Expanded(flex: 58, child: _piriQiblaWidget()),
           context.spacerWithFlex(flex: 30),
           Expanded(flex: 10, child: _howToUseButton()),
           context.spacerWithFlex(flex: 5),
@@ -140,31 +102,10 @@ class _QiblahCompassViewState extends State<QiblahCompassView> with SingleTicker
   }
 
   /// Qiblah SVG
-  Widget _qiblahSvg() {
-    return SizedBox(
-      child: AnimatedBuilder(
-        animation: animation!,
-        builder: (context, child) => Transform.rotate(
-          angle: animation!.value + 57.6,
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              SvgPicture.asset('assets/svg/qiblah_compass.svg'),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  /// Qiblah direction text
-  Widget _qiblahDirectionText(QiblahDirection qiblahDirection) {
+  Widget _piriQiblaWidget() {
     return FittedBox(
-      child: Text(
-        '${qiblahDirection.direction.toInt() - 180}°',
-        style: TextStyle(
-          color: qiblahDirection.direction.toInt() - 180 == 0 ? context.themeData.colorScheme.primary : context.themeData.colorScheme.error,
-        ),
+      child: PiriQiblah(
+        defaultNeedleColor: context.themeData.colorScheme.primary,
       ),
     );
   }

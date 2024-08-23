@@ -107,7 +107,7 @@ class SettingsViewModel extends BaseViewModel {
       if (hasPermission) {
         await _turnSwitchOnSetNotificationIfPermissionAccess(value);
       } else {
-        await _turnSwitchOnShowToastWhenNotificationIsNotGranted();
+        await _keepSwitchOffShowToastWhenNotificationIsNotGranted();
       }
     }
 
@@ -148,7 +148,7 @@ class SettingsViewModel extends BaseViewModel {
 
   /// --------------------------------------------------------------------------
   /// If notification is not granted, show a toast message
-  Future<void> _turnSwitchOnShowToastWhenNotificationIsNotGranted() async {
+  Future<void> _keepSwitchOffShowToastWhenNotificationIsNotGranted() async {
     _isNotificationOpen = const SuccessState(false);
     await Fluttertoast.showToast(
       msg: ExceptionMessager.getExceptionMessage(
@@ -165,7 +165,7 @@ class SettingsViewModel extends BaseViewModel {
     notifyListeners();
 
     /// Cancel all notifications
-    await localNotificationService.cancelPrayerTimeNotification();
+    await localNotificationService.cancelAllNotifications();
 
     final setNotifFalseResponse = await localDatabaseService.set<bool>(
       dbName: LocalDatabaseNames.notificationDB.value,
@@ -189,5 +189,79 @@ class SettingsViewModel extends BaseViewModel {
     /// If the response is success or error, assign the value to the _cityNames
     _cityNames = listOfCities;
     notifyListeners();
+  }
+
+  /// --------------------------------------------------------------------------
+  /// Pick button onpressed
+  Future<void> pickButtonOnPressed(int pickerValue) async {
+    /// Cancel all notifications at the beginning
+    await localNotificationService.cancelAllNotifications();
+
+    /// Set remaining time according to the picker value
+    var remainingTime = 0;
+
+    /// Picker value is 5 minutes before the prayer time logic
+    if (pickerValue == 0) {
+      await localDatabaseService.set<int>(
+        dbName: LocalDatabaseNames.remainingTimeDB.value,
+        key: LocalDatabaseKeys.isTimeRemainingActive.value,
+        value: 5,
+      );
+      remainingTime = 5;
+
+      await localNotificationService.scheduleNotificationForPrayerTimesMinutesRemaining(
+        body: '5 ${LocalNotificationServiceConstants.bodyOfTimeRemaining.value}',
+        title: LocalNotificationServiceConstants.titleOfTimeRemaining.value,
+        minutesRemaining: 5,
+      );
+
+      /// Picker value is 10 minutes before the prayer time logic
+    } else if (pickerValue == 1) {
+      await localDatabaseService.set<int>(
+        dbName: LocalDatabaseNames.remainingTimeDB.value,
+        key: LocalDatabaseKeys.isTimeRemainingActive.value,
+        value: 10,
+      );
+      remainingTime = 10;
+      await localNotificationService.scheduleNotificationForPrayerTimesMinutesRemaining(
+        body: '10 ${LocalNotificationServiceConstants.bodyOfTimeRemaining.value}',
+        title: LocalNotificationServiceConstants.titleOfTimeRemaining.value,
+        minutesRemaining: 10,
+      );
+
+      /// Picker value is 15 minutes before the prayer time logic
+    } else if (pickerValue == 2) {
+      await localDatabaseService.set<int>(
+        dbName: LocalDatabaseNames.remainingTimeDB.value,
+        key: LocalDatabaseKeys.isTimeRemainingActive.value,
+        value: 15,
+      );
+      remainingTime = 15;
+      await localNotificationService.scheduleNotificationForPrayerTimesMinutesRemaining(
+        body: '15 ${LocalNotificationServiceConstants.bodyOfTimeRemaining.value}',
+        title: LocalNotificationServiceConstants.titleOfTimeRemaining.value,
+        minutesRemaining: 15,
+      );
+
+      /// Picker value is 0 minutes before the prayer time logic
+    } else {
+      await localDatabaseService.set<int>(
+        dbName: LocalDatabaseNames.remainingTimeDB.value,
+        key: LocalDatabaseKeys.isTimeRemainingActive.value,
+        value: 0,
+      );
+      remainingTime = 0;
+      await localNotificationService.scheduleNotificationForPrayerTimes(
+        title: LocalNotificationServiceConstants.title.value,
+        body: LocalNotificationServiceConstants.body.value,
+      );
+    }
+
+    /// Show toast according to the remaining time
+    if (remainingTime == 0) {
+      await Fluttertoast.showToast(msg: 'Bildirim namaz vaktinde gönderilecek');
+    } else {
+      await Fluttertoast.showToast(msg: 'Bildirim namaza $remainingTime dk. kalınca gönderilecek');
+    }
   }
 }

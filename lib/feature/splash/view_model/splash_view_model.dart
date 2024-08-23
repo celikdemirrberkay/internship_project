@@ -63,16 +63,41 @@ class SplashViewModel extends BaseViewModel {
   /// --------------------------------------------------------------------------
   /// Set notifications on opening
   Future<void> setNotificationsOnOpening() async {
+    /// If notifications are enabled, cancel all notifications because city
+    /// and country name may be changed
+    await locator<LocalNotificationService>().cancelAllNotifications();
+
+    ///
     final isNotifOpen = await locator<LocalDatabaseService>().get<bool>(
       dbName: LocalDatabaseNames.notificationDB.value,
       key: LocalDatabaseKeys.isNotificationOpen.value,
     );
+
     if (isNotifOpen is SuccessState<bool>) {
       if (isNotifOpen.data!) {
-        await locator<LocalNotificationService>().scheduleNotificationForPrayerTimes(
-          title: LocalNotificationServiceConstants.title.value,
-          body: LocalNotificationServiceConstants.body.value,
+        /// If remaining time active for notifications, schedule notification
+        /// for prayer times minutes remaining
+        final remainingTime = await locator<LocalDatabaseService>().get<int>(
+          dbName: LocalDatabaseNames.remainingTimeDB.value,
+          key: LocalDatabaseKeys.isTimeRemainingActive.value,
         );
+
+        /// If there is a remaining time and it is not 0, schedule notification
+        /// for prayer times minutes remaining
+        if (remainingTime is SuccessState<int> && remainingTime.data != 0) {
+          await locator<LocalNotificationService>().scheduleNotificationForPrayerTimesMinutesRemaining(
+            minutesRemaining: remainingTime.data ?? 0,
+            title: LocalNotificationServiceConstants.titleOfTimeRemaining.value,
+            body: '${remainingTime.data} ${LocalNotificationServiceConstants.bodyOfTimeRemaining.value}',
+          );
+        } else {
+          /// Schedule notification for prayer times
+          ///
+          await locator<LocalNotificationService>().scheduleNotificationForPrayerTimes(
+            title: LocalNotificationServiceConstants.title.value,
+            body: LocalNotificationServiceConstants.body.value,
+          );
+        }
       }
     }
   }

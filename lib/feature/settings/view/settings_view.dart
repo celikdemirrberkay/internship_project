@@ -1,4 +1,5 @@
 import 'package:dart_vader/dart_vader.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
@@ -20,6 +21,7 @@ import 'package:line_icons/line_icons.dart';
 import 'package:stacked/stacked.dart';
 
 part '../widgets/city_modal_bottomsheet.dart';
+part '../widgets/time_selector_bottomsheet.dart';
 
 /// Settings view where user can change settings
 class SettingsView extends StatefulWidget {
@@ -58,11 +60,46 @@ class _SettingsViewState extends State<SettingsView> {
           context.spacerWithFlex(flex: 3),
           Expanded(flex: 5, child: _headerText('Bildirim')),
           Expanded(flex: 8, child: _specialCardForNotification()),
-          context.spacerWithFlex(flex: 45),
+          context.spacerWithFlex(flex: 2),
+          Expanded(flex: 5, child: _selectNotifSchedule()),
+          context.spacerWithFlex(flex: 38),
           Expanded(flex: 5, child: _apiDescriptionText()),
           context.spacerWithFlex(flex: 2),
         ],
       ),
+    );
+  }
+
+  /// Select when to get notifications
+  Widget _selectNotifSchedule() => Row(
+        children: [
+          context.spacerWithFlex(flex: 3),
+          Expanded(
+            flex: 52,
+            child: FittedBox(
+              alignment: Alignment.centerLeft,
+              child: TextButton(
+                onPressed: _showScheduleTimeSelectorBottomSheet,
+                child: Text(
+                  'Bildirim Zamanlarını Seçin',
+                  style: GoogleFonts.roboto(
+                    textStyle: context.appTextTheme.bodyLarge?.copyWith(
+                      color: context.themeData.colorScheme.primary,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          context.spacerWithFlex(flex: 45),
+        ],
+      );
+
+  /// Show schedule time selector bottom sheet
+  Future<Widget?> _showScheduleTimeSelectorBottomSheet() {
+    return showModalBottomSheet<Widget>(
+      context: context,
+      builder: (context) => const _TimeSelectorBottomsheet(),
     );
   }
 
