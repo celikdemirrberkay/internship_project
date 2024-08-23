@@ -103,10 +103,8 @@ class _QiblahCompassViewState extends State<QiblahCompassView> with SingleTicker
 
   /// Qiblah SVG
   Widget _piriQiblaWidget() {
-    return FittedBox(
-      child: PiriQiblah(
-        defaultNeedleColor: context.themeData.colorScheme.primary,
-      ),
+    return const FittedBox(
+      child: PiriQiblah(),
     );
   }
 }

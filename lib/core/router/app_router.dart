@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:internship_project/core/canvas/canvas_view.dart';
 import 'package:internship_project/feature/compass/view/qibla_compass_view.dart';
 import 'package:internship_project/feature/main_view.dart';
+import 'package:internship_project/feature/missed_prayer/view/missed_prayer_view.dart';
 import 'package:internship_project/feature/onboard/view/onboard_view.dart';
 import 'package:internship_project/feature/prayer_times/view/prayer_times_view.dart';
 import 'package:internship_project/feature/rosary/view/rosary_view.dart';
@@ -92,6 +93,9 @@ class AppRouter {
 
     /// Qiblah compass view
     const QiblahCompassView(),
+
+    /// Missed prayer view
+    const MissedPrayerView(),
   ];
 
   /// --------------------------------------------------------------------------

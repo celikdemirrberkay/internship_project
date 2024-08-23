@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import '../router/app_router.dart';
-import '../theme/app_theme.dart';
+import 'package:internship_project/core/router/app_router.dart';
+import 'package:internship_project/core/theme/app_theme.dart';
 import 'package:line_icons/line_icons.dart';
 
 /// App Navbar
@@ -89,6 +89,20 @@ class _AppNavbarState extends State<AppNavbar> {
                         backgroundColor: Colors.grey.shade300,
                         child: SvgPicture.asset(
                           'assets/svg/qibla.svg',
+                        ),
+                      ),
+                    ),
+
+                    GButton(
+                      padding: EdgeInsets.all(context.screenSizes.dynamicWidth(0.01)),
+                      icon: LineIcons.pray,
+                      text: 'Kaza  Takip',
+                      textStyle: _navbarTextStyle(context),
+                      backgroundColor: AppTheme.bottomNavbarTextBackgroundColor,
+                      leading: CircleAvatar(
+                        backgroundColor: Colors.grey.shade300,
+                        child: SvgPicture.asset(
+                          'assets/svg/missed_prayer.svg',
                         ),
                       ),
                     ),
