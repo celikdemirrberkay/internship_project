@@ -49,6 +49,7 @@ dependencies:
   geolocator: ^11.1.0
   geocoding: ^3.0.0
   flutter_qiblah: ^3.0.3
+  piri_qiblah: ^0.0.1
 
 
 

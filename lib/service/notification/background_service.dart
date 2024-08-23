@@ -47,21 +47,21 @@ class BackgroundService {
     DartPluginRegistrant.ensureInitialized();
 
     if (service is AndroidServiceInstance) {
-      service.on(_OnStartEvent.setAsForeground.name).listen((event) {
-        service.setAsForegroundService();
+      service.on('setAsForeground').listen((event) async {
+        await service.setAsForegroundService();
       });
 
-      service.on(_OnStartEvent.setAsBackground.name).listen((event) {
-        service.setAsBackgroundService();
+      service.on('setAsBackground').listen((event) async {
+        await service.setAsBackgroundService();
       });
     }
 
     /// Call startForeground with a notification
-    service.invoke(_OnStartEvent.foregroundServiceStarted.name);
+    service.invoke('foregroundServiceStarted');
 
     /// Listen for stopService event
-    service.on(_OnStartEvent.stopService.name).listen((event) {
-      service.stopSelf();
+    service.on('stopService').listen((event) async {
+      await service.stopSelf();
     });
 
     /// Check and show notification every 5 hours
@@ -116,19 +116,4 @@ class BackgroundService {
       );
     }
   }
-}
-
-/// Holds the events that will be triggered when the service starts.
-enum _OnStartEvent {
-  /// Set as foreground
-  setAsForeground,
-
-  /// Set as background
-  setAsBackground,
-
-  /// Stop service
-  stopService,
-
-  /// Foreground service started
-  foregroundServiceStarted,
 }
