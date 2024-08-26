@@ -18,6 +18,20 @@ final class _SpecialMissedPrayerWidget extends StatefulWidget {
 }
 
 class _SpecialMissedPrayerWidgetState extends State<_SpecialMissedPrayerWidget> {
+  late TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -75,12 +89,15 @@ class _SpecialMissedPrayerWidgetState extends State<_SpecialMissedPrayerWidget> 
           Expanded(
             flex: 40,
             child: FittedBox(
-              child: Text(
-                '${widget.missedCount}',
-                style: GoogleFonts.roboto(
-                  textStyle: context.appTextTheme.bodyMedium?.copyWith(
-                    color: context.themeData.colorScheme.onSecondary,
-                    fontWeight: context.fontWeights.fw300,
+              child: InkWell(
+                onTap: _prayerTimeEntryBottomSheet,
+                child: Text(
+                  '${widget.missedCount}',
+                  style: GoogleFonts.roboto(
+                    textStyle: context.appTextTheme.bodyMedium?.copyWith(
+                      color: context.themeData.colorScheme.onSecondary,
+                      fontWeight: context.fontWeights.fw300,
+                    ),
                   ),
                 ),
               ),
@@ -88,6 +105,94 @@ class _SpecialMissedPrayerWidgetState extends State<_SpecialMissedPrayerWidget> 
           ),
           context.spacerWithFlex(flex: 5),
         ],
+      ),
+    );
+  }
+
+  /// Prayer time entry bottom sheet function
+  Future<Widget?> _prayerTimeEntryBottomSheet() {
+    return showModalBottomSheet<Widget>(
+      context: context,
+      builder: (context) => InkWell(
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+        hoverColor: Colors.transparent,
+        focusColor: Colors.transparent,
+        onTap: () => context.focusScope.unfocus(),
+        child: Column(
+          children: [
+            const CloseContainer(),
+            context.spacerWithFlex(flex: 5),
+            Expanded(flex: 15, child: _howManyTimesDidYouMissText()),
+            Expanded(flex: 15, child: _missedPrayerCountTextField()),
+            Expanded(flex: 15, child: _saveButton()),
+            context.spacerWithFlex(flex: 45),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _saveButton() => FittedBox(
+        child: ViewModelBuilder.nonReactive(
+          viewModelBuilder: () => MissedPrayerViewmodel(locator()),
+          builder: (context, viewModel, child) => TextButton(
+            child: Text(
+              'Kaydet',
+              style: GoogleFonts.roboto(
+                textStyle: context.appTextTheme.bodyMedium?.copyWith(
+                  color: context.themeData.colorScheme.primary,
+                ),
+              ),
+            ),
+            onPressed: () async {
+              if (_controller.text.isEmpty) {
+                await Fluttertoast.showToast(msg: 'Geçerli bir sayı giriniz');
+              } else {
+                await viewModel.saveMissedPrayerCount(
+                  widget.missedTime,
+                  int.parse(_controller.text),
+                );
+                if (!mounted) return;
+                context.pop();
+              }
+            },
+          ),
+        ),
+      );
+
+  /// Missed prayer count text field on bottom sheet
+  Widget _missedPrayerCountTextField() {
+    return Row(
+      children: [
+        context.spacerWithFlex(flex: 40),
+        Expanded(
+          flex: 20,
+          child: AppTextfield(
+            keyboardType: TextInputType.number,
+            controller: _controller,
+            textAlign: TextAlign.center,
+            hintText: '${widget.missedCount}',
+          ),
+        ),
+        context.spacerWithFlex(flex: 40),
+      ],
+    );
+  }
+
+  /// How many times did you miss text on bottom sheet
+  Widget _howManyTimesDidYouMissText() {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: context.screenSizes.dynamicWidth(0.15)),
+      child: FittedBox(
+        child: Text(
+          '${widget.missedTime} için kaç vakit kaçırdınız?',
+          style: GoogleFonts.roboto(
+            textStyle: context.appTextTheme.bodyMedium?.copyWith(
+              color: context.themeData.colorScheme.onSecondary,
+            ),
+          ),
+        ),
       ),
     );
   }

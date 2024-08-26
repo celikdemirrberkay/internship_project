@@ -1,6 +1,13 @@
 import 'package:dart_vader/dart_vader.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:internship_project/core/common/app_textfield.dart';
+import 'package:internship_project/core/common/close_container.dart';
+import 'package:internship_project/core/config/dependency_injection/dependency_container.dart';
+import 'package:internship_project/feature/missed_prayer/view_model/missed_prayer_viewmodel.dart';
+import 'package:stacked/stacked.dart';
 
 part '../widget/special_missed_prayer_widget.dart';
 
@@ -17,51 +24,63 @@ class _MissedPrayerViewState extends State<MissedPrayerView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
-        child: SizedBox.expand(
-          child: Column(
-            children: [
-              context.spacerWithFlex(flex: 5),
-              Expanded(flex: 20, child: _missedPrayerExplainContainer()),
-              context.spacerWithFlex(flex: 5),
-              const Expanded(flex: 10, child: _SpecialMissedPrayerWidget(missedTime: 'İmsak', missedCount: 0)),
-              context.spacerWithFlex(flex: 2),
-              const Expanded(
+        child: ViewModelBuilder.reactive(
+          viewModelBuilder: () => MissedPrayerViewmodel(locator()),
+          builder: (context, viewModel, child) => SizedBox.expand(
+            child: Column(
+              children: [
+                context.spacerWithFlex(flex: 5),
+                Expanded(flex: 20, child: _missedPrayerExplainContainer()),
+                context.spacerWithFlex(flex: 5),
+                const Expanded(
+                  flex: 10,
+                  child: _SpecialMissedPrayerWidget(
+                    missedTime: 'İmsak',
+                    missedCount: 0,
+                  ),
+                ),
+                context.spacerWithFlex(flex: 2),
+                const Expanded(
                   flex: 10,
                   child: _SpecialMissedPrayerWidget(
                     missedCount: 0,
                     missedTime: 'Sabah',
-                  )),
-              context.spacerWithFlex(flex: 2),
-              const Expanded(
+                  ),
+                ),
+                context.spacerWithFlex(flex: 2),
+                const Expanded(
                   flex: 10,
                   child: _SpecialMissedPrayerWidget(
                     missedCount: 0,
                     missedTime: 'Öğlen',
-                  )),
-              context.spacerWithFlex(flex: 2),
-              const Expanded(
-                  flex: 10,
-                  child: _SpecialMissedPrayerWidget(
-                    missedCount: 0,
-                    missedTime: 'İkindi',
-                  )),
-              context.spacerWithFlex(flex: 2),
-              const Expanded(
-                  flex: 10,
-                  child: _SpecialMissedPrayerWidget(
-                    missedCount: 0,
-                    missedTime: 'Akşam',
-                  )),
-              context.spacerWithFlex(flex: 2),
-              const Expanded(
-                  flex: 10,
-                  child: _SpecialMissedPrayerWidget(
-                    missedCount: 0,
-                    missedTime: 'Yatsı',
-                  )),
-              context.spacerWithFlex(flex: 10),
-            ],
+                  ),
+                ),
+                context.spacerWithFlex(flex: 2),
+                const Expanded(
+                    flex: 10,
+                    child: _SpecialMissedPrayerWidget(
+                      missedCount: 0,
+                      missedTime: 'İkindi',
+                    )),
+                context.spacerWithFlex(flex: 2),
+                const Expanded(
+                    flex: 10,
+                    child: _SpecialMissedPrayerWidget(
+                      missedCount: 0,
+                      missedTime: 'Akşam',
+                    )),
+                context.spacerWithFlex(flex: 2),
+                const Expanded(
+                    flex: 10,
+                    child: _SpecialMissedPrayerWidget(
+                      missedCount: 0,
+                      missedTime: 'Yatsı',
+                    )),
+                context.spacerWithFlex(flex: 10),
+              ],
+            ),
           ),
         ),
       ),

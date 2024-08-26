@@ -36,7 +36,7 @@ class _CustomBottomSheetState extends State<_CustomBottomSheet> {
 
   /// Add button of bottom sheet
   List<Widget> _columnsChildren() => [
-        _closeContainer(),
+        const CloseContainer(),
         context.spacerWithFlex(flex: 6),
         Expanded(flex: 7, child: _title()),
         context.spacerWithFlex(flex: 3),

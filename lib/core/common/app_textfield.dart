@@ -7,17 +7,20 @@ import 'package:google_fonts/google_fonts.dart';
 final class AppTextfield extends StatefulWidget {
   ///
   const AppTextfield({
-    required this.hintText,
+    this.hintText,
     super.key,
     this.controller,
     this.maxLength,
     this.prefixIcon,
     this.onChanged,
     this.suffixIcon,
+    this.onEditingComplete,
+    this.keyboardType,
+    this.textAlign,
   });
 
   /// Hint text
-  final String hintText;
+  final String? hintText;
 
   /// Max length of text
   final int? maxLength;
@@ -34,6 +37,15 @@ final class AppTextfield extends StatefulWidget {
   /// On changed
   final void Function(String)? onChanged;
 
+  /// On editing complete
+  final void Function()? onEditingComplete;
+
+  /// Text input type
+  final TextInputType? keyboardType;
+
+  /// Text align
+  final TextAlign? textAlign;
+
   @override
   State<AppTextfield> createState() => _AppTextfieldState();
 }
@@ -42,6 +54,9 @@ class _AppTextfieldState extends State<AppTextfield> {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      textAlign: widget.textAlign ?? TextAlign.start,
+      keyboardType: widget.keyboardType,
+      onEditingComplete: widget.onEditingComplete,
       onChanged: widget.onChanged,
       controller: widget.controller,
       maxLength: widget.maxLength,

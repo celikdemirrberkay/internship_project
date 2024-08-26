@@ -8,6 +8,9 @@ enum LocalDatabaseNames {
   /// Remaining time database name
   remainingTimeDB('remainingTimeDB'),
 
+  /// Missed prayer database name
+  missedPrayerDB('missedPrayerDB'),
+
   /// Notification database name
   notificationDB('notificationDB'),
 

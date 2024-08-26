@@ -367,7 +367,7 @@ packages:
     source: hosted
     version: "7.2.0"
   flutter_qiblah:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: flutter_qiblah
       sha256: "6840caf98f8023d5d3eba3e57a80260ee2c9ed1a7054bc54785b529302f04835"

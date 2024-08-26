@@ -96,7 +96,7 @@ class _AppNavbarState extends State<AppNavbar> {
                     GButton(
                       padding: EdgeInsets.all(context.screenSizes.dynamicWidth(0.01)),
                       icon: LineIcons.pray,
-                      text: 'Kaza  Takip',
+                      text: 'Kaza Takip',
                       textStyle: _navbarTextStyle(context),
                       backgroundColor: AppTheme.bottomNavbarTextBackgroundColor,
                       leading: CircleAvatar(
